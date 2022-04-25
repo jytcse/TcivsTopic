@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('student_id')->unique()->comment('學號');
+            $table->string('name')->comment('姓名');
+            $table->string('email')->comment('信箱')->unique();
+//            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->comment('密碼');
+            $table->foreignId('identity_id')->comment('身份')->constrained('identity')->onUpdate('cascade')->cascadeOnDelete();
+            $table->foreignId('class_id')->comment('學年班級')->constrained('class')->onUpdate('cascade')->cascadeOnDelete();
+
+            //            $table->rememberToken();
             $table->timestamps();
         });
     }
