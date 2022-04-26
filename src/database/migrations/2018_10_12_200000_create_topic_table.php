@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string("topic_name")->comment("專題名稱");
             $table->text('topic_motivation')->comment("動機")->nullable();
             $table->text('topic_content')->comment("內容")->nullable();
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
