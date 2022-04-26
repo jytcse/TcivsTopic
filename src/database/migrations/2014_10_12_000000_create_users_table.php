@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('student_id')->unique()->comment('學號');
             $table->string('name')->comment('姓名');
-            $table->string('email')->comment('信箱')->unique();
+            $table->string('email')->comment('信箱')->unique()->nullable();
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->comment('密碼');
             $table->foreignId('identity_id')->comment('身份')->constrained('identity')->onUpdate('cascade')->cascadeOnDelete();
@@ -26,6 +25,11 @@ return new class extends Migration
             //            $table->rememberToken();
             $table->timestamps();
         });
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810612', 'email' => 'u810612@tcivs.tc.edu.tw', "name" => "王鈞霖", 'password' => '123', 'identity_id' => 1, 'class_id' => 8]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810650', 'email' => 'u810650@tcivs.tc.edu.tw', "name" => "福旺來", 'password' => '123', 'identity_id' => 1, 'class_id' => 8]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '老師', 'email' => null, "name" => "劉老師", 'password' => '123', 'identity_id' => 2, 'class_id' => 1]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => 'admin', 'email' => null, "name" => "admin", 'password' => 'admin', 'identity_id' => 3, 'class_id' => 1]);
+
     }
 
     /**
