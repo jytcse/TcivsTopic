@@ -25,10 +25,10 @@ return new class extends Migration {
             //            $table->rememberToken();
             $table->timestamps();
         });
-        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810612', 'email' => 'u810612@tcivs.tc.edu.tw', "name" => "王鈞霖", 'password' => '123', 'identity_id' => 1, 'class_id' => 8]);
-        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810650', 'email' => 'u810650@tcivs.tc.edu.tw', "name" => "福旺來", 'password' => '123', 'identity_id' => 1, 'class_id' => 8]);
-        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '老師', 'email' => null, "name" => "劉老師", 'password' => '123', 'identity_id' => 2, 'class_id' => 1]);
-        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => 'admin', 'email' => null, "name" => "admin", 'password' => 'admin', 'identity_id' => 3, 'class_id' => 1]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810612', 'email' => 'u810612@tcivs.tc.edu.tw', "name" => "王鈞霖", 'password' => '$2y$10$uGrmPQX3Z2aedkQ44lRFOegZ7CW4qy/nzRK2xq6rmImU7SATXDgVO', 'identity_id' => 1, 'class_id' => 8]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '810650', 'email' => 'u810650@tcivs.tc.edu.tw', "name" => "福旺來", 'password' => '$2y$10$uGrmPQX3Z2aedkQ44lRFOegZ7CW4qy/nzRK2xq6rmImU7SATXDgVO', 'identity_id' => 1, 'class_id' => 8]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => '老師', 'email' => null, "name" => "劉老師", 'password' => '$2y$10$uGrmPQX3Z2aedkQ44lRFOegZ7CW4qy/nzRK2xq6rmImU7SATXDgVO', 'identity_id' => 2, 'class_id' => 1]);
+        \Illuminate\Support\Facades\DB::table("users")->insert(["student_id" => 'admin', 'email' => null, "name" => "admin", 'password' => '$2y$10$P20pdrO/bOJVxvCLeTYVeuhL4Qh6d0jEO4nNsOT3pEK3Lo75Rokj.', 'identity_id' => 3, 'class_id' => 1]);
 
     }
 

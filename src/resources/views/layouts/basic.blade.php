@@ -16,7 +16,6 @@
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
-
     </style>
     <style>
         .navbar-brand span {
@@ -31,7 +30,7 @@
             font-weight: bold;
             position: relative;
         }
-
+        /*下畫線動畫*/
         .nav-link:not(.active)::before {
             content: '';
             position: absolute;
@@ -44,31 +43,26 @@
             transition: transform .3s ease-in-out;
         }
 
-        /*.nav-link:not(.active)::before{*/
-        /*    transform: scale(0);*/
-        /*    transition: transform .3s ease-in-out;*/
-        /*}*/
-
         .nav-link:hover::before {
             transform: scale(1);
         }
 
         .nav-link.active {
             color: #6c757d;
-            /*border-bottom: 0.1rem solid black;*/
-
         }
 
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
 
         }
+        .dropdown-menu{
+            min-width: 5rem;
+        }
     </style>
     <title>@yield('title')-中工資訊專題網</title>
     @yield('style')
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid my-3">
         <a class="navbar-brand ms-4" href="/">
@@ -91,14 +85,28 @@
                     <a class="nav-link {{(Request::path()=='all')?'active':''}}" href="/all">瀏覽</a>
                 </li>
                 <li class="nav-item mx-3">
-
                     <a class="nav-link {{(Request::path()=='search')?'active':''}}" href="/search">搜尋</a>
                 </li>
-                <li class="nav-item ms-3">
-                    {{--                    @if(Request::path()!='login')--}}
-                    <a class="nav-link {{(Request::path()=='login')?'active':''}}" href="{{route('loginPage')}}">登入</a>
-                    {{--                    @endif--}}
-                </li>
+                @auth
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{\Illuminate\Support\Facades\Auth::user()->name}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/dashboard">前往後臺</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">把我登出</a></li>
+                        </ul>
+                    </li>
+                @endauth
+                @guest
+
+                    <li class="nav-item ms-3">
+                        {{--                    @if(Request::path()!='login')--}}
+                        <a class="nav-link {{(Request::path()=='login')?'active':''}}" href="{{route('login')}}">登入</a>
+                        {{--                    @endif--}}
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>

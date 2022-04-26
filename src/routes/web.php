@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,10 +25,14 @@ Route::get('/all', function () {
 Route::get('/search', function () {
     return view('search');
 });
+Route::get('/dashboard', function () {
+//    return view('search');
+    return '後台';
+})->middleware('CheckLogin');
 
 Route::get('/login', function () {
     return view('login');
-})->name('loginPage');
-Route::post('/login', function () {
-//    return ;
-});
+})->name('login')->middleware('CheckLoginPage');;
+
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', [LoginController::class, 'logout']);

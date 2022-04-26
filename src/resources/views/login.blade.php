@@ -4,6 +4,7 @@
     登入
 @endsection
 @section('style')
+
     <link rel="stylesheet"
           href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <style>
@@ -46,6 +47,7 @@
         .form-control:focus {
             box-shadow: none;
         }
+
         @media screen and (min-width: 1140px ) {
             .loginFormContainer {
                 width: 30%;
@@ -53,11 +55,13 @@
                 box-shadow: 0 3px 2px -3px rgb(0 0 0 / 20%), 2px 2px 3px 0 rgb(0 0 0 / 20%), -1px 0px 3px 0 rgb(0 0 0 / 20%);
 
             }
+
             .customLoginBtn {
                 width: 8rem;
                 position: relative;
             }
-            .customLoginBtn::before{
+
+            .customLoginBtn::before {
                 content: '';
                 background-color: black;
                 border: 1px solid black;
@@ -69,7 +73,8 @@
                 left: 0;
                 transition: all 0.25s ease-in-out;
             }
-            .customLoginBtn:hover::before{
+
+            .customLoginBtn:hover::before {
                 bottom: 0.4rem;
                 left: 0.3rem;
             }
@@ -87,19 +92,30 @@
                     <h3 class="text-center">登入</h3>
                 </div>
             </div>
+            <div class=" @error('cantFind') is-invalid @enderror"
+                 id="asd"></div>
+            <div id="asd" class="invalid-feedback">
+                @error('cantFind')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="col-md-12 my-2">
                 <label for="studentIdInput" class="form-label align-text-bottom">帳號
                     <span class="material-symbols-outlined align-text-bottom">
                     account_circle
                     </span>
                 </label>
-                <input type="text" class="form-control is-valid" id="studentIdInput" value="810612" placeholder="你的帳號"
+                <input type="text" class="form-control @error('student_id') is-invalid @enderror"
+                       id="studentIdInput" name="student_id" value="810612" placeholder="你的帳號"
                        required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
                 <div id="studentIdInput" class="invalid-feedback">
-                    Please choose a username.
+
+                    @error('student_id')
+                    {{ $message }}
+                    @enderror
                 </div>
             </div>
             <div class="col-md-12 my-2">
@@ -108,13 +124,17 @@
                     lock
                     </span>
                 </label>
-                <input type="password" class="form-control is-invalid" id="passwordInput" value="123" placeholder="你的密碼"
-                       required>
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                       id="password" value="123" placeholder="你的密碼" required
+                >
                 <div class="valid-feedback">
                     Looks good!
                 </div>
                 <div id="passwordInput" class="invalid-feedback">
-                    Please choose a username.
+                    @error('password')
+                    {{ $message }}
+                    {{--                    @dd($errors)--}}
+                    @enderror
                 </div>
             </div>
 
