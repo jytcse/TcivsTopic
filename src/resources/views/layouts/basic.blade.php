@@ -25,7 +25,7 @@
         }
 
         .nav-link {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: rgba(0, 0, 0, 0.87);
             font-weight: bold;
             position: relative;
@@ -63,13 +63,13 @@
     @yield('style')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid my-3">
-        <a class="navbar-brand ms-4" href="/">
+<nav class="navbar navbar-expand-lg sticky-top bg-white">
+    <div class="container-fluid mt-3">
+        <a class="navbar-brand align-items-center ms-4 pt-1" href="/">
             <img src="/img/cseLogo.jpg" alt="" width="35" height="35" class="d-inline-block align-text-bottom">
             <p style="display: inline-block">
                 <span style="font-weight: bold">中工資訊</span>
-                <span>專題網</span>
+{{--                <span>專題網</span>--}}
             </p>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -82,7 +82,7 @@
                     <a class="nav-link {{(Request::path()=='/')?'active':''}}" aria-current="page" href="/">首頁</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link {{(Request::path()=='all')?'active':''}}" href="/all">瀏覽</a>
+                    <a class="nav-link {{(Request::path()=='all')?'active':''}}" href="/all">專題</a>
                 </li>
                 <li class="nav-item mx-3">
                     <a class="nav-link {{(Request::path()=='search')?'active':''}}" href="/search">搜尋</a>

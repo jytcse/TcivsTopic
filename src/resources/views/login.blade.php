@@ -106,7 +106,7 @@
                     </span>
                 </label>
                 <input type="text" class="form-control @error('student_id') is-invalid @enderror"
-                       id="studentIdInput" name="student_id" value="810612" placeholder="你的帳號"
+                       id="studentIdInput" autofocus name="student_id" value="810612" placeholder="你的帳號"
                        required>
                 <div class="valid-feedback">
                     Looks good!
