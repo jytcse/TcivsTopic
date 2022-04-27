@@ -1,0 +1,19 @@
+.type_content {
+    color: #98c379;
+    border-right: 4px solid #c5c5c5;
+    display: inline-block;
+    /*text-align: center;*/
+    animation: blink 1.5s infinite;
+    font-family: CourierNewPSMT, Courier New;
+    font-size: 2rem;
+}
+
+.type_title {
+    font-size: 2.5rem;
+}
+
+@keyframes blink {
+    50% {
+        border-right: none;
+    }
+}

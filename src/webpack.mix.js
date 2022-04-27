@@ -10,8 +10,26 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+const cssFolder = 'public/css';
+const jsFolder = 'public/js';
+let baseJsPath = 'resources/js/';
+let baseCssPath = 'resources/css/';
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+let fs = require('fs');
+mix.disableNotifications();
+const getFiles = function (dir) {
+    // get all 'files' in this directory
+    // filter directories
+    return fs.readdirSync(dir).filter(file => {
+        return fs.statSync(`${dir}/${file}`).isFile();
+    });
+};
+//編譯css檔案到public/css
+getFiles(baseCssPath).forEach(function (filepath) {
+    mix.css(baseCssPath + filepath, cssFolder);
+});
+//編譯js檔案到public/js
+getFiles(baseJsPath).forEach(function (filepath) {
+    mix.js(baseJsPath + filepath, jsFolder);
+});
+
