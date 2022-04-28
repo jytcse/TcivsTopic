@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg sticky-top bg-white">
         <div class="container-fluid mt-3">
-            <a class="navbar-brand align-items-center ms-4 pt-1" href="/">
+            <a class="navbar-brand align-items-center ms-4 pt-1" href="{{route('home')}}">
                 <img src="{{ asset('/img/cseLogo.jpg') }}" alt="" width="35" height="35"
                      class="d-inline-block align-text-bottom">
                 <p style="display: inline-block">

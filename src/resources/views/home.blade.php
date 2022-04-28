@@ -36,7 +36,8 @@
     {{--  首頁下方打字區域css  --}}
     <link href="{{ asset('css/homeType.css') }}" rel="stylesheet">
     {{--  首頁輪播區域css  --}}
-    <link href="{{ asset('css/homeSlider.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/homeSlides.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('body')
@@ -76,5 +77,4 @@
 @endsection
 @section('script')
     <script src="{{asset('js/homeType.js')}}"></script>
-
 @endsection
