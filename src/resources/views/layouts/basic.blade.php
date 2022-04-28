@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto&display=swap"
+            rel="stylesheet">
     <style>
         * {
             font-family: 'Noto Sans TC', sans-serif;
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-@include('layouts.navigation')
+@include('components.navigation')
 
 @yield('body')
 
