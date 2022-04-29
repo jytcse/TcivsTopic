@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg sticky-top bg-white">
+    <nav class="navbar navbar-expand-lg sticky-top bg-white user-select-none">
         <div class="container-fluid mt-3">
             <a class="navbar-brand align-items-center ms-4 pt-1" href="{{route('home')}}">
                 <img src="{{ asset('/img/cseLogo.jpg') }}" alt="" width="35" height="35"

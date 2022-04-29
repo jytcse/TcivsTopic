@@ -3,7 +3,7 @@
         <div class="custom_slides">
             <div class="custom_slide_left d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
-                    class="custom_slide_btn custom_slide_pre_btn d-flex justify-content-center align-items-center border-0  ">
+                    class="custom_slide_btn custom_slide_pre_btn user-select-none d-flex justify-content-center align-items-center border-0  ">
                 <span class="material-symbols-outlined">
                     navigate_before
                 </span>
@@ -15,7 +15,7 @@
             @endfor
             <div class="custom_slide_right d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
-                    class="custom_slide_btn custom_slide_next_btn d-flex justify-content-center align-items-center border-0 ">
+                    class="custom_slide_btn custom_slide_next_btn user-select-none d-flex justify-content-center align-items-center border-0 ">
                 <span class="material-symbols-outlined">
                     navigate_next
                 </span>
