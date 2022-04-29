@@ -6,6 +6,7 @@
     animation: blink 1.5s infinite;
     font-family: CourierNewPSMT, Courier New;
     font-size: 2rem;
+    height: 2rem;
 }
 
 .type_title {

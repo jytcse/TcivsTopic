@@ -4,7 +4,7 @@
             <div class="col-lg-6 order-lg-1 ps-lg-0 pe-lg-5">
                 <section class="pe-lg-5">
                     <img src="https://fakeimg.pl/1920x1024/"
-                         class="custom_slide_img d-block w-100"
+                         class="custom_slide_img user-select-none d-block w-100"
                          alt="...">
                 </section>
             </div>

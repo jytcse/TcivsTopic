@@ -43,3 +43,53 @@
     left: 0.3rem;
 }
 
+
+.custom_card_img_container, .custom_card_text_container {
+    /*max-width: 50%;*/
+}
+
+* {
+    --custom_card_offset: 40px;
+}
+
+
+.custom_card {
+    max-width: 100%;
+    transition: margin 600ms ease-in-out;
+}
+
+.custom_card_img {
+    /*ma   */
+    object-fit: cover;
+    max-height: 50vh;
+}
+
+@media screen and (min-width: 992px) {
+    .custom_card_odd {
+        margin-left: var(--custom_card_offset);
+    }
+
+    .custom_card_even {
+        margin-right: var(--custom_card_offset);
+    }
+
+    .custom_card {
+        max-width: 40%;
+    }
+}
+
+.line_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    /*z-index: 30;*/
+}
+
+svg {
+    display: inline-block;
+    height: 100%;
+}

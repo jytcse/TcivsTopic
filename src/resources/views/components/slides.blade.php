@@ -1,7 +1,7 @@
 <div class="row  align-items-center overflow-hidden" style="height: 90vh;">
     <div class="col-lg-12 position-relative slides_container px-0">
         <div class="custom_slides">
-            <div class="custom_slide_left d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
+            <div class="custom_slide_left user-select-none d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
                     class="custom_slide_btn custom_slide_pre_btn d-flex justify-content-center align-items-center border-0  ">
                 <span class="material-symbols-outlined">
@@ -13,7 +13,7 @@
             @for($i=0;$i<$slide_times;$i++)
                 @include('components/slide')
             @endfor
-            <div class="custom_slide_right d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
+            <div class="custom_slide_right user-select-none d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
                     class="custom_slide_btn custom_slide_next_btn d-flex justify-content-center align-items-center border-0 ">
                 <span class="material-symbols-outlined">

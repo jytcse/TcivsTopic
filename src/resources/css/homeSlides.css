@@ -20,10 +20,7 @@
 .custom_slide_img {
     max-height: 45vh;
     object-fit: cover;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+
 }
 
 .px-6 {
@@ -58,10 +55,6 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
     transition: all 300ms ease-in-out;
 }
 

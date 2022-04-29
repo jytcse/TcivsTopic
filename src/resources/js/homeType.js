@@ -4,7 +4,6 @@ setInterval(function () {
     document.querySelector('#type').textContent += content.charAt(i);
     i++
     if (i === content.length) {
-
         setTimeout(() => {
             document.querySelector('#type').textContent = '';
             i = 0;
