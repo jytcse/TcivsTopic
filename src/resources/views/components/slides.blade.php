@@ -1,6 +1,7 @@
 <div class="row  align-items-center overflow-hidden" style="height: 90vh;">
     <div class="col-lg-12 position-relative slides_container px-0">
         <div class="custom_slides">
+            {{-- 顯示上一個 --}}
             <div class="custom_slide_left d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
                     class="custom_slide_btn custom_slide_pre_btn user-select-none d-flex justify-content-center align-items-center border-0  ">
@@ -13,6 +14,7 @@
             @for($i=0;$i<$slide_times;$i++)
                 @include('components/slide')
             @endfor
+            {{-- 顯示上一個 --}}
             <div class="custom_slide_right d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
                     class="custom_slide_btn custom_slide_next_btn user-select-none d-flex justify-content-center align-items-center border-0 ">
@@ -21,12 +23,24 @@
                 </span>
                 </button>
             </div>
+            {{--     提示使用者往下       --}}
+            <div class="custom_slide_down position-absolute start-50 translate-middle-x">
+                <button
+                    class="user-select-none custom_slide_down_btn d-flex justify-content-center align-items-center border-0 ">
+                    <span> Scroll Down</span>
+                    <span class="material-symbols-outlined">
+                        keyboard_double_arrow_down
+                    </span>
+                </button>
+            </div>
+
         </div>
         {{--    輪播邏輯    --}}
         <script>
             const slide = document.querySelectorAll('.custom_slide');
             const slide_pre_btn = document.querySelector('.custom_slide_pre_btn');
             const slide_next_btn = document.querySelector('.custom_slide_next_btn');
+            const slide_down_btn = document.querySelector('.custom_slide_down_btn');
             let offset_unit = -100;
             let offset_value = 0;
             slide[0].style.marginLeft = 0 + 'vw';
@@ -53,6 +67,12 @@
                 }
             }
 
+            slide_down_btn.addEventListener('click', () => {
+                console.log(document.querySelector('.type_container').offsetTop);
+                let go_to = document.querySelector('.type_container').offsetTop;
+                document.body.scrollTop = go_to;
+                document.documentElement.scrollTop = go_to;
+            });
             //監聽器 往左+100
             slide_pre_btn.addEventListener('click', () => {
                 offset_value -= offset_unit;
@@ -63,10 +83,8 @@
                 offset_value += offset_unit;
                 slide_check_offset(offset_value);
             });
-
-            {{--            @if($slide_switch)--}}
             //自動輪播 方法是對第一個slide使用margin-left 後面的slide會自動補上 每次輪播位移單位-100vw
-            let active = false;
+            let active = false; //自動輪播的啟動狀態
 
             function auto_play(second) {
                 if (!active) {
@@ -86,7 +104,6 @@
             if (window.innerWidth >= 992) {
                 auto_play({{$slide_speed*1000}});
             }
-            {{--auto_play({{$slide_speed*1000}});--}}
             window.addEventListener('resize', () => {
                 //lg size
                 if (window.innerWidth >= 992) {
@@ -96,8 +113,6 @@
                     active = false;
                 }
             });
-            {{--                        @endif--}}
-
 
         </script>
     </div>

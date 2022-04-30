@@ -1,11 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/gsap.min.js": "/js/gsap.min.js",
     "/js/homeType.js": "/js/homeType.js",
+    "/js/ScrollTrigger.min.js": "/js/ScrollTrigger.min.js",
     "/css/loginStyle.css": "/css/loginStyle.css",
     "/css/homeType.css": "/css/homeType.css",
     "/css/homeSlides.css": "/css/homeSlides.css",
     "/css/home.css": "/css/home.css",
     "/css/app.css": "/css/app.css",
+    "/css/timelineCard.css": "/css/timelineCard.css",
     "/css/navbarStyle.css": "/css/navbarStyle.css"
 }

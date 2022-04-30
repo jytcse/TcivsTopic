@@ -24,6 +24,9 @@
             'GRAD' 0,
             'opsz' 48
         }
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
     <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet">
     <link rel="stylesheet"

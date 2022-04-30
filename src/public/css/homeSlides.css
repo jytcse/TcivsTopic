@@ -1,6 +1,10 @@
 /*本檔案包含輪播文字css*/
+/*輪播容器*/
 .slides_container {
     width: 100%;
+    /*clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);*/
+    /*clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);*/
+
 }
 
 .custom_slides {
@@ -79,9 +83,23 @@
 
 }
 
+.custom_slide_down {
+
+    bottom: 10px;
+}
+
+.custom_slide_down_btn {
+    background-color: transparent;
+}
+
 @media screen and (min-width: 768px ) {
     .custom_slide_content {
         width: 90%;
     }
 }
+
+
+
+
+
 

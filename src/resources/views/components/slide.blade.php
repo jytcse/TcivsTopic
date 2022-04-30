@@ -12,7 +12,7 @@
                 <div class="custom_slide_text mt-3 ps-lg-5">
                     <section class="ps-lg-2">
                         {{--  專題名稱 --}}
-                        <h1 class="custom_slide_name mb-2">測試專題{{$i+1}}</h1>
+                        <h1 class="custom_slide_name mb-2 fw-bold">測試專題{{$i+1}}</h1>
                         {{--  專題年度 --}}
                         <p class="custom_slide_year mb-3">
                             <time>108</time>
@@ -36,7 +36,7 @@
                     </section>
                     <section class="ps-lg-2">
                         {{--連結到專題--}}
-                        <a href="#" class="custom_detail_btn mt-3" type="submit">詳細內容</a>
+                        <a href="#" class="custom_detail_btn mt-3 user-select-none" type="submit">詳細內容</a>
                     </section>
                 </div>
             </div>
