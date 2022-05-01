@@ -21,17 +21,16 @@ class LoginController extends Controller
 //        }
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-//            dd('success');
-            return redirect('/dashboard');
+            return redirect()->route('dashboard');
         }
 
 
         return back()->withErrors([
 //            'student_id' => 'The provided credentials do not match our records.',
             'cantFind' => '帳號或密碼錯誤',
-//            'student_id' => 'cc',
         ])->onlyInput('student_id');
     }
+
     public function logout(Request $request)
     {
         Auth::logout();

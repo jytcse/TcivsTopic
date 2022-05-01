@@ -16,13 +16,16 @@
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto mb-2 me-5 mb-lg-0">
                     <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='/')?'active':''}}" aria-current="page" href="/">首頁</a>
+                        <a class="nav-link {{(Request::path()=='/')?'active':''}}" aria-current="page"
+                           href="{{route('home')}}">首頁</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='all')?'active':''}}" href="/all">專題</a>
+                        <a class="nav-link {{(Request::path()=='all')?'active':''}}"
+                           href="{{  route('all_topic') }}">專題</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='search')?'active':''}}" href="/search">搜尋</a>
+                        <a class="nav-link {{(Request::path()=='search')?'active':''}}"
+                           href="{{ route('search_topic') }}">搜尋</a>
                     </li>
                     @auth
                         <li class="nav-item dropdown ms-3">
@@ -31,11 +34,11 @@
                                 {{\Illuminate\Support\Facades\Auth::user()->name}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/dashboard">前往後臺</a></li>
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">前往後臺</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/logout">把我登出</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">把我登出</a></li>
                             </ul>
                         </li>
                     @endauth
