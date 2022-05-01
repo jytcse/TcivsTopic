@@ -1,0 +1,23 @@
+footer {
+    height: 5vh;
+    background-color: #282c34;
+    /*color: #98c379;*/
+}
+
+.footer_icon {
+    width: 30px;
+    height: 30px;
+    /*color: #6e7681;*/
+    /*vertical-align: center;*/
+    margin-left: 10px;
+}
+
+.copy_right {
+    color: white;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.copy_right a {
+    color: white;
+}

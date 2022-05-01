@@ -4,6 +4,7 @@
             {{-- 顯示上一個 --}}
             <div class="custom_slide_left d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
+
                     class="custom_slide_btn custom_slide_pre_btn user-select-none d-flex justify-content-center align-items-center border-0  ">
                 <span class="material-symbols-outlined">
                     navigate_before
@@ -17,7 +18,7 @@
             {{-- 顯示上一個 --}}
             <div class="custom_slide_right d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button
-                    class="custom_slide_btn custom_slide_next_btn user-select-none d-flex justify-content-center align-items-center border-0 ">
+                        class="custom_slide_btn custom_slide_next_btn user-select-none d-flex justify-content-center align-items-center border-0 ">
                 <span class="material-symbols-outlined">
                     navigate_next
                 </span>
@@ -26,6 +27,7 @@
             {{--     提示使用者往下       --}}
             <div class="custom_slide_down position-absolute start-50 translate-middle-x">
                 <button
+                    title="往下滑"
                     class="user-select-none custom_slide_down_btn d-flex justify-content-center align-items-center border-0 ">
                     <span> Scroll Down</span>
                     <span class="material-symbols-outlined">

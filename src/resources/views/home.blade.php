@@ -11,6 +11,8 @@
     <link href="{{ asset('css/homeSlides.css') }}" rel="stylesheet">
     {{--  時間軸css  --}}
     <link href="{{ asset('css/timelineCard.css') }}" rel="stylesheet">
+    {{--  Footer css  --}}
+    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 @endsection
 
 @section('body')
@@ -30,8 +32,8 @@
             </div>
         </div>
         @include('components.timeline-card')
-
     </main>
+    @include('components.footer')
 @endsection
 @section('script')
     <script src="{{asset('js/homeType.js')}}"></script>
