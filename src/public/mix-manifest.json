@@ -11,5 +11,6 @@
     "/css/app.css": "/css/app.css",
     "/css/timelineCard.css": "/css/timelineCard.css",
     "/css/navbarStyle.css": "/css/navbarStyle.css",
+    "/css/manageDashboard.css": "/css/manageDashboard.css",
     "/css/loginStyle.css": "/css/loginStyle.css"
 }

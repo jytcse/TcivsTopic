@@ -48,7 +48,9 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::get('/dashboard', function () {
         return view('manage.dashboard');
     })->name('dashboard');
-
+//    Route::get('/topic', function () {
+//        return view('manage.dashboard');
+//    })->name('topic');
 //    Route::get('/team', function () {
 //        return view('manage.team');
 //    });

@@ -19422,6 +19422,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/manageDashboard.css":
+/*!*******************************************!*\
+  !*** ./resources/css/manageDashboard.css ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/navbarStyle.css":
 /*!***************************************!*\
   !*** ./resources/css/navbarStyle.css ***!
@@ -19825,6 +19838,7 @@ process.umask = function() { return 0; };
 /******/ 			"css/app": 0,
 /******/ 			"css/timelineCard": 0,
 /******/ 			"css/navbarStyle": 0,
+/******/ 			"css/manageDashboard": 0,
 /******/ 			"css/loginStyle": 0
 /******/ 		};
 /******/ 		
@@ -19875,15 +19889,16 @@ process.umask = function() { return 0; };
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/footer.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/home.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/homeSlides.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/homeType.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/loginStyle.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/loginStyle"], () => (__webpack_require__("./resources/css/timelineCard.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/footer.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/home.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/homeSlides.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/homeType.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/loginStyle.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/manageDashboard.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/homeType","css/homeSlides","css/home","css/footer","css/app","css/timelineCard","css/navbarStyle","css/manageDashboard","css/loginStyle"], () => (__webpack_require__("./resources/css/timelineCard.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
