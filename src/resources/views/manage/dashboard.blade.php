@@ -13,7 +13,8 @@
             <div class="d-flex dashboard_container justify-content-center align-items-center">
                 <div class="row dashboard_row">
                     <div class="col-3 left_side px-0">
-                        <div class="text-center sidebar_name  user-select-none position-relative">
+                        <div
+                            class="sidebar_name d-flex justify-content-center align-items-center user-select-none position-relative">
                             控制面板
                             {{--                            <div class="position-absolute top-50 end-0 translate-middle-y me-3">--}}
                             {{--                                <span class="material-symbols-outlined">--}}
@@ -23,17 +24,18 @@
                         </div>
 
                         <ul class="sidebar user-select-none">
-                            <li class="ps-4">
-                                <a href="{{ route('dashboard') }}" class=" w-100 h-100">
-                                <span class="material-symbols-outlined">
+                            <li class="bg-white">
+                                <a class="item_link ps-3 text-decoration-none" href="{{ route('dashboard') }}"
+                                   class=" w-100 h-100">
+                                <span class="material-symbols-outlined align-text-bottom">
                                         person
                                     </span>
                                     我的資訊
                                 </a>
                             </li>
                             <li>
-                                <div class=" position-relative custom_dropdown show">
-                                    <span class="material-symbols-outlined">
+                                <div class=" position-relative custom_dropdown show ps-3">
+                                    <span class="material-symbols-outlined align-middle">
                                         group
                                     </span>
                                     組別
@@ -45,13 +47,15 @@
                                     </div>
                                 </div>
                                 <ul class="sub_ul">
-                                    <li><a href="{{ route('dashboard') }}">我的組別</a></li>
-                                    <li><a href="{{ route('dashboard') }}">所有組別</a></li>
+                                    <li><a class="item_link text-decoration-none"
+                                           href="{{ route('dashboard') }}">我的組別</a></li>
+                                    <li><a class="item_link text-decoration-none"
+                                           href="{{ route('dashboard') }}">所有組別</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class=" position-relative custom_dropdown show">
-                                    <span class="material-symbols-outlined">
+                                <div class=" position-relative custom_dropdown show ps-3">
+                                    <span class="material-symbols-outlined align-middle">
                                     topic
                                     </span>
                                     專題
@@ -63,34 +67,22 @@
                                     </div>
                                 </div>
                                 <ul class="sub_ul">
-                                    <li><a href="{{ route('dashboard') }}">我的專題</a></li>
-                                    <li><a href="{{ route('dashboard') }}">所有組別</a></li>
+                                    <li><a class="item_link text-decoration-none"
+                                           href="{{ route('dashboard') }}">我的專題</a></li>
+                                    <li><a class="item_link text-decoration-none"
+                                           href="{{ route('dashboard') }}">所有專題</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ route('logout') }}" class="d-block w-100 h-100">
-                                <span class="material-symbols-outlined">
+                            <li class="bg-white"><a href="{{ route('logout') }}"
+                                   class="ps-3 d-block w-100 h-100 item_link text-decoration-none">
+                                <span class="material-symbols-outlined align-text-bottom">
                                     logout
                                 </span>登出
                                 </a>
+
                             </li>
                         </ul>
                     </div>
-
-
-                    {{--                    <ul class="col-3 left_side">控制面板--}}
-                    {{--                        <li><a href="{{ route('dashboard') }}">儀錶板</a></li>--}}
-                    {{--                                            <ul>組別--}}
-                    {{--                                                <li><a href="{{ route('dashboard') }}">我的組別</a></li>--}}
-                    {{--                                                <li><a href="{{ route('dashboard') }}">所有組別</a></li>--}}
-                    {{--                                            </ul>--}}
-                    {{--                                            <ul>專題--}}
-                    {{--                                                <li><a href="{{ route('dashboard') }}">我的專題</a></li>--}}
-                    {{--                                                <li><a href="{{ route('dashboard') }}">所有組別</a></li>--}}
-                    {{--                                            </ul>--}}
-                    {{--                        <li><a href="{{ route('logout') }}">登出</a></li>--}}
-                    {{--                    </ul>--}}
-
-
                     <div class="col-9 right_side">
                         1231231
                     </div>
@@ -113,8 +105,6 @@
         const custom_dropdown = document.querySelectorAll('.custom_dropdown')
         custom_dropdown.forEach((element) => {
             element.addEventListener('click', () => {
-
-                // console.log(e.target);
                 element.classList.toggle('show');
             })
         });
