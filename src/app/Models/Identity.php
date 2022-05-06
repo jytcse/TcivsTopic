@@ -19,8 +19,7 @@ class Identity extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-//        'years',
-//        'class_type',
+
     ];
 
     /**
@@ -29,7 +28,7 @@ class Identity extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-
+        'type'
     ];
 
     /**

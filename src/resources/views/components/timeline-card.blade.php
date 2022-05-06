@@ -24,6 +24,6 @@
         </div>
     @endfor
     <div class="d-flex justify-content-center my-5 see_all_btn_container">
-        <a class="see_all_btn" href=" {{ route('all_topic') }}} ">瀏覽全部</a>
+        <a class="see_all_btn" href=" {{ route('all_topic') }} ">瀏覽全部</a>
     </div>
 </div>

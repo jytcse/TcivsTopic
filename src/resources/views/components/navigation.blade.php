@@ -32,6 +32,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 {{\Illuminate\Support\Facades\Auth::user()->name}}
+
+                                @if(\Illuminate\Support\Facades\Auth::user()->identity_id===1)
+                                    同學
+                                @elseif(\Illuminate\Support\Facades\Auth::user()->identity_id===2)
+                                    老師
+                                @endif
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">前往後臺</a></li>

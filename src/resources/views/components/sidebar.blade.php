@@ -52,6 +52,16 @@
                    href="{{ route('dashboard') }}">所有專題</a></li>
         </ul>
     </li>
+
+    <li class="bg-white">
+        <a href="{{ route('home') }}"
+           class="ps-3 d-block w-100 h-100 item_link text-decoration-none">
+            <span class="material-symbols-outlined align-text-bottom">
+            home
+            </span>
+            首頁
+        </a>
+    </li>
     <li class="bg-white">
         <a href="{{ route('logout') }}"
            class="ps-3 d-block w-100 h-100 item_link text-decoration-none">
@@ -62,3 +72,12 @@
         </a>
     </li>
 </ul>
+
+<script>
+    const custom_dropdown = document.querySelectorAll('.custom_dropdown')
+    custom_dropdown.forEach((element) => {
+        element.addEventListener('click', () => {
+            element.classList.toggle('show');
+        })
+    });
+</script>
