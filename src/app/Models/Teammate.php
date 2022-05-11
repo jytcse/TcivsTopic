@@ -42,4 +42,15 @@ class Teammate extends Model
     protected $casts = [
     ];
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function team()
+    {
+        //隊員屬於一個隊伍
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
 }

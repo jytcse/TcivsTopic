@@ -47,8 +47,15 @@ class Team extends Model
         return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
 
-    public function user()
+    public function teammates()
     {
-        return $this->belongsTo(User::class, 'id', 'teammate_id');
+        //一個隊伍有多個隊員
+        return $this->hasMany(Teammate::class, 'id', 'team_id');
+    }
+
+    public function teamleader()
+    {
+        //一個隊伍有一個隊長
+        return $this->hasOne(TeamLeader::class, 'id', 'team_id');
     }
 }

@@ -39,4 +39,16 @@ class TeamLeader extends Model
      */
     protected $casts = [
     ];
+
+    public function team()
+    {
+        //隊長屬於一個隊伍
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
+    public function teammate()
+    {
+        //隊長是哪個隊員
+        return $this->hasOne(Teammate::class, 'id', 'user_id');
+    }
 }

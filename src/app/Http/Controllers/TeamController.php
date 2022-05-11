@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teammate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Team;
@@ -23,8 +24,10 @@ class TeamController extends Controller
     public function my_team_index()
     {
 //        $team = Team::with('');
-        dd(User::with('team')->get());
-        return view('manage.team');
+//        dd(User::with('team')->get());
+//        return view('manage.team');
+        $team = Teammate::with('user', 'team')->get();
+        dd($team);
     }
 
     /**
