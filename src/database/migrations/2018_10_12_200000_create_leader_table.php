@@ -14,12 +14,12 @@ return new class extends Migration {
     {
         Schema::create('teamleader', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('class_id')->on('team')->onUpdate('cascade')->cascadeOnDelete();;
+            $table->unsignedBigInteger('team_id');
+            $table->foreign('team_id')->references('id')->on('team')->onUpdate('cascade')->cascadeOnDelete();
 //            $table->unsignedBigInteger('team_id');
 //            $table->foreign('team_id')->references('team_number')->on('team')->onUpdate('cascade')->cascadeOnDelete();;
-            $table->unsignedBigInteger('leader_id');
-            $table->foreign('leader_id')->references('teammate_id')->on('team')->onUpdate('cascade')->cascadeOnDelete();;
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('teammate')->onUpdate('cascade')->cascadeOnDelete();;
 //            $table->timestamps();
         });
     }

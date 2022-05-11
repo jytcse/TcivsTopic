@@ -27,9 +27,9 @@
         </div>
         <ul class="sub_ul">
             <li><a class="item_link text-decoration-none"
-                   href="{{ route('dashboard') }}">我的組別</a></li>
+                   href="{{ route('my_team') }}">我的組別</a></li>
             <li><a class="item_link text-decoration-none"
-                   href="{{ route('dashboard') }}">所有組別</a></li>
+                   href="{{ route('teams') }}">所有組別</a></li>
         </ul>
     </li>
     <li>

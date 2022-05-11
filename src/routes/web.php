@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,17 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::get('/dashboard', function () {
         return view('manage.dashboard');
     })->name('dashboard');
+    //所有組別
+    Route::controller(TeamController::class)->group(function () {
+        //所有組別
+        Route::get('/teams','index')->name('teams');
+        //我的組別
+        Route::get('/team', 'my_team_index')->name('my_team');
+    });
+    //我的組別
+//    Route::get('/team', function () {
+//        return view('manage.dashboard');
+//    })->name('team');
 //    Route::get('/topic', function () {
 //        return view('manage.dashboard');
 //    })->name('topic');

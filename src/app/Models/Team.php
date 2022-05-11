@@ -42,4 +42,14 @@ class Team extends Model
      */
     protected $casts = [
     ];
+
+    public function classmodel()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'teammate_id');
+    }
 }

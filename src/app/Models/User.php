@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = 'users';
 
     /**
@@ -48,4 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function team()
+    {
+        return $this->hasOne(Team::class, 'teammate_id', 'id');
+    }
 }

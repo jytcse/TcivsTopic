@@ -5,7 +5,6 @@
 @section('style')
     {{--  儀錶板css  --}}
     <link href="{{ asset('css/manageDashboard.css')}}" rel="stylesheet">
-
 @endsection
 
 @section('body')
