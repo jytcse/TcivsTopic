@@ -1,9 +1,10 @@
 <div
     class="sidebar_name d-flex justify-content-center align-items-center user-select-none position-relative">
     控制面板
+
 </div>
 <ul class="sidebar user-select-none">
-    <li class="bg-white">
+    <li class="bg-white @if(Route::currentRouteName()=='dashboard') active @endif">
         <a class="item_link d-block w-100 h-100 ps-3 text-decoration-none" href="{{ route('dashboard') }}"
            class=" w-100 h-100">
                                 <span class="material-symbols-outlined align-text-bottom">
@@ -13,7 +14,8 @@
         </a>
     </li>
     <li>
-        <div class=" position-relative custom_dropdown ps-3">
+        <div
+            class=" position-relative custom_dropdown ps-3 @if(Route::currentRouteName()=='my_team' || Route::currentRouteName()=='teams') show @endif">
                                     <span class="material-symbols-outlined align-middle">
                                         group
                                     </span>
@@ -26,10 +28,12 @@
             </div>
         </div>
         <ul class="sub_ul">
-            <li><a class="item_link text-decoration-none"
-                   href="{{ route('my_team') }}">我的組別</a></li>
-            <li><a class="item_link text-decoration-none"
-                   href="{{ route('teams') }}">所有組別</a></li>
+            <li class="@if(Route::currentRouteName()=='my_team') active @endif"><a
+                    class="item_link text-decoration-none"
+                    href="{{ route('my_team') }}">我的組別</a></li>
+            <li class="@if(Route::currentRouteName()=='teams') active @endif"><a class="item_link text-decoration-none"
+                                                                                 href="{{ route('teams') }}">所有組別</a>
+            </li>
         </ul>
     </li>
     <li>
