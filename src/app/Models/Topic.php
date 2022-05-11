@@ -19,8 +19,7 @@ class Topic extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'teacher_id',
-        'belong_to',
+        'team_id',
         'topic_name',
         'topic_motivation',
         'topic_content',

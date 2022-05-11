@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Team extends Model
+class Teammate extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'team';
+    protected $table = 'teammate';
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +19,8 @@ class Team extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'class_id',
-        'team_number',
+        'team_id',
+        'user_id',
         'created_at',
         'updated_at'
     ];
@@ -42,13 +42,4 @@ class Team extends Model
     protected $casts = [
     ];
 
-    public function classmodel()
-    {
-        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id', 'teammate_id');
-    }
 }

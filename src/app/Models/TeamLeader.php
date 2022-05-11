@@ -19,8 +19,8 @@ class TeamLeader extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'class_id',
-        'leader_id',
+        'team_id',
+        'user_id',
     ];
 
     /**
