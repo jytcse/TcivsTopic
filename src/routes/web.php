@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,19 +44,19 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     //dashboard = 個人資料 修改密碼 顯示所屬組別的專題
     //team = 列出所有隊伍 可建立隊伍 建立隊伍者為 隊長
     //topic = 創立專題
-    Route::get('/', function () {
-        return view('manage.dashboard');
+
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/dashboard', 'index')->name('dashboard');
     });
-    Route::get('/dashboard', function () {
-        return view('manage.dashboard');
-    })->name('dashboard');
-    //所有組別
     Route::controller(TeamController::class)->group(function () {
         //所有組別
-        Route::get('/teams','index')->name('teams');
+        Route::get('/teams', 'index')->name('teams');
         //我的組別
         Route::get('/team', 'my_team_index')->name('my_team');
     });
+
     //我的組別
 //    Route::get('/team', function () {
 //        return view('manage.dashboard');

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckHasTeamMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
 use App\Http\Middleware\CheckLoginPageMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

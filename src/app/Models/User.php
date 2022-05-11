@@ -53,6 +53,11 @@ class User extends Authenticatable
 //
     public function teammate()
     {
-        return $this->belongsTo(Teammate::class, 'user_id', 'id');
+        return $this->hasOne(Teammate::class, 'user_id', 'id');
     }
+
+//    public function team()
+//    {
+//        return $this->hasOneThrough(Team::class, Teammate::class, 'user_id','');
+//    }
 }

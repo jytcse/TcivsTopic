@@ -16,12 +16,44 @@
         </div>
         <div class="col-lg-4 mt-lg-0 mt-4">
             <div class="dashboard_items team">
-                還沒有組別
+                @if(isset($hasTeam) && !$hasTeam)
+                    還沒有組別
+                @else
+                    <h3>
+                        {{$team->team->classmodel->years}}年{{$team->team->classmodel->class_type}}班
+                    </h3>
+                    <p>
+                        第{{$team->team->team_number}}組
+                    </p>
+                    {{--                    @dd($team)--}}
+                @endif
             </div>
         </div>
         <div class="col-lg-4 mt-lg-0 mt-4">
             <div class="dashboard_items team_positions">
-                還沒有職位
+                @if(isset($hasTeam) && !$hasTeam)
+                    還沒有組別
+                @else
+                    {{--                    @if(count($team->teammates) !=1)--}}
+                    {{--                    @dd($team);--}}
+                    {{--                    @foreach($team as $team)--}}
+                    {{--  組員姓名 != 組長的名稱--}}
+                    {{--                        @if($teammate->user->name != $team->teamleader->teammate->user->name)--}}
+                    {{--                            {{ $teammate->user->name}}--}}
+                    {{--                        @endif--}}
+                    {{--                    @endforeach--}}
+                    {{--                    @else--}}
+
+                    {{--                    @endif--}}
+                    <h3>
+                        @if($position)
+                            組長
+                        @else
+                            組員
+                        @endif
+                        {{--                        {{$team->}}--}}
+                    </h3>
+                @endif
             </div>
         </div>
     </div>

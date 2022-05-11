@@ -9,14 +9,18 @@
 @endsection
 
 @section('body')
-    <div class="d-flex justify-content-center align-items-center h-100">
-        <div>
-            <h3>你還沒有任何組別哦!</h3>
-            <button>
-                瀏覽組別
-            </button>
+    @if(isset($hasTeam) && !$hasTeam)
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div>
+                <h3>你還沒有任何組別哦!</h3>
+                <button>
+                    瀏覽組別
+                </button>
+            </div>
         </div>
-    </div>
+    @else
+
+    @endif
 @endsection
 @section('script')
 

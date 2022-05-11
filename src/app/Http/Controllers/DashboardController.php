@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
+use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Team;
-use App\Models\ClassModel;
 use Illuminate\Support\Facades\Auth;
 
-class TeamController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +18,14 @@ class TeamController extends Controller
      */
     public function index()
     {
-//        所有組別
-        $teams = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
-//        dd($teams);
-        return view('manage.teams')->with('teams', $teams);
-    }
-
-    public function my_team_index()
-    {
-//        我的組別
         if (!Teammate::query()->where('user_id', '=', Auth::user()->id)->count() > 0) {
-            return view('manage.team')->with('hasTeam', false);
+            return view('manage.dashboard')->with('hasTeam', false);
         }
-        $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
-        return view('manage.team')->with(['team' => $team, 'hasTeam' => true]);
+        $team = Teammate::query()->where('user_id', '=', Auth::user()->id)->with('team', 'team.classmodel')->get()[0];
+        $teammate_id = Teammate::query()->where('user_id', '=', Auth::user()->id)->pluck('id')[0];
+//    職位
+        $position = (TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0) ? false : true;
+        return view('manage.dashboard')->with(['team' => $team, 'position' => $position, 'hasTeam' => true]);
     }
 
     /**
