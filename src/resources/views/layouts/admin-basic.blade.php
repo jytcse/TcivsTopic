@@ -29,19 +29,31 @@
             scroll-behavior: smooth;
         }
     </style>
-{{--    <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet">--}}
+    {{--  admin-basic css--}}
+    <link href="{{ asset('css/adminBasic.css')}}" rel="stylesheet">
+    {{--  Sidebar css  --}}
+    <link href="{{ asset('css/sidebar.css')}}" rel="stylesheet">
+
     <link rel="stylesheet"
           href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <title>@yield('title')-中工資訊專題網</title>
     @yield('style')
 </head>
 <body>
-
-{{--@include('components.navigation')--}}
-
-@yield('body')
-
-
+<main>
+    <div class="container">
+        <div class="d-flex dashboard_container justify-content-center align-items-center">
+            <div class="row dashboard_row">
+                <div class="col-3 left_side px-0">
+                    @include('components.sidebar')
+                </div>
+                <div class="col-9 right_side p-4 user-select-none">
+                    @yield('body')
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 
 @yield('script')
