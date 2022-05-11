@@ -10,7 +10,6 @@
 
 @section('body')
     <div>
-
         <table class="table table-striped table-hover">
             <thead>
             <tr>
@@ -18,7 +17,11 @@
                 <th>年度班級</th>
                 <th>組長</th>
                 <th>組員</th>
-                <th>動作</th>
+                <th>動作
+                    @if(isset($hasTeam) && $hasTeam)
+                        <button>創建隊伍</button>
+                    @endif
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +54,9 @@
                     </td>
                     <td>
                         {{--  動作 --}}
-                        <button>加入</button>
+                        @if(isset($hasTeam) && $hasTeam)
+                            <button>加入</button>
+                        @endif
                         <button>查看</button>
                     </td>
                 </tr>

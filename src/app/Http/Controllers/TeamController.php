@@ -21,7 +21,9 @@ class TeamController extends Controller
 //        所有組別
         $teams = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
 //        dd($teams);
-        return view('manage.teams')->with('teams', $teams);
+        $hasTeam = (Teammate::query()->where('user_id', '=', Auth::user()->id)->get()->count() == 0) ? true : false;
+//        dd($hasTeam);
+        return view('manage.teams')->with(['teams' => $teams, 'hasTeam' => $hasTeam]);
     }
 
     public function my_team_index()

@@ -34,24 +34,12 @@
                 @if(isset($hasTeam) && !$hasTeam)
                     還沒有組別
                 @else
-                    {{--                    @if(count($team->teammates) !=1)--}}
-                    {{--                    @dd($team);--}}
-                    {{--                    @foreach($team as $team)--}}
-                    {{--  組員姓名 != 組長的名稱--}}
-                    {{--                        @if($teammate->user->name != $team->teamleader->teammate->user->name)--}}
-                    {{--                            {{ $teammate->user->name}}--}}
-                    {{--                        @endif--}}
-                    {{--                    @endforeach--}}
-                    {{--                    @else--}}
-
-                    {{--                    @endif--}}
                     <h3>
                         @if($position)
                             組長
                         @else
                             組員
                         @endif
-                        {{--                        {{$team->}}--}}
                     </h3>
                 @endif
             </div>
