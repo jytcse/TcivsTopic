@@ -17,7 +17,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::with('classmodel', 'user')->get();
+        $teams = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
+//        dd($teams);
         return view('manage.teams')->with('teams', $teams);
     }
 
@@ -26,7 +27,7 @@ class TeamController extends Controller
 //        $team = Team::with('');
 //        dd(User::with('team')->get());
 //        return view('manage.team');
-        $team = Teammate::with('user', 'team')->get();
+        $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
         dd($team);
     }
 

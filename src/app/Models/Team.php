@@ -50,12 +50,12 @@ class Team extends Model
     public function teammates()
     {
         //一個隊伍有多個隊員
-        return $this->hasMany(Teammate::class, 'id', 'team_id');
+        return $this->hasMany(Teammate::class, 'team_id', 'id');
     }
 
     public function teamleader()
     {
         //一個隊伍有一個隊長
-        return $this->hasOne(TeamLeader::class, 'id', 'team_id');
+        return $this->hasOne(TeamLeader::class, 'team_id', 'id');
     }
 }
