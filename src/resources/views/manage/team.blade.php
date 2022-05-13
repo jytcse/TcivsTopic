@@ -16,6 +16,11 @@
                 <button>
                     瀏覽組別
                 </button>
+                <button>
+                    <a href="{{ route('create_team_page') }}">
+                        建立組別
+                    </a>
+                </button>
             </div>
         </div>
     @else

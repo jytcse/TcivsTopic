@@ -51,10 +51,18 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
     Route::controller(TeamController::class)->group(function () {
+
         //所有組別
         Route::get('/teams', 'index')->name('teams');
+
         //我的組別
         Route::get('/team', 'my_team_index')->name('my_team');
+
+        //建立組別
+        Route::get('/team/create', function () {
+            return view('manage.create-team');
+        })->name('create_team_page');
+        Route::post('/team/create', 'store')->name('post_create_team');
     });
 
     //我的組別

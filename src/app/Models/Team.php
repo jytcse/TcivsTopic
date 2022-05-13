@@ -20,7 +20,6 @@ class Team extends Model
      */
     protected $fillable = [
         'class_id',
-        'team_number',
         'created_at',
         'updated_at'
     ];

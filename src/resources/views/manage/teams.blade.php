@@ -19,7 +19,11 @@
                 <th>組員</th>
                 <th>動作
                     @if(isset($hasTeam) && $hasTeam)
-                        <button>創建隊伍</button>
+                        <button>
+                            <a href="{{ route('create_team_page') }}">
+                                創建組別
+                            </a>
+                        </button>
                     @endif
                 </th>
             </tr>

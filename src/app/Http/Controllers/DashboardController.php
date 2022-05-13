@@ -6,6 +6,9 @@ use App\Models\Team;
 use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +17,7 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -23,8 +26,8 @@ class DashboardController extends Controller
         }
         $team = Teammate::query()->where('user_id', '=', Auth::user()->id)->with('team', 'team.classmodel')->get()[0];
         $teammate_id = Teammate::query()->where('user_id', '=', Auth::user()->id)->pluck('id')[0];
-//    職位
-        $position = (TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0) ? false : true;
+        //職位
+        $position = !((TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0));
         return view('manage.dashboard')->with(['team' => $team, 'position' => $position, 'hasTeam' => true]);
     }
 
