@@ -22,9 +22,9 @@
                     <h3>
                         {{$team->team->classmodel->years}}年{{$team->team->classmodel->class_type}}班
                     </h3>
-                    <p>
-                        第{{$team->team->team_number}}組
-                    </p>
+                    {{--                    <p>--}}
+                    {{--                        第{{$team->team->team_number}}組--}}
+                    {{--                    </p>--}}
                     {{--                    @dd($team)--}}
                 @endif
             </div>

@@ -19409,6 +19409,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./resources/css/homeSlides.css":
+/*!**************************************!*\
+  !*** ./resources/css/homeSlides.css ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/homeType.css":
 /*!************************************!*\
   !*** ./resources/css/homeType.css ***!
@@ -19526,6 +19539,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/createTeam.css":
+/*!**************************************!*\
+  !*** ./resources/css/createTeam.css ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/footer.css":
 /*!**********************************!*\
   !*** ./resources/css/footer.css ***!
@@ -19543,19 +19569,6 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************!*\
   !*** ./resources/css/home.css ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/css/homeSlides.css":
-/*!**************************************!*\
-  !*** ./resources/css/homeSlides.css ***!
-  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19870,9 +19883,9 @@ process.umask = function() { return 0; };
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
-/******/ 			"css/homeSlides": 0,
 /******/ 			"css/home": 0,
 /******/ 			"css/footer": 0,
+/******/ 			"css/createTeam": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/adminBasic": 0,
 /******/ 			"css/timelineCard": 0,
@@ -19881,7 +19894,8 @@ process.umask = function() { return 0; };
 /******/ 			"css/manageTeams": 0,
 /******/ 			"css/manageDashboard": 0,
 /******/ 			"css/loginStyle": 0,
-/******/ 			"css/homeType": 0
+/******/ 			"css/homeType": 0,
+/******/ 			"css/homeSlides": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -19931,19 +19945,20 @@ process.umask = function() { return 0; };
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/adminBasic.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/footer.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/home.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/homeSlides.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/homeType.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/loginStyle.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/manageDashboard.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/manageTeams.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/sidebar.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/homeSlides","css/home","css/footer","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType"], () => (__webpack_require__("./resources/css/timelineCard.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/adminBasic.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/createTeam.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/footer.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/home.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/homeSlides.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/homeType.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/loginStyle.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageDashboard.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageTeams.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/sidebar.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/timelineCard.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

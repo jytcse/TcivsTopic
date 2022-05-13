@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
-use App\Models\TeamLeader;
+use App\Exceptions\Handler;
+use App\Models\ClassModel;
 use App\Models\Teammate;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $class_id)
     {
-
-        $user_id = Auth::user()->getAuthIdentifier();
-        if (!Teammate::query()->where('user_id', '=', $user_id)->count() > 0) {
-            return view('manage.dashboard')->with('hasTeam', false);
+//        dd(Teammate::query()->where())
+        //身分是學生，年度班級符合篩選條件，不包括自己
+        $search_user = User::query()->where([['identity_id', '=', '1'], ['class_id', '=', $class_id], ['id', '!=', Auth::user()->getAuthIdentifier()]])->orderBy('student_id')->get();
+        if ($search_user->count() == 0) {
+            return response()->json(['success' => false, 'message' => '找不到資源 Resource not found ','status_code'=>404], 404);
         }
-        $team = Teammate::query()->where('user_id', '=', $user_id)->with('team', 'team.classmodel')->get()[0];
-        $teammate_id = Teammate::query()->where('user_id', '=', $user_id)->pluck('id')[0];
-        //職位
-        $position = !((TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0));
 
-        return view('manage.dashboard')->with(['team' => $team, 'position' => $position, 'hasTeam' => true]);
+        return response()->json(['success' => true, 'message' => '','status_code'=>200,'data'=>$search_user], 200);
+//        return ;
+
     }
 
     /**
@@ -58,10 +57,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -69,10 +68,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
     }
@@ -81,10 +80,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -92,10 +91,10 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }

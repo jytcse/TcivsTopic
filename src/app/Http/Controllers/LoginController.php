@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,18 +11,14 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-//        dd(Hash::make('admin'));
         $credentials = $request->validate([
             'student_id' => ['required'],
             'password' => ['required'],
         ]);
-//        if (Auth::attempt(['student_id' => $request->student_id, 'password' => $request->password])) {
-//            $request->session()->regenerate();
-//            return redirect('/dashboard');
-//        }
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            $token = User::query()->where('id', '=', Auth::id())->get()[0]->createToken('x-accessToken');
+            return redirect()->route('dashboard')->cookie('x-access-token', $token->plainTextToken);
         }
 
 
@@ -33,12 +30,12 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $request->user()->tokens()->delete();
         Auth::logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 

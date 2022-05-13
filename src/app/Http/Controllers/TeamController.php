@@ -7,11 +7,13 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\ClassModel;
 use Illuminate\Support\Facades\Auth;
 
+//ParameterBag::
 class TeamController extends Controller
 {
     /**
@@ -21,7 +23,8 @@ class TeamController extends Controller
      */
     private function check_team_state()
     {
-        return Teammate::query()->where('user_id', '=', Auth::user()->id)->get()->count() == 0;
+        //沒有組別的話 return 1
+        return Teammate::query()->where('user_id', '=', Auth::user()->getAuthIdentifier())->get()->count() == 0;
     }
 
     /**
@@ -30,7 +33,7 @@ class TeamController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $teams = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
         return view('manage.teams')->with(['teams' => $teams, 'hasTeam' => $this->check_team_state()]);
@@ -42,21 +45,28 @@ class TeamController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function my_team_index()
+    public function my_team_index(): View|Factory|Application
     {
         $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
         return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state())]);
     }
+
     /**
-     * Team 我的組別
+     * Create Team 建立組別
      * Check team state , then return view 檢查是否有組別，回傳頁面給使用者
      *
-     * @return Application|Factory|View
+     * @return RedirectResponse|Application|Factory|View
      */
-    public function create_team_page()
+    public function create_team_page(Request $request): View|Factory|RedirectResponse|Application
     {
-//        $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
-//        return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state())]);
+        $user_id = Auth::user()->getAuthIdentifier();
+        $api_token = $request->cookie('x-access-token');
+        if (!$this->check_team_state()) {
+            return redirect()->route('my_team');
+        }
+        $user = User::query()->where('id', '=', $user_id)->with('classmodel')->get()[0];
+        $class_data = ClassModel::query()->where('years', '!=', '老師')->get();
+        return view('manage.create-team')->with(['user' => $user, 'class_data' => $class_data, 'api_token' => $api_token]);
     }
 
     /**

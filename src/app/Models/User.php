@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasOne(Teammate::class, 'user_id', 'id');
     }
 
+    public function classmodel()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
+    }
+
 //    public function team()
 //    {
 //        return $this->hasOneThrough(Team::class, Teammate::class, 'user_id','');

@@ -37,7 +37,7 @@
                     </td>
                     <td>
                         {{--年度班級   --}}
-                        {{$team->classmodel->years}}年{{$team->classmodel->class_type}}班 第{{  $team->team_number}}組
+                        {{$team->classmodel->years}}年{{$team->classmodel->class_type}}班
                     </td>
                     <td>
                         {{-- 組長名稱--}}

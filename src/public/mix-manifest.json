@@ -4,9 +4,9 @@
     "/js/gsap.min.js": "/js/gsap.min.js",
     "/js/homeType.js": "/js/homeType.js",
     "/js/ScrollTrigger.min.js": "/js/ScrollTrigger.min.js",
-    "/css/homeSlides.css": "/css/homeSlides.css",
     "/css/home.css": "/css/home.css",
     "/css/footer.css": "/css/footer.css",
+    "/css/createTeam.css": "/css/createTeam.css",
     "/css/app.css": "/css/app.css",
     "/css/adminBasic.css": "/css/adminBasic.css",
     "/css/timelineCard.css": "/css/timelineCard.css",
@@ -15,5 +15,6 @@
     "/css/manageTeams.css": "/css/manageTeams.css",
     "/css/manageDashboard.css": "/css/manageDashboard.css",
     "/css/loginStyle.css": "/css/loginStyle.css",
-    "/css/homeType.css": "/css/homeType.css"
+    "/css/homeType.css": "/css/homeType.css",
+    "/css/homeSlides.css": "/css/homeSlides.css"
 }

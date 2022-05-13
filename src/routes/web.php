@@ -59,9 +59,7 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
         Route::get('/team', 'my_team_index')->name('my_team');
 
         //建立組別
-        Route::get('/team/create', function () {
-            return view('manage.create-team');
-        })->name('create_team_page');
+        Route::get('/team/create', 'create_team_page')->name('create_team_page');
         Route::post('/team/create', 'store')->name('post_create_team');
     });
 

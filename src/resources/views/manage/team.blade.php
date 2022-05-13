@@ -4,8 +4,8 @@
     我的組別
 @endsection
 @section('style')
-    {{--  儀錶板css  --}}
-    <link href="{{ asset('css/manageTeams.css')}}" rel="stylesheet">
+    {{--  我的組別css  --}}
+    {{--    <link href="{{ asset('css/manageTeams.css')}}" rel="stylesheet">--}}
 @endsection
 
 @section('body')
