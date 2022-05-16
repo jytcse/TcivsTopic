@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -88,7 +89,34 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $permission = User::query()->where('id', '=', Auth::user()->getAuthIdentifier())->pluck('identity_id')[0];
+        $team = new Team;
+        $teammate = new Teammate;
+        $teamleader = new TeamLeader;
+        if ($permission == 1) {
+            //學生
+            $class_relation = User::query()->where('id', '=', Auth::id())->with('classmodel')->get()[0]->classmodel;
 
+            //新增到組別
+            $team->class_id = $class_relation->id;
+            $team->creator = Auth::id();
+            $team->save();
+
+            //新增到組員
+            $teammate->team_id = $team->id;
+            $teammate->user_id = Auth::id();
+            $teammate->save();
+
+            //新增到組長
+            $teamleader->team_id = $team->id;
+            $teamleader->user_id = $teammate->id;
+            $teamleader->save();
+        } elseif ($permission == 2) {
+            //老師
+            $team->class_id = $request->teacher_years_select;
+
+        }
+//        dd($team);
     }
 
     /**

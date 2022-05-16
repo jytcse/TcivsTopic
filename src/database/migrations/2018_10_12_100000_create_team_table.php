@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('team', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->comment('班級')->constrained('class')->onUpdate('cascade')->cascadeOnDelete();
+            $table->foreignId('creator')->comment('創建者')->constrained('users')->onUpdate('cascade')->cascadeOnDelete();
             $table->timestamps();
         });
     }

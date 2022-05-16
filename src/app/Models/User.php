@@ -23,7 +23,7 @@ class User extends Authenticatable
         'student_id',
         'name',
         'email',
-        'password',
+//        'password',
 //        'identity_id',
         'class_id',
         'created_at',
@@ -46,9 +46,9 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+//    protected $casts = [
+//        'email_verified_at' => 'datetime',
+//    ];
 
 //
     public function teammate()

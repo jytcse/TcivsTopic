@@ -60,7 +60,7 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
 
         //建立組別
         Route::get('/team/create', 'create_team_page')->name('create_team_page');
-        Route::post('/team/create', 'store')->name('post_create_team');
+        Route::post('/team/create', 'store')->name('post_create_team')->middleware('auth:sanctum');
     });
 
     //我的組別

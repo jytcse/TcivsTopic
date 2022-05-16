@@ -11,31 +11,84 @@
 @section('body')
     <div class="h-100">
         <h3>建立組別</h3>
-        <div>
-            <div>
-                <label for="years">年度:</label>
-                <input type="text" id="years" readonly value="{{$user->classmodel->years}}" disabled>
-            </div>
-            <div class="mt-2">
-                <label for="class_type">班別:</label>
-                <input type="text" id="class_type" readonly value="{{$user->classmodel->class_type}}" disabled>
-            </div>
-            <h3 class="d-flex mt-4">組員:
-                <!-- Button trigger modal -->
-                <button type="button" id="modal_btn" class="d-flex align-items-center ms-2" data-bs-toggle="modal"
-                        data-bs-target="#select_teammate_Modal">
-                    <span class="material-symbols-outlined ">add</span>
-                </button>
-            </h3>
-            <div class="d-flex">
-                <ol id="teammate_container" class="teammate_container list-group list-group-numbered">
 
-                </ol>
+        <form action="{{ route('post_create_team') }}" method="post">
+            @csrf
+            <div>
+                <div>
+
+                    @if(auth()->user()->identity_id==2)
+                        <label for="teacher_years_select">年度:</label>
+                        <select id="teacher_years_select" name="teacher_years_select">
+                            @foreach($class_data as $data)
+                                <option @if($loop->index ==0) selected="selected"
+                                        @endif value="{{$data->id}}">{{$data->years}}年{{$data->class_type}}班
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <label for="years">年度:</label>
+                        <input type="text" id="years" name="team_years" readonly value="{{$user->classmodel->years}}"
+                               disabled>
+                    @endif
+                </div>
+                <div class="mt-2">
+                    @if(auth()->user()->identity_id==1)
+                        <label for="class_type">班別:</label>
+                        <input type="text" id="class_type" name="team_class" readonly
+                               value="{{$user->classmodel->class_type}}" disabled>
+                    @endif
+                </div>
+                <div class="mt-2">
+                    @if(auth()->user()->identity_id==1)
+                        <label for="class_type" title="組長">組長:</label>
+                        <input type="text" id="class_type" readonly value="{{$user->name}}" disabled>
+                    @elseif(auth()->user()->identity_id==2)
+                        <label for="class_type" title="組長">組長:</label>
+{{--                        <select id="teacher_teamleader_select">--}}
+{{--                    --}}
+{{--                        </select>--}}
+                    @endif
+
+                </div>
+                <h3 class="d-flex mt-4">組員:
+                    <!-- Button trigger modal -->
+                    <button type="button" id="modal_btn" class="btn btn-secondary d-flex align-items-center ms-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#select_teammate_Modal">
+                        <span class="material-symbols-outlined ">add</span>
+                    </button>
+                </h3>
+                <div class="d-flex">
+                    <ol id="teammate_container" class="teammate_container list-group list-group-numbered">
+
+                    </ol>
+                </div>
             </div>
-        </div>
-        <div>
-            <button>完成建立</button>
-        </div>
+            <div>
+                <button class="mt-3 btn btn-success" data-bs-toggle="modal" data-bs-target="#confirm_modal"
+                        type="button">完成建立
+                </button>
+            </div>
+            <div class="modal fade" id="confirm_modal" tabindex="-1" aria-labelledby="confirm_modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirm_modalLabel">二次確認</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            確定要創建隊伍嗎?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確認送出</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- Modal -->
@@ -75,6 +128,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('script')
     <script>
@@ -89,19 +143,19 @@
         let teammate_id_array = [];
 
         //剛開始先抓一次資料
-        fetch_data(class_select.value);
-
+        // fetch_data(class_select.value);
+        //每次點擊選取組員按鈕，就重新抓一次資料
+        document.querySelector('#modal_btn').addEventListener('click', () => {
+            fetch_data(class_select.value);
+        });
         class_select.addEventListener('change', () => {
             fetch_data(class_select.value);
-            //每次點擊選取組員按鈕，就重新抓一次資料
-            document.querySelector('#modal_btn').addEventListener('click', () => {
-                fetch_data(class_select.value);
-            });
         });
 
 
         function fetch_data(class_id) {
             fetch(target_url + 'class/' + class_id + '/user/available', {
+                method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + api_token
                 }
@@ -110,7 +164,7 @@
                     return response.json();
                 })
                 .then(function (json) {
-                    console.log(json);
+                    // console.log(json);
                     user_list_container.innerHTML = '';
                     if (json.success) {
                         json.data.forEach((user_data) => {
@@ -130,8 +184,8 @@
                                 if (checkbox.checked) {
                                     teammate_name_array.push(String(checkbox.dataset.studentName))
                                     teammate_id_array.push(checkbox.value)
-                                    console.log(teammate_name_array);
-                                    console.log(teammate_id_array);
+                                    // console.log(teammate_name_array);
+                                    // console.log(teammate_id_array);
                                 } else {
                                     teammate_name_array.push(checkbox.dataset.studentName)
                                     teammate_name_array = teammate_name_array.filter(function (item) {
@@ -140,8 +194,8 @@
                                     teammate_id_array = teammate_id_array.filter(function (item) {
                                         return item !== checkbox.value
                                     });
-                                    console.log(teammate_name_array);
-                                    console.log(teammate_id_array);
+                                    // console.log(teammate_name_array);
+                                    // console.log(teammate_id_array);
                                 }
 
                             });
@@ -170,7 +224,7 @@
                 let new_li = document.createElement('li');
                 new_li.className = 'list-group-item teammate_item d-flex align-items-center position-relative';
                 new_li.innerHTML = `<p class="m-0">${teammate_name_array[index]}</p>
-<div class="ms-4"><span data-student-id="${teammate_id_array[index]}" data-student-name="${teammate_name_array[index]}" class="cancel_icon position-absolute top-50 end-0 me-2 translate-middle-y align-text-bottom material-symbols-outlined">
+<div class="ms-4"><input type="hidden" readonly disabled name="student_id[]" value="${teammate_id_array[index]}"><span data-student-id="${teammate_id_array[index]}" data-student-name="${teammate_name_array[index]}" class="cancel_icon position-absolute top-50 end-0 me-2 translate-middle-y align-text-bottom material-symbols-outlined">
                                     close
                                     </span></div>`;
                 teammate_container.appendChild(new_li);
@@ -186,8 +240,8 @@
                         return array_item !== item.dataset.studentName;
                     });
 
-                    console.log(teammate_name_array);
-                    console.log(teammate_id_array);
+                    // console.log(teammate_name_array);
+                    // console.log(teammate_id_array);
                     render_list();
                 });
             });

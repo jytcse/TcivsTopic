@@ -12,7 +12,7 @@ class TeamLeader extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'teamleader';
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
