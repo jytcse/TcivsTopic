@@ -35,6 +35,16 @@
                 </div>
             </div>
         @endif
+        @if(session()->has('insert_success'))
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill"/>
+                </svg>
+                <div>
+                    {{ session()->get('insert_success') }}
+                </div>
+            </div>
+        @endif
         <h3>建立組別</h3>
 
         <form action="{{ route('post_create_team') }}" method="post">
@@ -156,10 +166,11 @@
 @endsection
 @section('script')
     <script>
+        @if(auth()->user()->identity_id==1|| auth()->user()->identity_id==2 || auth()->user()->identity_id==3)
         //api info
         const api_token = '{{$api_token}}';
         const target_url = '{{route('home')}}/api/';
-
+        @endif
         //element info
         const class_select = document.querySelector('#class_select');
         const user_list_container = document.querySelector('#user_list_container');
@@ -274,7 +285,7 @@
         }
 
 
-        @if(auth()->user()->identity_id==2)
+        @if(auth()->user()->identity_id==2 || auth()->user()->identity_id==3)
 
         const teacher_years_select = document.querySelector('#teacher_years_select');
         const teacher_team_leader_select = document.querySelector('#teacher_team_leader_select');

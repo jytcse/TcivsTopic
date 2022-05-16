@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -86,6 +87,7 @@ class TeamController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return RedirectResponse
+     * @throws Exception
      */
     public function store(Request $request)
     {
@@ -111,31 +113,57 @@ class TeamController extends Controller
             $teamleader->team_id = $team->id;
             $teamleader->user_id = $teammate->id;
             $teamleader->save();
-        } elseif ($permission == 2) {
+        } elseif ($permission == 2 || $permission == 3) {
             //老師
             //驗證使用者傳送過來的資訊，是否真的有這個id
             $class_query = ClassModel::query()->where('id', '=', $request->teacher_years_select);
             if ($class_query->count() == 0) {
-                return back()->withErrors([
+                return redirect()->back()->withErrors([
                     'form_tamper' => '401 表單->年度班級欄位，資料值不存在!',
                 ]);
             }
             $user_query = User::query()->where('id', '=', $request->teacher_team_leader_select);
             //如果傳送過來的使用者id不存在 或是 班級與資料庫裡的班級不同 拋出錯誤
             if ($user_query->count() == 0 || $user_query->pluck('class_id')[0] != $request->teacher_years_select) {
-                return back()->withErrors([
+                return redirect()->back()->withErrors([
                     'form_tamper' => '401 表單->組長欄位，資料值不存在!',
                 ]);
             }
 
-            //驗證使用者傳送過來的資訊，是否真的有這個id
-//            if (ClassModel::query()->where('id', '=', $request->teacher_years_select)->count() == 0) {
-//                return 'error';
-//            }
 
+            //新增到組別
+            $team->class_id = $user_query->pluck('class_id')[0];
+            $team->creator = Auth::id();
+            $check = $team->save();
+            if (!$check) {
+                throw new Exception('新增組別失敗.');
+            }
+            //新增到組員
+            $teammate->team_id = $team->id;
+            $teammate->user_id = $user_query->pluck('id')[0];
+            $check = $teammate->save();
 
+            if (!$check) {
+                throw new Exception('新增組員失敗.');
+            }
+            //新增到組長
+            $teamleader->team_id = $team->id;
+            $teamleader->user_id = $teammate->id;
+            $check = $teamleader->save();
+            if (!$check) {
+                throw new Exception('新增組長失敗.');
+            }
+            try {
+                return redirect()->back()->with('insert_success', "新增組別成功! 組長為: " . $user_query->pluck('name')[0] . "，創建者為: " . Auth::user()->name);
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors([
+                    'insert_error' => $e->getMessage(),
+                ]);
+            }
         }
-//        dd($team);
+        return redirect()->back()->withErrors([
+            'error' => '403 權限錯誤',
+        ]);
     }
 
     /**
