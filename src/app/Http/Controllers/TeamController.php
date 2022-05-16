@@ -53,7 +53,7 @@ class TeamController extends Controller
     }
 
     /**
-     * Create Team 建立組別
+     * Create Team Page 建立組別頁面
      * Check team state , then return view 檢查是否有組別，回傳頁面給使用者
      *
      * @return RedirectResponse|Application|Factory|View
@@ -85,7 +85,7 @@ class TeamController extends Controller
      * Get form data form frontend and store to database 從前端取得表單資料，儲存在資料庫裡
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -113,7 +113,26 @@ class TeamController extends Controller
             $teamleader->save();
         } elseif ($permission == 2) {
             //老師
-            $team->class_id = $request->teacher_years_select;
+            //驗證使用者傳送過來的資訊，是否真的有這個id
+            $class_query = ClassModel::query()->where('id', '=', $request->teacher_years_select);
+            if ($class_query->count() == 0) {
+                return back()->withErrors([
+                    'form_tamper' => '401 表單->年度班級欄位，資料值不存在!',
+                ]);
+            }
+            $user_query = User::query()->where('id', '=', $request->teacher_team_leader_select);
+            //如果傳送過來的使用者id不存在 或是 班級與資料庫裡的班級不同 拋出錯誤
+            if ($user_query->count() == 0 || $user_query->pluck('class_id')[0] != $request->teacher_years_select) {
+                return back()->withErrors([
+                    'form_tamper' => '401 表單->組長欄位，資料值不存在!',
+                ]);
+            }
+
+            //驗證使用者傳送過來的資訊，是否真的有這個id
+//            if (ClassModel::query()->where('id', '=', $request->teacher_years_select)->count() == 0) {
+//                return 'error';
+//            }
+
 
         }
 //        dd($team);

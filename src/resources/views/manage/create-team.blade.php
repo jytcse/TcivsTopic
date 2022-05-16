@@ -10,13 +10,37 @@
 
 @section('body')
     <div class="h-100">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+        </svg>
+
+        @if($errors->any())
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>
+                    {{$errors->first()}}
+                </div>
+            </div>
+        @endif
         <h3>建立組別</h3>
 
         <form action="{{ route('post_create_team') }}" method="post">
             @csrf
             <div>
                 <div>
-
                     @if(auth()->user()->identity_id==2)
                         <label for="teacher_years_select">年度:</label>
                         <select id="teacher_years_select" name="teacher_years_select">
@@ -45,9 +69,9 @@
                         <input type="text" id="class_type" readonly value="{{$user->name}}" disabled>
                     @elseif(auth()->user()->identity_id==2)
                         <label for="class_type" title="組長">組長:</label>
-{{--                        <select id="teacher_teamleader_select">--}}
-{{--                    --}}
-{{--                        </select>--}}
+                        <select id="teacher_team_leader_select" name="teacher_team_leader_select">
+                            <option selected="selected" disabled>沒有合適人選</option>
+                        </select>
                     @endif
 
                 </div>
@@ -135,15 +159,18 @@
         //api info
         const api_token = '{{$api_token}}';
         const target_url = '{{route('home')}}/api/';
+
         //element info
         const class_select = document.querySelector('#class_select');
         const user_list_container = document.querySelector('#user_list_container');
+
         //data info
         let teammate_name_array = [];
         let teammate_id_array = [];
 
         //剛開始先抓一次資料
-        // fetch_data(class_select.value);
+        fetch_data(class_select.value);
+
         //每次點擊選取組員按鈕，就重新抓一次資料
         document.querySelector('#modal_btn').addEventListener('click', () => {
             fetch_data(class_select.value);
@@ -151,7 +178,6 @@
         class_select.addEventListener('change', () => {
             fetch_data(class_select.value);
         });
-
 
         function fetch_data(class_id) {
             fetch(target_url + 'class/' + class_id + '/user/available', {
@@ -246,5 +272,50 @@
                 });
             });
         }
+
+
+        @if(auth()->user()->identity_id==2)
+
+        const teacher_years_select = document.querySelector('#teacher_years_select');
+        const teacher_team_leader_select = document.querySelector('#teacher_team_leader_select');
+        fetch_leader_data(teacher_years_select.value);
+        teacher_years_select.addEventListener('change', () => {
+            fetch_leader_data(teacher_years_select.value);
+        });
+
+        function fetch_leader_data(class_id) {
+            fetch(target_url + 'class/' + class_id + '/user/available', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + api_token
+                }
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (json) {
+                    console.log(json);
+                    if (json.success) {
+                        teacher_team_leader_select.innerHTML = '';
+                        json.data.forEach((data) => {
+                            // console.log(data);
+                            let option = document.createElement('option');
+                            option.value = data.id;
+                            option.text = data.name;
+                            teacher_team_leader_select.appendChild(option);
+                        });
+                    } else {
+                        teacher_team_leader_select.innerHTML = '';
+                        let option = document.createElement('option');
+                        option.disabled = true;
+                        option.selected = true;
+                        option.text = '沒有合適人選';
+                        teacher_team_leader_select.appendChild(option);
+                    }
+                });
+        }
+        @endif
+
+
     </script>
 @endsection

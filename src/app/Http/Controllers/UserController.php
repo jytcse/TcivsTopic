@@ -23,12 +23,17 @@ class UserController extends Controller
     {
 //        dd(Teammate::query()->where())
         //身分是學生，年度班級符合篩選條件，不包括自己
-        $search_user = User::query()->where([['identity_id', '=', '1'], ['class_id', '=', $class_id], ['id', '!=', Auth::user()->getAuthIdentifier()]])->orderBy('student_id')->get();
+        $teammate_query = Teammate::all()->pluck('user_id');
+//        return $teammate_query;
+        $search_user = User::query()->where([['identity_id', '=', '1'], ['class_id', '=', $class_id], ['id', '!=', Auth::id()]])->whereNotIn('id', $teammate_query)->orderBy('student_id');
+        $search_user = $search_user->get();
+
+
         if ($search_user->count() == 0) {
-            return response()->json(['success' => false, 'message' => '找不到資源 Resource not found. ','status_code'=>404], 404);
+            return response()->json(['success' => false, 'message' => '找不到資源 Resource not found. ', 'status_code' => 404], 404);
         }
 
-        return response()->json(['success' => true, 'message' => '','status_code'=>200,'data'=>$search_user], 200);
+        return response()->json(['success' => true, 'message' => '', 'status_code' => 200, 'data' => $search_user], 200);
 //        return ;
 
     }
