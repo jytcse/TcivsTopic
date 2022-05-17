@@ -23,8 +23,9 @@ class TeamController extends Controller
      *
      * @return boolean
      */
-    private function check_team_state()
+    private function check_team_state(): bool
     {
+
         //沒有組別的話 return 1
         return Teammate::query()->where('user_id', '=', Auth::user()->getAuthIdentifier())->get()->count() == 0;
     }
@@ -33,12 +34,40 @@ class TeamController extends Controller
      * Teams 所有組別
      * Check team state , then return view 檢查是否有加入組別，回傳頁面給使用者
      *
-     * @return Application|Factory|View
+     * @param null $year
+     * @param string $class_type
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function index(): View|Factory|Application
+    public function index($year = null, string $class_type = 'A'): View|Factory|RedirectResponse|Application
     {
-        $teams = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
-        return view('manage.teams')->with(['teams' => $teams, 'hasTeam' => $this->check_team_state()]);
+        //不重複的班級id 有就代表該班級底下有隊伍
+        $distinct_class_id = Team::query()->distinct()->pluck('class_id');
+        $available_class = ClassModel::query()->whereIn('id', $distinct_class_id)->where('years', '!=', '老師')->get();
+        if ($year == null) {
+            //如果使用者沒有輸入年度，回傳資料庫裡最新有組別的年度
+            $year = $available_class[0]->years;
+            return redirect()->route('teams', ['year' => $year, 'class_type' => $class_type]);
+        }
+        switch ($class_type) {
+            case 'A':
+                $class_type = '甲';
+                break;
+            case 'B':
+                $class_type = '乙';
+                break;
+        }
+        $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type]]);
+        //如果找不到使用者所選的年度班級 return 404 page
+        if ($class_query->count() == 0) {
+            abort(404);
+        }
+        $class_id = $class_query->pluck('id')[0];
+        $teams = Team::query()->where('class_id', '=', $class_id)->with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
+        if ($teams->count() == 0) {
+            $teams = null;
+        }
+        $select_class_data = $available_class;
+        return view('manage.teams')->with(['teams' => $teams, 'select_class_data' => $select_class_data, 'hasTeam' => $this->check_team_state()]);
     }
 
     /**
@@ -57,6 +86,7 @@ class TeamController extends Controller
      * Create Team Page 建立組別頁面
      * Check team state , then return view 檢查是否有組別，回傳頁面給使用者
      *
+     * @param Request $request
      * @return RedirectResponse|Application|Factory|View
      */
     public function create_team_page(Request $request): View|Factory|RedirectResponse|Application
@@ -89,7 +119,7 @@ class TeamController extends Controller
      * @return RedirectResponse
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $permission = User::query()->where('id', '=', Auth::user()->getAuthIdentifier())->pluck('identity_id')[0];
         $team = new Team;

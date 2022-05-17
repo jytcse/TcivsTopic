@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\TeamApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return '123';
 });
 //取得可以邀請的使用者
-Route::middleware('auth:sanctum')->get('/class/{class_id}/user/available', [UserController::class, 'index'])->name('get_available_user');
+Route::middleware('auth:sanctum')->get('/class/{class_id}/user/available', [UserApiController::class, 'show'])->name('get_available_user');

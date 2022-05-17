@@ -53,7 +53,7 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::controller(TeamController::class)->group(function () {
 
         //所有組別
-        Route::get('/teams', 'index')->name('teams');
+        Route::get('/teams/{year?}/{class_type?}', 'index')->name('teams');
 
         //我的組別
         Route::get('/team', 'my_team_index')->name('my_team');
