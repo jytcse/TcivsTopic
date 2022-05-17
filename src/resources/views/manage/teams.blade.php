@@ -31,7 +31,7 @@
                 <th>組長</th>
                 <th>組員</th>
                 <th>動作
-                    @if(isset($hasTeam) && $hasTeam)
+                    @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)
                         <button>
                             <a href="{{ route('create_team_page') }}">
                                 創建組別
@@ -72,7 +72,7 @@
                         </td>
                         <td>
                             {{--  動作 --}}
-                            @if(isset($hasTeam) && $hasTeam)
+                            @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)
                                 <button>加入</button>
                             @endif
                             <button>查看</button>
@@ -102,7 +102,7 @@
         const path_year = '@php echo $path_array[count($path_array)-2]; @endphp';
         const path_type = '@php echo $path_array[count($path_array)-1]; @endphp';
 
-        {{--如果符合url上的班級 預設就selected--}}
+            {{--如果符合url上的班級 預設就selected--}}
         for (let x = 0; x < class_selector.options.length; x++) {
             if (class_selector.options[x].dataset.year.trim() === path_year && class_selector.options[x].dataset.classType.trim() === path_type) {
                 console.log(class_selector.options[x]);

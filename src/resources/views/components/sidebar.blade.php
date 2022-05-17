@@ -28,14 +28,16 @@
             </div>
         </div>
         <ul class="sub_ul">
-            @if(Route::currentRouteName()=='create_team_page')
+            @if(Route::currentRouteName()=='create_team_page' ||auth()->user()->identity_id==2)
                 <li class="@if(Route::currentRouteName()=='create_team_page') active @endif"><a
                         class="item_link text-decoration-none"
                         href="{{ route('create_team_page') }}">建立組別</a></li>
             @endif
-            <li class="@if(Route::currentRouteName()=='my_team') active @endif"><a
-                    class="item_link text-decoration-none"
-                    href="{{ route('my_team') }}">我的組別</a></li>
+            @if(auth()->user()->identity_id==1)
+                <li class="@if(Route::currentRouteName()=='my_team') active @endif"><a
+                        class="item_link text-decoration-none"
+                        href="{{ route('my_team') }}">我的組別</a></li>
+            @endif
             <li class="@if(Route::currentRouteName()=='teams') active @endif"><a class="item_link text-decoration-none"
                                                                                  href="{{ route('teams') }}">所有組別</a>
             </li>
