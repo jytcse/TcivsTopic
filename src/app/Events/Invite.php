@@ -10,21 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewInviteMessage implements ShouldBroadcast
+class Invite implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $invited_user_id;
-
+    public $invite_info;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($invited_user_id)
+    public function __construct($invite_info)
     {
-        $this->invited_user_id = $invited_user_id;
-        //
+       //["team_id"=>2,"recipient"=>3]
+        $this->invite_info = $invite_info;
     }
 
     /**
@@ -34,6 +32,6 @@ class NewInviteMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('User.Message.box.3');
+        return new PrivateChannel('User.Message.box.' . $this->invite_info['recipient']);
     }
 }

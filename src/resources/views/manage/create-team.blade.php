@@ -261,7 +261,7 @@
                 let new_li = document.createElement('li');
                 new_li.className = 'list-group-item teammate_item d-flex align-items-center position-relative';
                 new_li.innerHTML = `<p class="m-0">${teammate_name_array[index]}</p>
-<div class="ms-4"><input type="hidden" readonly disabled name="student_id[]" value="${teammate_id_array[index]}"><span data-student-id="${teammate_id_array[index]}" data-student-name="${teammate_name_array[index]}" class="cancel_icon position-absolute top-50 end-0 me-2 translate-middle-y align-text-bottom material-symbols-outlined">
+<div class="ms-4"><input type="hidden" pattern="^[0-9]*$" readonly name="student_id[]" value="${teammate_id_array[index]}"><span data-student-id="${teammate_id_array[index]}" data-student-name="${teammate_name_array[index]}" class="cancel_icon position-absolute top-50 end-0 me-2 translate-middle-y align-text-bottom material-symbols-outlined">
                                     close
                                     </span></div>`;
                 teammate_container.appendChild(new_li);

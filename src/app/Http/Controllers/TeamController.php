@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Invite;
 use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
@@ -119,30 +120,56 @@ class TeamController extends Controller
      * @return RedirectResponse
      * @throws Exception
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+
         $permission = User::query()->where('id', '=', Auth::user()->getAuthIdentifier())->pluck('identity_id')[0];
         $team = new Team;
         $teammate = new Teammate;
         $teamleader = new TeamLeader;
         if ($permission == 1) {
+            foreach ($request->student_id as $student_id) {
+                //檢查要邀請的使用者存不存在
+                if (User::query()->where('id', '=', $student_id)->count() == 0) {
+                    return redirect()->back()->withErrors([
+                        'insert_error' => '404 表單->要邀請的組員，不存在!',
+                    ]);
+                }
+                //檢查受邀請的使用者是否加入了隊伍
+                if (Teammate::query()->where('user_id', '=', $student_id)->get()->count() != 0) {
+                    return redirect()->back()->withErrors([
+                        'insert_error' => '要邀請的組員:' . User::query()->where('id', '=', $student_id)->pluck('name')[0] . '，已經加入其他組別了!',
+                    ]);
+                }
+            }
+
             //學生
             $class_relation = User::query()->where('id', '=', Auth::id())->with('classmodel')->get()[0]->classmodel;
-
-            //新增到組別
+            if (Teammate::query()->where('user_id','=',Auth::id())->count()>0){
+                return redirect()->back()->withErrors([
+                    'insert_error' => '資料重複新增!',
+                ]);
+            }
+            //將自己新增到組別
             $team->class_id = $class_relation->id;
             $team->creator = Auth::id();
             $team->save();
 
-            //新增到組員
+            //將自己新增到組員
             $teammate->team_id = $team->id;
             $teammate->user_id = Auth::id();
             $teammate->save();
 
-            //新增到組長
+            //將自己新增到組長
             $teamleader->team_id = $team->id;
             $teamleader->user_id = $teammate->id;
             $teamleader->save();
+
+            foreach ($request->student_id as $student_id) {
+                event(new Invite(["team_id" => strval($team->id), "recipient" => strval($student_id)]));
+            }
+
+
         } elseif ($permission == 2 || $permission == 3) {
             //老師
             //驗證使用者傳送過來的資訊，是否真的有這個id
