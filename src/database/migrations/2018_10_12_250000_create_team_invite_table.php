@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('team_id')->comment('發送組別');
             $table->foreign('team_id')->references('id')->on('team')->onUpdate('cascade')->cascadeOnDelete();
             $table->foreignId('recipient')->comment('接受者')->constrained('users')->onUpdate('cascade')->cascadeOnDelete();
-            $table->boolean('accept_state')->comment('接受狀態')->default(0);
+            $table->enum('state',['pending','accept','reject'])->comment('接受狀態')->default('pending');
             $table->timestamps();
         });
     }

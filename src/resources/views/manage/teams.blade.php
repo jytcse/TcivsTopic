@@ -30,15 +30,15 @@
                 <th>年度班級</th>
                 <th>組長</th>
                 <th>組員</th>
-                <th>動作
-                    @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)
-                        <button>
-                            <a href="{{ route('create_team_page') }}">
-                                創建組別
-                            </a>
-                        </button>
-                    @endif
-                </th>
+{{--                <th>動作--}}
+{{--                    @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)--}}
+{{--                        <button>--}}
+{{--                            <a href="{{ route('create_team_page') }}">--}}
+{{--                                創建組別--}}
+{{--                            </a>--}}
+{{--                        </button>--}}
+{{--                    @endif--}}
+{{--                </th>--}}
             </tr>
             </thead>
             <tbody>
@@ -70,13 +70,13 @@
                                 無組員
                             @endif
                         </td>
-                        <td>
+{{--                        <td>--}}
                             {{--  動作 --}}
-                            @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)
-                                <button>加入</button>
-                            @endif
-                            <button>查看</button>
-                        </td>
+{{--                            @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)--}}
+{{--                                <button>加入</button>--}}
+{{--                            @endif--}}
+{{--                            <button>查看</button>--}}
+{{--                        </td>--}}
                     </tr>
                 @endforeach
             @else

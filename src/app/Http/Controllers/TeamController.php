@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Invite;
+use App\Models\TeamInvite;
 use App\Models\TeamLeader;
 use App\Models\Teammate;
 use App\Models\User;
@@ -29,6 +30,16 @@ class TeamController extends Controller
 
         //沒有組別的話 return 1
         return Teammate::query()->where('user_id', '=', Auth::user()->getAuthIdentifier())->get()->count() == 0;
+    }
+
+    /**
+     * Check Invite Message Number 檢查通知數量
+     *
+     * @return int
+     */
+    private function check_inbox_message_number(): int
+    {
+        return TeamInvite::query()->where([['recipient', '=', Auth::id()], ['state', '=', 'pending']])->count();
     }
 
     /**
@@ -68,7 +79,7 @@ class TeamController extends Controller
             $teams = null;
         }
         $select_class_data = $available_class;
-        return view('manage.teams')->with(['teams' => $teams, 'select_class_data' => $select_class_data, 'hasTeam' => $this->check_team_state()]);
+        return view('manage.teams')->with(['teams' => $teams, 'select_class_data' => $select_class_data, 'hasTeam' => $this->check_team_state(), 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
     /**
@@ -80,7 +91,7 @@ class TeamController extends Controller
     public function my_team_index(): View|Factory|Application
     {
         $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
-        return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state())]);
+        return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state()), 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
     /**
@@ -99,7 +110,7 @@ class TeamController extends Controller
         }
         $user = User::query()->where('id', '=', $user_id)->with('classmodel')->get()[0];
         $class_data = ClassModel::query()->where('years', '!=', '老師')->get();
-        return view('manage.create-team')->with(['user' => $user, 'class_data' => $class_data, 'api_token' => $api_token]);
+        return view('manage.create-team')->with(['user' => $user, 'class_data' => $class_data, 'api_token' => $api_token, 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
     /**
@@ -145,11 +156,12 @@ class TeamController extends Controller
 
             //學生
             $class_relation = User::query()->where('id', '=', Auth::id())->with('classmodel')->get()[0]->classmodel;
-            if (Teammate::query()->where('user_id','=',Auth::id())->count()>0){
+            if (Teammate::query()->where('user_id', '=', Auth::id())->count() > 0) {
                 return redirect()->back()->withErrors([
                     'insert_error' => '資料重複新增!',
                 ]);
             }
+            TeamInvite::query()->where([['state', '=', 'pending'], ['recipient', '=', Auth::id()]])->update(['state' => 'reject']);
             //將自己新增到組別
             $team->class_id = $class_relation->id;
             $team->creator = Auth::id();
@@ -187,7 +199,7 @@ class TeamController extends Controller
                 ]);
             }
 
-
+            TeamInvite::query()->where([['state', '=', 'pending'], ['recipient', '=', $user_query->pluck('id')[0]]])->update(['state' => 'reject']);
             //新增到組別
             $team->class_id = $user_query->pluck('class_id')[0];
             $team->creator = Auth::id();

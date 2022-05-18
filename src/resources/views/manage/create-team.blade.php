@@ -113,7 +113,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            確定要創建隊伍嗎?
+                            <div class="alert alert-warning mb-0" role="alert">
+                                @if(auth()->user()->identity_id==1)
+                                    @if(auth()->user()->identity_id==2||auth()->user()->identity_id==3)
+                                        該同學
+                                    @endif 到目前為止的所有邀請通知，都會自動被系統改為拒絕!<br>
+                                @endif
+                                確定要創建隊伍嗎?
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>

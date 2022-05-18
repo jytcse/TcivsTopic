@@ -49,6 +49,7 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/inbox', 'inbox')->name('inbox');
     });
     Route::controller(TeamController::class)->group(function () {
 
