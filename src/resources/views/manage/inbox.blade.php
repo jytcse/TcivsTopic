@@ -82,7 +82,7 @@
                             {{--                                           組員--}}
                             @if(count($team->team->teammates) !=1)
                                 @foreach($team->team->teammates as $teammate)
-                                    組員姓名 != 組長的名稱
+{{--                                    組員姓名 != 組長的名稱--}}
                                     @if($teammate->user->name != $team->team->teamleader->teammate->user->name)
                                         {{ $teammate->user->name}}
                                     @endif
