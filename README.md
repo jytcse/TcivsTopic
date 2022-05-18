@@ -10,8 +10,11 @@
   - curl 
   - mbstring  
 - PHP 8.1.5  
+- Composer 2.0.7
 - phpMyAdmin 5.1.3  
 - Laravel 9.9  
+- GSAP 3.10.4
+- Bootstrap 5.0.2
 
 # Dev Environment Setup
 ###### You must first ensure that Node.js and NPM are installed on your machine
@@ -19,6 +22,9 @@
 1.Install Dependencies
 ```
 npm install
+```
+```
+composer install
 ```
 
 2.Running Migrations
@@ -34,4 +40,8 @@ npm run watch
 4.Serving Laravel
 ```
 php artisan serve
+```
+5.Starting Websocket Server
+```
+php artisan websockets:serve
 ```
