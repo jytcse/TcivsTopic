@@ -248,14 +248,33 @@ class TeamController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit Team Intive State 修改組別邀請狀態
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param $team_id
+     * @param $action_type
+     * @return RedirectResponse
      */
-    public function edit($id)
+    public function edit($team_id, $action_type)
     {
-        //
+        //檢查有沒有這個隊伍
+        if (Team::query()->where('id', '=', $team_id)->count() == 0) {
+            return redirect()->back()->withErrors([
+                'team_dont_exist' => '404 該組別資料值不存在!',
+            ]);
+        }
+        //動作不支援
+        if ($action_type != 'accept' && $action_type != 'reject') {
+            return redirect()->back()->withErrors([
+                'action_method_dont_accept' => '動作不支援。',
+            ]);
+        }
+        if (!TeamInvite::query()->where([['team_id', '=', $team_id], ['recipient', '=', Auth::id()]])->update(['state' => strval($action_type)])) {
+            return redirect()->back()->withErrors([
+                'edit_fail' => '動作更新失敗。',
+            ]);
+        }
+        $action_type == 'accept' ? $action_type = '接受' : $action_type = '拒絕';
+        return redirect()->back()->with('edit_success', "動作成功! 已" . $action_type . "該邀請。");
     }
 
     /**
