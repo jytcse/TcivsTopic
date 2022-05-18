@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+//Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//    return (int) $user->id === (int) $id;
+//});
+
+//只有有自己可以讀取收件夾
+Broadcast::channel('User.Message.box.{id}', function ($user, $id) {
+    return (int)$user->id === (int)$id;
 });

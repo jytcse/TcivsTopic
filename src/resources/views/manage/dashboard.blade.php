@@ -69,5 +69,11 @@
     </div>
 @endsection
 @section('script')
-
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        Echo.private('User.Message.box.{{ auth()->id() }}')
+            .listen('NewInviteMessage', (e) => {
+                console.log(e);
+            });
+    </script>
 @endsection
