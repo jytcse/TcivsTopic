@@ -76,5 +76,63 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    Echo.private('User.Message.box.{{ auth()->id() }}')
+        .listen('Invite', (e) => {
+            console.log(e);
+            document.querySelector('#inbox_number').textContent = e.invite_info['inbox_number'] + 1;
+            document.querySelector('#inbox_number').classList.remove('d-none');
+            document.querySelector('#inbox_number').classList.add('position-absolute', 'top-50', 'end-0', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
+            @if(Route::currentRouteName()=='inbox')
+            console.log(document.querySelectorAll('#inbox_table_body tr').length);
+            let team_data = e.invite_info['team_data'];
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>
+                ${(e.invite_info['inbox_number'] + 1)}
+            </td>
+            <td>
+                ${team_data['classmodel']['years']}年${team_data['classmodel']['class_type']}班
+            </td>
+            <td>
+                ${team_data['teamleader']['user']['name']}
+            </td>
+            <td>
+                無
+            </td>
+            <td>
+                <button type="button" class="btn btn-success action_button" data-bs-toggle="modal"
+                        data-type="accept" data-bs-target="#actionModal" value="${team_data['id']}">加入
+                </button>
+                <button type="button" class="btn btn-danger action_button" data-bs-toggle="modal"
+                        data-type="reject" data-bs-target="#actionModal" value="${team_data['id']}">拒絕
+                </button>
+            </td>
+            `;
+
+
+            document.querySelector('#inbox_table_body').appendChild(tr);
+            document.querySelector('#invite_dont_exist').classList.add('d-none');
+            const confirm_button = document.querySelector('#confirm_button');
+            document.querySelectorAll('.action_button').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    action_modal_body.innerText = '';
+                    switch (btn.dataset.type) {
+                        case 'accept':
+                            action_modal_body.innerText = `你確定要 接受 這則邀請嗎?`;
+                            confirm_button.dataset.type = 'accept';
+                            break;
+                        case 'reject':
+                            action_modal_body.innerText = `你確定要 拒絕 這則邀請嗎?`;
+                            confirm_button.dataset.type = 'reject';
+                            break;
+                    }
+                    confirm_button.dataset.targetId = btn.value;
+                });
+            });
+            @endif
+        });
+</script>
 </body>
 </html>

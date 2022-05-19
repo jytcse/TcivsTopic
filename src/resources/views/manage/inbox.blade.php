@@ -47,7 +47,7 @@
                 <th>動作</th>
             </tr>
             </thead>
-            <tbody class="align-middle">
+            <tbody id="inbox_table_body" class="align-middle">
             {{--            @dd($team_invite);--}}
 
             @if($team_invite!=null)
@@ -88,7 +88,7 @@
                     </tr>
                 @endforeach
             @else
-                <tr>
+                <tr id="invite_dont_exist">
                     <td colspan="5" class="text-center"><h5 class="mb-0">Oops! 這邊好像空空的，晚點再回來看看吧!</h5></td>
                 </tr>
             @endif
@@ -135,7 +135,6 @@
                         break;
                 }
                 confirm_button.dataset.targetId = btn.value;
-
             });
         });
 

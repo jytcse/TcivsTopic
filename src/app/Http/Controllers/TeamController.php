@@ -204,7 +204,8 @@ class TeamController extends Controller
             if ($request->student_id != null) {
                 //建立事件 並通知使用者
                 foreach ($request->student_id as $student_id) {
-                    event(new Invite(["team_id" => strval($team->id), "recipient" => strval($student_id)]));
+                    $new_team_data = Team::query()->where('id', '=', $team->id)->with('classmodel', 'teamleader.user')->get()[0];
+                    event(new Invite(["team_id" => strval($team->id), "recipient" => strval($student_id), "team_data" => $new_team_data, "inbox_number" => TeamInvite::query()->where([['recipient', '=', $student_id], ['state', '=', 'pending']])->count()]));
                 }
             }
             return redirect()->route('my_team')->with('insert_success', "新增組別成功! 你是組長，加油!");
@@ -253,7 +254,8 @@ class TeamController extends Controller
             if ($request->student_id != null) {
                 //建立事件 並通知使用者
                 foreach ($request->student_id as $student_id) {
-                    event(new Invite(["team_id" => strval($team->id), "recipient" => strval($student_id)]));
+                    $new_team_data = Team::query()->where('id', '=', $team->id)->with('classmodel', 'teamleader.user')->get()[0];
+                    event(new Invite(["team_id" => strval($team->id), "recipient" => strval($student_id), "team_data" => $new_team_data, "inbox_number" => TeamInvite::query()->where([['recipient', '=', $student_id], ['state', '=', 'pending']])->count()]));
                 }
             }
             return redirect()->back()->with('insert_success', "新增組別成功! 組長為: " . $user_query->pluck('name')[0] . "，創建者為: " . Auth::user()->name);
@@ -304,7 +306,15 @@ class TeamController extends Controller
             ]);
         };
         if ($action_type == 'reject') {
-            $team_invite_query->update(['state' => strval($action_type)]);
+            DB::beginTransaction();
+            try {
+                $team_invite_query->update(['state' => strval($action_type)]);
+                DB::commit();
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors([
+                    'reject_team_fail' => '拒絕組別時與資料庫互動失敗，請聯繫系統管理員。',
+                ]);
+            }
             return redirect()->back()->with('edit_success', "動作成功! 已拒絕該邀請。");
         }
         //加入組別前，先檢查是不是有加入過了
@@ -318,18 +328,20 @@ class TeamController extends Controller
                 'edit_fail' => '動作更新失敗。',
             ]);
         }
-        TeamInvite::query()->where([['team_id', '!=', $team_id], ['recipient', '=', Auth::id()]])->update(['state' => 'reject']);
-        $teammate = new Teammate;
-        $teammate->team_id = $team_id;
-        $teammate->user_id = Auth::id();
-        $check = $teammate->save();
-        if (!$check) {
+        DB::beginTransaction();
+        try {
+            TeamInvite::query()->where([['team_id', '!=', $team_id], ['recipient', '=', Auth::id()]])->update(['state' => 'reject']);
+            $teammate = new Teammate;
+            $teammate->team_id = $team_id;
+            $teammate->user_id = Auth::id();
+            $teammate->save();
+            DB::commit();
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors([
-                'join_team_fail' => '加入組別失敗。',
+                'join_team_fail' => '加入組別時與資料庫互動失敗，請聯繫系統管理員。',
             ]);
         }
         return redirect()->back()->with('edit_success', "動作成功! 已接受該邀請。 你現在是該組別的一員了，加油!");
-//        $action_type == 'accept' ? $action_type = '接受' : $action_type = '拒絕';
     }
 
     /**

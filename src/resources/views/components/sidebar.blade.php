@@ -20,12 +20,12 @@
                              inbox
                                     </span>
             邀請通知
+            <span id="inbox_number"
+                  class="@if($inbox_number!=0)position-absolute top-50 end-0 translate-middle badge rounded-pill bg-danger @else d-none @endif">
             @if($inbox_number!=0)
-                <span class="position-absolute top-50 end-0 translate-middle badge rounded-pill bg-danger">
-                            {{$inbox_number}}
-                        <span class="visually-hidden">新的邀請訊息</span>
+                    {{$inbox_number}}
+                @endif
                 </span>
-            @endif
         </a>
     </li>
     <li>

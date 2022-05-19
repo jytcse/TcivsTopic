@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\TeamInvite;
 use App\Models\Teammate;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -61,6 +62,22 @@ class UserApiController extends Controller
             return response()->json(['success' => false, 'message' => '找不到資源 Resource not found. ', 'status_code' => 404], 404);
         }
         return response()->json(['success' => true, 'message' => '', 'status_code' => 200, 'data' => $search_user], 200);
+    }
+
+    /**
+     * 顯示使用者接受到的邀請
+     * Show User's invite
+     *
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function show_inbox_invite($user_id): JsonResponse
+    {
+//        $team_invite_query = TeamInvite::query()->where([['recipient', '=', $user_id], ['state', '=', 'pending']]);
+//        if ($team_invite_query->count() == 0) {
+//            return response()->json(['success' => false, 'message' => '找不到資源 Resource not found. ', 'status_code' => 404], 404);
+//        }
+//        return response()->json(['success' => true, 'message' => '', 'status_code' => 200, 'data' => $team_invite_query->get()], 200);
     }
 
     /**

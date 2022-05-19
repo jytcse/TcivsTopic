@@ -55,6 +55,6 @@ class TeamLeader extends Model
     public function user()
     {
         //隊長是哪個user
-        return $this->hasOneThrough(User::class, Teammate::class, 'user_id', 'id');
+        return $this->hasOneThrough(User::class, Teammate::class, 'id', 'id', 'id', 'user_id');
     }
 }

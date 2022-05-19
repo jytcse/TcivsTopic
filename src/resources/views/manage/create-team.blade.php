@@ -139,7 +139,8 @@
                         @endforeach
                     </select>
                     <div class="alert alert-info mt-2" role="alert">
-                        若要選取不同班級的同學，請先完成同一個班級的選取，<br>並請按下右下角"完成選取"後，再切換年度班級。
+                        {{--                        若要選取不同班級的同學，請先完成同一個班級的選取，<br>並請按下右下角"完成選取"後，再切換年度班級。--}}
+                        選擇你想要邀請的同學!
                     </div>
                     <hr>
                     <div class="list-group h-100" id="user_list_container">
