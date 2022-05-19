@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class TeamLeader extends Model
+class TeamInvite extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'teamleader';
-    public $timestamps = false;
+    protected $table = 'team_invite';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +20,10 @@ class TeamLeader extends Model
      */
     protected $fillable = [
         'team_id',
-        'user_id',
+        'recipient',
+        'accept_state',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -40,21 +43,14 @@ class TeamLeader extends Model
     protected $casts = [
     ];
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'recipient');
+    }
+
     public function team()
     {
-        //隊長屬於一個隊伍
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
-    public function teammate()
-    {
-        //隊長是哪個隊員
-        return $this->hasOne(Teammate::class, 'id', 'user_id');
-    }
-
-    public function user()
-    {
-        //隊長是哪個user
-        return $this->hasOneThrough(User::class, Teammate::class, 'id', 'id', 'id', 'user_id');
-    }
 }

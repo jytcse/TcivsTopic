@@ -12,11 +12,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('teammate', function (Blueprint $table) {
+
+        Schema::create('team_invite', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('team_id')->comment('發送組別');
             $table->foreign('team_id')->references('id')->on('team')->onUpdate('cascade')->cascadeOnDelete();
-            $table->foreignId('user_id')->unique()->comment('隊員id')->constrained('users')->onUpdate('cascade')->cascadeOnDelete();
+            $table->foreignId('recipient')->comment('接受者')->constrained('users')->onUpdate('cascade')->cascadeOnDelete();
+            $table->enum('state',['pending','accept','reject'])->comment('接受狀態')->default('pending');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('teammate');
+        Schema::dropIfExists('team_invite');
     }
 };

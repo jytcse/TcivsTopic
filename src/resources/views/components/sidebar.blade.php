@@ -13,6 +13,21 @@
             我的資訊
         </a>
     </li>
+    <li class="bg-white @if(Route::currentRouteName()=='inbox') active @endif position-relative">
+        <a class="item_link d-block w-100 h-100 ps-3 text-decoration-none" href="{{ route('inbox') }}"
+           class=" w-100 h-100">
+                                <span class="material-symbols-outlined align-text-bottom">
+                             inbox
+                                    </span>
+            邀請通知
+            <span id="inbox_number"
+                  class="@if($inbox_number!=0)position-absolute top-50 end-0 translate-middle badge rounded-pill bg-danger @else d-none @endif">
+            @if($inbox_number!=0)
+                    {{$inbox_number}}
+                @endif
+                </span>
+        </a>
+    </li>
     <li>
         <div
             class=" position-relative custom_dropdown ps-3 @if(Route::currentRouteName()=='my_team' || Route::currentRouteName()=='teams' ||Route::currentRouteName()=='create_team_page') show @endif">

@@ -49,9 +49,11 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/inbox', 'inbox')->name('inbox');
     });
     Route::controller(TeamController::class)->group(function () {
-
+        //邀請通知動作處理
+        Route::get('/team/{team_id}/invite/{action_type}', 'edit')->name('edit_invite_state');
         //所有組別
         Route::get('/teams/{year?}/{class_type?}', 'index')->name('teams');
 
