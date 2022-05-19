@@ -20,7 +20,7 @@
                     </option>
                 @endforeach
             @else
-                <option disabled>沒有任何班級有組別</option>
+                <option disabled selected="selected">沒有任何班級有組別</option>
             @endif
         </select>
         <table class="table table-striped table-hover">
