@@ -39,15 +39,17 @@ class TopicController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function my_topic()
+    public function my_topic(Request $request)
     {
         //如果他沒有組別，轉跳到我的組別
         if (Teammate::query()->where('user_id', '=', Auth::id())->count() == 0) {
             return redirect()->route('my_team');
         }
+        $team_data = Teammate::query()->where('user_id', '=', Auth::id())->with('team')->get()[0];
         //
 //        dd('123');
-        return view('manage.my-topic')->with(['inbox_number' => $this->check_inbox_message_number()]);
+//        $team = Teammate:
+        return view('manage.my-topic')->with(['team_data' => $team_data, 'inbox_number' => $this->check_inbox_message_number(), 'api_token' => $request->cookie('x-access-token')]);
     }
 
     /**
