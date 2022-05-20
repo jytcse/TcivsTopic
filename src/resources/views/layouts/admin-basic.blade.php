@@ -42,7 +42,7 @@
 </head>
 <body>
 <main>
-    <div class="container">
+    <div class="container" style="height: 100vh">
         <div class="d-flex dashboard_container justify-content-center align-items-center">
             <div class="row dashboard_row">
                 <div class="col-3 left_side px-0">

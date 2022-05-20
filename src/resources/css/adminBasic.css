@@ -3,11 +3,6 @@ main {
     background-color: #EDF2F7;
 }
 
-.container {
-    height: 100vh;
-
-}
-
 .dashboard_container {
     height: 100%;
     /*border: 1px solid black;*/
