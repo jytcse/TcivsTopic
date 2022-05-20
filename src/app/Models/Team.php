@@ -58,4 +58,9 @@ class Team extends Model
         //一個隊伍有一個隊長
         return $this->hasOne(TeamLeader::class, 'team_id', 'id');
     }
+
+    public function teaminvite()
+    {
+        return $this->hasMany(TeamInvite::class, 'team_id', 'id');
+    }
 }

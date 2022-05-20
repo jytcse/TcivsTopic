@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         Invite::class => [
             SendInviteMessage::class,
-        ]
+        ],
     ];
 
     /**

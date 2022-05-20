@@ -11,7 +11,7 @@
 @section('body')
     <div>
         {{--        @dd($select_class_data);--}}
-        <select class="w-100" id="class_selector">
+        <select class="w-100 form-select" id="class_selector" >
             @if($select_class_data!=null)
                 @foreach($select_class_data as $data)
                     <option data-year="{{$data->years}}"

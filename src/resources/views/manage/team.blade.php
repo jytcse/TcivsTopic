@@ -34,6 +34,73 @@
                 </div>
             </div>
         @endif
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h3>我的組別</h3>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" disabled
+                               value="{{$team->team->teamleader->user->name}}">
+                        <label for="floatingInput">組長</label>
+                    </div>
+                    {{--                    <div class=" mb-3">--}}
+                    {{--                        <label for="floatingInput"><h6>組長</h6></label>--}}
+                    {{--                        <input type="text" class="form-control" disabled--}}
+                    {{--                               value="{{$team->team->teamleader->user->name}}">--}}
+                    {{--                    </div>--}}
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" disabled
+                               value="{{count($team->team->teammates)}}">
+                        <label for="floatingInput">組員人數</label>
+                    </div>
+                    {{--                    <div class="alert alert-info" role="alert">--}}
+                    {{--                        A simple info alert—check it out!--}}
+                    {{--                    </div>--}}
+                </div>
+                <div class="col-6">
+                    <h3>組員列表</h3>
+                    <ol class="list-group list-group-numbered">
+                        @foreach($team->team->teaminvite as $invite_data)
+                            @switch($invite_data->state)
+                                @case('accept')
+                                <li class="list-group-item">{{$invite_data->user->name}}<span
+                                        id="invite_state_{{$invite_data->user->id}}">(已加入)</span></li>
+                                @break
+                                @case('pending')
+                                <li class="list-group-item">{{$invite_data->user->name}}<span
+                                        id="invite_state_{{$invite_data->user->id}}">(邀請中)</span></li>
+                                @break;
+                                @case('reject')
+                                <li class="list-group-item">{{$invite_data->user->name}}<span
+                                        id="invite_state_{{$invite_data->user->id}}">(已拒絕)</span></li>
+                                @break;
+                            @endswitch
+                        @endforeach
+                    </ol>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-6">
+                    <h3>專題</h3>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" disabled value="無">
+                        <label for="floatingInput">專題名稱</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" disabled style="height: 100px">無</textarea>
+                        <label for="floatingTextarea2">專題內容</label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    @if(auth()->id() === $team->team->teamleader->teammate->user_id)
+                        <h3>組別設定</h3>
+                        <button type="button" class="btn btn-danger" value="{{$team->team->id}}">刪除組別</button>
+                    @endif
+                </div>
+            </div>
+        </div>
     @endif
 @endsection
 @section('script')

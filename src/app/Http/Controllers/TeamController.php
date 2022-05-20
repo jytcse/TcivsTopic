@@ -95,7 +95,8 @@ class TeamController extends Controller
      */
     public function my_team_index(): View|Factory|Application
     {
-        $team = Team::with('classmodel', 'teammates.user', 'teamleader.teammate.user')->get();
+        $team = Teammate::query()->where('user_id','=',Auth::id())->with('team','team.teaminvite.user','team.teamleader.teammate.user','team.teammates','team.classmodel')->get()[0];
+//        $team = Team::query()->where('id','=','')->with('classmodel', 'teammates.user', 'teamleader.user', 'teaminvite')->get();
         return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state()), 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
