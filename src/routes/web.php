@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\TopicController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +63,11 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
         //建立組別
         Route::get('/team/create', 'create_team_page')->name('create_team_page');
         Route::post('/team/create', 'store')->name('post_create_team')->middleware('auth:sanctum');
+    });
+    Route::controller(TopicController::class)->group(function () {
+        //我的組別
+        Route::get('/topic', 'my_topic')->name('my_topic');
+
     });
 
     //我的組別

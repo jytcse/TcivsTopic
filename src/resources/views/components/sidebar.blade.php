@@ -28,36 +28,6 @@
                 </span>
         </a>
     </li>
-{{--    <li>--}}
-{{--        <div--}}
-{{--            class=" position-relative custom_dropdown ps-3 @if(Route::currentRouteName()=='my_team' || Route::currentRouteName()=='teams' ||Route::currentRouteName()=='create_team_page') show @endif">--}}
-{{--                                    <span class="material-symbols-outlined align-middle">--}}
-{{--                                        group--}}
-{{--                                    </span>--}}
-{{--            組別--}}
-{{--            <div class=" position-absolute  top-50 end-0 translate-middle-y me-3">--}}
-{{--                                        <span--}}
-{{--                                            class="material-symbols-outlined">--}}
-{{--                                        arrow_drop_down--}}
-{{--                                    </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <ul class="sub_ul">--}}
-{{--            @if(Route::currentRouteName()=='create_team_page' ||auth()->user()->identity_id==2)--}}
-{{--                <li class="@if(Route::currentRouteName()=='create_team_page') active @endif"><a--}}
-{{--                        class="item_link text-decoration-none"--}}
-{{--                        href="{{ route('create_team_page') }}">建立組別</a></li>--}}
-{{--            @endif--}}
-{{--            @if(auth()->user()->identity_id==1)--}}
-{{--                <li class="@if(Route::currentRouteName()=='my_team') active @endif"><a--}}
-{{--                        class="item_link text-decoration-none"--}}
-{{--                        href="{{ route('my_team') }}">我的組別</a></li>--}}
-{{--            @endif--}}
-{{--            <li class="@if(Route::currentRouteName()=='teams') active @endif"><a class="item_link text-decoration-none"--}}
-{{--                                                                                 href="{{ route('teams') }}">所有組別</a>--}}
-{{--            </li>--}}
-{{--        </ul>--}}
-{{--    </li>--}}
     <li class="accordion accordion-flush" id="accordionFlush">
         <div class="accordion-item border-0">
             <h2 class="accordion-header" id="flush-headingTeam">
@@ -69,7 +39,9 @@
                     組別
                 </button>
             </h2>
-            <div id="flush-collapseTeam" class="accordion-collapse collapse @if(Route::currentRouteName()=='my_team' || Route::currentRouteName()=='teams' ||Route::currentRouteName()=='create_team_page') show @endif" aria-labelledby="flush-headingTeam"
+            <div id="flush-collapseTeam"
+                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_team' || Route::currentRouteName()=='teams' ||Route::currentRouteName()=='create_team_page') show @endif"
+                 aria-labelledby="flush-headingTeam"
                  data-bs-parent="#accordionFlush">
                 <div class="accordion-body p-0">
                     <ul class="list-group">
@@ -101,39 +73,44 @@
                     專題
                 </button>
             </h2>
-            <div id="flush-collapseTopic" class="accordion-collapse collapse" aria-labelledby="flush-headingTopic"
+            <div id="flush-collapseTopic"
+                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_topic') show @endif"
+                 aria-labelledby="flush-headingTopic"
                  data-bs-parent="#accordionFlush">
                 <div class="accordion-body p-0">
                     <ul class="list-group">
-                        <li><a class="item_link text-decoration-none"
-                               href="{{ route('dashboard') }}">我的專題</a></li>
-                        <li><a class="item_link text-decoration-none"
-                               href="{{ route('dashboard') }}">所有專題</a></li>
+
+                        <li class="@if(Route::currentRouteName()=='my_topic') active @endif"><a
+                                class="item_link text-decoration-none "
+                                href="{{ route('my_topic') }}">我的專題</a></li>
+                        <li class="@if(Route::currentRouteName()=='all_topic') active @endif"><a
+                                class="item_link text-decoration-none"
+                                href="{{ route('dashboard') }}">所有專題</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </li>
-{{--    <li>--}}
-{{--        <div class=" position-relative custom_dropdown ps-3">--}}
-{{--                                    <span class="material-symbols-outlined align-middle">--}}
-{{--                                    topic--}}
-{{--                                    </span>--}}
-{{--            專題--}}
-{{--            <div class=" position-absolute  top-50 end-0 translate-middle-y me-3">--}}
-{{--                                        <span--}}
-{{--                                            class="material-symbols-outlined">--}}
-{{--                                        arrow_drop_down--}}
-{{--                                    </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <ul class="sub_ul">--}}
-{{--            <li><a class="item_link text-decoration-none"--}}
-{{--                   href="{{ route('dashboard') }}">我的專題</a></li>--}}
-{{--            <li><a class="item_link text-decoration-none"--}}
-{{--                   href="{{ route('dashboard') }}">所有專題</a></li>--}}
-{{--        </ul>--}}
-{{--    </li>--}}
+    {{--    <li>--}}
+    {{--        <div class=" position-relative custom_dropdown ps-3">--}}
+    {{--                                    <span class="material-symbols-outlined align-middle">--}}
+    {{--                                    topic--}}
+    {{--                                    </span>--}}
+    {{--            專題--}}
+    {{--            <div class=" position-absolute  top-50 end-0 translate-middle-y me-3">--}}
+    {{--                                        <span--}}
+    {{--                                            class="material-symbols-outlined">--}}
+    {{--                                        arrow_drop_down--}}
+    {{--                                    </span>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--        <ul class="sub_ul">--}}
+    {{--            <li><a class="item_link text-decoration-none"--}}
+    {{--                   href="{{ route('dashboard') }}">我的專題</a></li>--}}
+    {{--            <li><a class="item_link text-decoration-none"--}}
+    {{--                   href="{{ route('dashboard') }}">所有專題</a></li>--}}
+    {{--        </ul>--}}
+    {{--    </li>--}}
 
     <li class="bg-white">
         <a href="{{ route('home') }}"
