@@ -65,7 +65,7 @@ class TopicApiController extends Controller
 //        return $request['info'];
         //
 //        return  $request->all();
-        event(new TopicEdit(['team_id'=>$request->info['team_id'],"wrapper"=>$request->all()]));
+        event(new TopicEdit(['team_id' => $request->info['team_id'], "wrapper" => $request->all()]));
         return response()->json(['success' => true, 'message' => '', 'status_code' => 200, 'data' => $request->info['team_id']], 200);
     }
 

@@ -55,7 +55,7 @@
                     <label for="topic_content">專題內容</label>
                     <textarea class="form-control mt-2 ckeditor "
                               id="topic_content"
-                              style="height: 100px">無</textarea>
+                              style="height: 100px"></textarea>
                 </div>
             </div>
         </div>
@@ -63,20 +63,10 @@
 @endsection
 @section('script')
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        let editor;
-        ClassicEditor.create(document.querySelector('#topic_content'), {
-            // 這裡可以設定 plugin
-        })
-            .then(newEditor => {
-                editor = newEditor;
-                // console.log('Editor was initialized', newEditor);
-            })
-            .catch(err => {
-                console.error(err.stack);
-            });
-    </script>
-    <script>
+
+
         const api_token = '{{$api_token}}';
         const target_url = '{{route('home')}}/api/';
         const team_id = '{{ $team_data->team->id  }}';
@@ -100,11 +90,11 @@
 
             });
         });
-        editor.model.document.on('change:data', () => {
+        // editor.on('change', function (event) {
+        //     // change event in CKEditor 4.x
+        //     console.log('123');
+        // });
 
-            send_data(team_id);
-
-        });
         // document.querySelector('#topic_content').addEventListener('keyup', () => {
         //     console.log(this.value);
         // });
@@ -137,9 +127,21 @@
                     console.log(json);
                 }).catch();
         }
-    </script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script>
+
+        let editor;
+        ClassicEditor.create(document.querySelector('#topic_content'), {
+            // 這裡可以設定 plugin
+        })
+            .then(newEditor => {
+                editor = newEditor;
+                editor.editing.view.document.on('keyup', (evt, data) => {
+                    // console.log(data);
+                    send_data(team_id);
+                });
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
         Echo.private('Topic.Edit.{{$team_data->team_id}}')
             .listen('TopicEdit', (e) => {
                 console.log(e);
@@ -147,6 +149,7 @@
                     topic_name.value = e.topic.wrapper.topic_data.topic_name;
                     topic_keyword.value = e.topic.wrapper.topic_data.topic_keyword;
                     topic_motivation.value = e.topic.wrapper.topic_data.topic_motivation;
+                    editor.setData(e.topic.wrapper.topic_data.topic_content);
                 }
             });
     </script>
