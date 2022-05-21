@@ -77,27 +77,18 @@
         const topic_data_input = document.querySelectorAll('.topic_data_input');
         topic_data_input.forEach((item) => {
             // console.log(item);
-            $counter = 0;
+            let before_data;
+            item.addEventListener('keydown', (e) => {
+                before_data = item.value;
+            });
             item.addEventListener('keyup', (e) => {
-                // console.log(item.value);
-                // if ($counter == 5) {
-                //
-                send_data(team_id);
-                // $counter = 0;
-                // } else {
-                //     $counter += 1;
-                // }
-
+                // console.log(after_data === before_data);
+                if (item.value !== before_data) {
+                    send_data(team_id);
+                }
             });
         });
-        // editor.on('change', function (event) {
-        //     // change event in CKEditor 4.x
-        //     console.log('123');
-        // });
 
-        // document.querySelector('#topic_content').addEventListener('keyup', () => {
-        //     console.log(this.value);
-        // });
 
         function send_data(team_id) {
             fetch(target_url + 'team/' + team_id + '/topic/edit', {
@@ -149,7 +140,11 @@
                     topic_name.value = e.topic.wrapper.topic_data.topic_name;
                     topic_keyword.value = e.topic.wrapper.topic_data.topic_keyword;
                     topic_motivation.value = e.topic.wrapper.topic_data.topic_motivation;
-                    editor.setData(e.topic.wrapper.topic_data.topic_content);
+                    if (e.topic.wrapper.topic_data.topic_content != null) {
+                        editor.setData(e.topic.wrapper.topic_data.topic_content);
+                    } else {
+                        editor.setData('<p><br data-cke-filler="true"></p>');
+                    }
                 }
             });
     </script>
