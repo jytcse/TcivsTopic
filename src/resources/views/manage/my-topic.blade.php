@@ -62,11 +62,10 @@
     </div>
 @endsection
 @section('script')
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+{{--    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>--}}
+<script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-
-
         const api_token = '{{$api_token}}';
         const target_url = '{{route('home')}}/api/';
         const team_id = '{{ $team_data->team->id  }}';
@@ -122,6 +121,7 @@
         let editor;
         ClassicEditor.create(document.querySelector('#topic_content'), {
             // 這裡可以設定 plugin
+            
         })
             .then(newEditor => {
                 editor = newEditor;
