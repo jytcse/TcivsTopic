@@ -46,7 +46,8 @@
             </div>
             <div class="col-lg-6 order-sm-1 order-lg-2 mb-sm-4 mb-lg-0">
                 <h2>封面圖</h2>
-                <img src="@if(trim($topic_database_data->topic_thumbnail) !=null) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
+                <img
+                    src="@if(trim($topic_database_data->topic_thumbnail) !=null) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
                 <div class="alert alert-info mt-3" role="alert">
                     A simple info alert—check it out!
                 </div>
@@ -111,7 +112,7 @@
                 callback: (imagesSrc, nodeObjects) => {
                     // imagesSrc
                     send_delete_data(imagesSrc);
-                    // console.log('callback called', imagesSrc, nodeObjects)
+                    console.log('callback called', imagesSrc, nodeObjects)
                 }
             },
         })
@@ -121,6 +122,13 @@
                     // console.log(data);
                     topic_data['topic_content'] = editor.getData();
                     send_data(team_id, 'edit');
+                });
+                editor.editing.view.document.on('blur', (evt, data) => {
+                    // console.log(data);
+                    console.log('blur');
+                    topic_data['topic_content'] = editor.getData();
+                    // send_data(team_id, 'edit');
+                    send_data(team_id, 'save');
                 });
             })
             .catch(err => {
@@ -149,7 +157,7 @@
                     return response.json();
                 })
                 .then(function (json) {
-                    console.log(json);
+                    // console.log(json);
                 }).catch();
         }
 
@@ -184,7 +192,7 @@
 
         Echo.private('Topic.Edit.{{$team_data->team_id}}')
             .listen('TopicEdit', (e) => {
-                console.log(e);
+                // console.log(e);
                 if (e.topic.wrapper.info.user_id != user_id) {
                     let remote_topic_data = e.topic.wrapper.topic_data;
                     undefinedChecker(remote_topic_data.topic_name, topic_name);
@@ -193,9 +201,10 @@
                     if (remote_topic_data.topic_content !== undefined) {
                         if (remote_topic_data.topic_content == null) {
                             editor.setData('<p><br data-cke-filler="true"></p>');
-                        }
+                        }else{
                         editor.setData(remote_topic_data.topic_content);
-                        topic_data = {};
+                            topic_data = {};
+                        }
                     }
                 }
             });
