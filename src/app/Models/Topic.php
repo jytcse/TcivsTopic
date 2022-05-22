@@ -44,4 +44,10 @@ class Topic extends Model
      */
     protected $casts = [
     ];
+
+    public function keywords()
+    {
+        //一個專題有多個關鍵詞
+        return $this->hasMany(TopicKeyword::class, 'topic_id', 'id');
+    }
 }

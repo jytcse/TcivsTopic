@@ -26,24 +26,27 @@
             <div class="col-lg-6 order-sm-2 order-lg-2">
                 <h2>我的專題</h2>
                 <div class="form-floating mb-3">
-                    <input type="text" class="topic_data_input form-control" id="topic_name" required>
+                    <input type="text" class="topic_data_input form-control" id="topic_name"
+                           value="@if(isset($topic_database_data->topic_name)) {{ $topic_database_data->topic_name }} @endif"
+                           required>
                     <label for="topic_name">專題名稱</label>
                 </div>
                 <div class="mb-3">
                     <label for="topic_keyword">關鍵詞 (用,隔開)</label>
                     <input id="topic_keyword" type="text" class="topic_data_input form-control mt-2"
-                           placeholder="例如:ESP32,C#" value="無">
+                           placeholder="例如:ESP32,C#"
+                           value="@if(isset($topic_database_data->keywords))@foreach($topic_database_data->keywords as $keyword)@if($loop->first){{ trim($keyword->keyword) }}@else,{{trim($keyword->keyword)}}@endif @endforeach @endif">
                 </div>
                 <div class="mb-3">
                     <label for="topic_motivation">動機</label>
                     <textarea id="topic_motivation" class="topic_data_input form-control mt-2"
-                              style="height: 100px">無</textarea>
+                              style="height: 100px">@if(isset($topic_database_data->topic_motivation)){{ $topic_database_data->topic_motivation }}@endif</textarea>
                 </div>
 
             </div>
             <div class="col-lg-6 order-sm-1 order-lg-2 mb-sm-4 mb-lg-0">
                 <h2>封面圖</h2>
-                <img src="https://fakeimg.pl/440x200/">
+                <img src="@if(trim($topic_database_data->topic_thumbnail) !=null) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
                 <div class="alert alert-info mt-3" role="alert">
                     A simple info alert—check it out!
                 </div>
@@ -55,7 +58,7 @@
                     <label for="topic_content">專題內容</label>
                     <textarea class="form-control mt-2 ckeditor "
                               id="topic_content"
-                              style="height: 100px"></textarea>
+                              style="height: 100px">@if(isset($topic_database_data->topic_content)){{ $topic_database_data->topic_content }}@endif</textarea>
                 </div>
             </div>
         </div>
@@ -76,8 +79,12 @@
         const topic_data_input = document.querySelectorAll('.topic_data_input');
         let focus_on;
         let topic_data = {};
+        let before_data;
         topic_data_input.forEach((item) => {
-            let before_data;
+            item.addEventListener('focusout', (e) => {
+                // topic_data[item.id] = item.value;
+                send_data(team_id, 'save');
+            });
             item.addEventListener('keydown', (e) => {
                 before_data = item.value;
             });
@@ -86,9 +93,11 @@
                 if (item.value !== before_data) {
                     // typeof item.id;
                     topic_data[item.id] = item.value;
-                    send_data(team_id);
+                    send_data(team_id, 'edit');
                     // console.log(typeof item.id)
                     // console.log(changed_data);
+                } else {
+                    topic_data = null;
                 }
             });
         });
@@ -111,7 +120,7 @@
                 editor.editing.view.document.on('keyup', (evt, data) => {
                     // console.log(data);
                     topic_data['topic_content'] = editor.getData();
-                    send_data(team_id);
+                    send_data(team_id, 'edit');
                 });
             })
             .catch(err => {
@@ -119,7 +128,7 @@
             });
 
 
-        function send_data(team_id) {
+        function send_data(team_id, method) {
             let data_body = {
                 topic_data,
                 'info': {
@@ -127,7 +136,7 @@
                     'team_id': team_id,
                 }
             };
-            fetch(target_url + 'team/' + team_id + '/topic/edit', {
+            fetch(target_url + 'team/' + team_id + '/topic/' + method, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + api_token,
@@ -137,10 +146,10 @@
                 body: JSON.stringify(data_body),
             })
                 .then(function (response) {
-                    // return response.json();
+                    return response.json();
                 })
                 .then(function (json) {
-                    // console.log(json);
+                    console.log(json);
                 }).catch();
         }
 

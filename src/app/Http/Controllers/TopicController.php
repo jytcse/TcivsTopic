@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TeamInvite;
 use App\Models\Teammate;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -46,10 +47,14 @@ class TopicController extends Controller
             return redirect()->route('my_team');
         }
         $team_data = Teammate::query()->where('user_id', '=', Auth::id())->with('team')->get()[0];
+        $team_id = Teammate::query()->where('user_id', '=', Auth::id())->pluck('team_id')[0];
+//        dd($team_id);
+        $topic_database_data = Topic::query()->where('team_id', '=', $team_id)->with('keywords')->get()[0];
+//        dd($topic_database_data);
         //
 //        dd('123');
 //        $team = Teammate:
-        return view('manage.my-topic')->with(['team_data' => $team_data, 'inbox_number' => $this->check_inbox_message_number(), 'api_token' => $request->cookie('x-access-token')]);
+        return view('manage.my-topic')->with(['team_data' => $team_data, 'topic_database_data' => $topic_database_data, 'inbox_number' => $this->check_inbox_message_number(), 'api_token' => $request->cookie('x-access-token')]);
     }
 
     /**
