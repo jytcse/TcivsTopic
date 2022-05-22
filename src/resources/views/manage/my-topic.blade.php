@@ -224,6 +224,16 @@
         ClassicEditor.create(document.querySelector('#topic_content'), {
             // 這裡可以設定 plugin
             extraPlugins: [ MyCustomUploadAdapterPlugin ],
+            imageRemoveEvent: {
+                additionalElementTypes: null, // Add additional element types to invoke callback events. Default is null and it's not required. Already included ['image','imageBlock','inlineImage']
+                // additionalElementTypes: ['image', 'imageBlock', 'inlineImage'], // Demo to write additional element types
+                callback: (imagesSrc, nodeObjects) => {
+                    // note: imagesSrc is array of src & nodeObjects is array of nodeObject
+                    // node object api: https://ckeditor.com/docs/ckeditor5/latest/api/module_engine_model_node-Node.html
+
+                    console.log('callback called', imagesSrc, nodeObjects)
+                }
+            },
         })
             .then(newEditor => {
                 editor = newEditor;

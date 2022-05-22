@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/class/{class_id}/user/available', [User
 
 Route::middleware('auth:sanctum')->post('/team/{team_id}/topic/edit', [TopicApiController::class, 'edit'])->name('topic_edit');
 
-
+Route::middleware('auth:sanctum')->post('/ckeditor/image/upload',[\App\Http\Controllers\ImageController::class,'ckeditor_store'])->name('ckeditor_image_upload');
+Route::middleware('auth:sanctum')->post('/ckeditor/image/delete',[\App\Http\Controllers\ImageController::class,'ckeditor_destroy'])->name('ckeditor_image_delete');
 ////取的使用者的邀請
 //Route::middleware('auth:sanctum')->get('/user/{user_id}/inbox', [UserApiController::class, 'show_inbox_invite'])->name('get_invite_info');
