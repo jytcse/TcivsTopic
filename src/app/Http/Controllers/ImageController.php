@@ -43,9 +43,9 @@ class ImageController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function ckeditor_destroy(Request $request): JsonResponse
+    public function ckeditor_destroy(Request $request)
     {
-        $path = str_replace('/storage', '/public', $request->img_path);
+        $path = str_replace('/storage', '/public', $request->path[0]);
         if (Storage::exists($path)) {
             Storage::delete($path);
             return response()->json(['success' => true, 'message' => ''], 200);
