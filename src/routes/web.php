@@ -84,5 +84,6 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
 //    Route::get('/topic', function () {
 //        return view('manage.topic');
 //    });
-
+    Route::post('/ckeditor/image/upload',[\App\Http\Controllers\ImageController::class,'ckeditor_store'])->name('ckeditor_image_upload');
 });
+
