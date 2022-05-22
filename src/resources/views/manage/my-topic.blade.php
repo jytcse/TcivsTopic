@@ -74,8 +74,9 @@
         const topic_keyword = document.querySelector('#topic_keyword');
         const topic_motivation = document.querySelector('#topic_motivation');
         const topic_data_input = document.querySelectorAll('.topic_data_input');
+        let focus_on;
+        let topic_data = {};
         topic_data_input.forEach((item) => {
-            // console.log(item);
             let before_data;
             item.addEventListener('keydown', (e) => {
                 before_data = item.value;
@@ -83,13 +84,49 @@
             item.addEventListener('keyup', (e) => {
                 // console.log(after_data === before_data);
                 if (item.value !== before_data) {
+                    // typeof item.id;
+                    topic_data[item.id] = item.value;
                     send_data(team_id);
+                    // console.log(typeof item.id)
+                    // console.log(changed_data);
                 }
             });
         });
+        let editor;
+        ClassicEditor.create(document.querySelector('#topic_content'), {
+            // 這裡可以設定 plugin
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            imageRemoveEvent: {
+                additionalElementTypes: null, // Add additional element types to invoke callback events. Default is null and it's not required. Already included ['image','imageBlock','inlineImage']
+                // additionalElementTypes: ['image', 'imageBlock', 'inlineImage'], // Demo to write additional element types
+                callback: (imagesSrc, nodeObjects) => {
+                    // imagesSrc
+                    send_delete_data(imagesSrc);
+                    // console.log('callback called', imagesSrc, nodeObjects)
+                }
+            },
+        })
+            .then(newEditor => {
+                editor = newEditor;
+                editor.editing.view.document.on('keyup', (evt, data) => {
+                    // console.log(data);
+                    topic_data['topic_content'] = editor.getData();
+                    send_data(team_id);
+                });
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
 
 
         function send_data(team_id) {
+            let data_body = {
+                topic_data,
+                'info': {
+                    'user_id': user_id,
+                    'team_id': team_id,
+                }
+            };
             fetch(target_url + 'team/' + team_id + '/topic/edit', {
                 method: 'POST',
                 headers: {
@@ -97,18 +134,7 @@
                     'X-CSRF-TOKEN': '{{csrf_token()}}',
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    'topic_data': {
-                        'topic_name': topic_name.value,
-                        'topic_keyword': topic_keyword.value,
-                        'topic_motivation': topic_motivation.value,
-                        'topic_content': editor.getData(),
-                    },
-                    'info': {
-                        'user_id': user_id,
-                        'team_id': team_id,
-                    }
-                })
+                body: JSON.stringify(data_body),
             })
                 .then(function (response) {
                     // return response.json();
@@ -138,41 +164,29 @@
                 }).catch();
         }
 
-        let editor;
-        ClassicEditor.create(document.querySelector('#topic_content'), {
-            // 這裡可以設定 plugin
-            extraPlugins: [MyCustomUploadAdapterPlugin],
-            imageRemoveEvent: {
-                additionalElementTypes: null, // Add additional element types to invoke callback events. Default is null and it's not required. Already included ['image','imageBlock','inlineImage']
-                // additionalElementTypes: ['image', 'imageBlock', 'inlineImage'], // Demo to write additional element types
-                callback: (imagesSrc, nodeObjects) => {
-                    // imagesSrc
-                    send_delete_data(imagesSrc);
-                    // console.log('callback called', imagesSrc, nodeObjects)
-                }
-            },
-        })
-            .then(newEditor => {
-                editor = newEditor;
-                editor.editing.view.document.on('keyup', (evt, data) => {
-                    // console.log(data);
-                    send_data(team_id);
-                });
-            })
-            .catch(err => {
-                console.error(err.stack);
-            });
+        function undefinedChecker(value, target) {
+            if (value !== undefined) {
+                target.value = value;
+                topic_data = {};
+                return true;
+            }
+            return false;
+        }
+
         Echo.private('Topic.Edit.{{$team_data->team_id}}')
             .listen('TopicEdit', (e) => {
                 console.log(e);
                 if (e.topic.wrapper.info.user_id != user_id) {
-                    topic_name.value = e.topic.wrapper.topic_data.topic_name;
-                    topic_keyword.value = e.topic.wrapper.topic_data.topic_keyword;
-                    topic_motivation.value = e.topic.wrapper.topic_data.topic_motivation;
-                    if (e.topic.wrapper.topic_data.topic_content != null) {
-                        editor.setData(e.topic.wrapper.topic_data.topic_content);
-                    } else {
-                        editor.setData('<p><br data-cke-filler="true"></p>');
+                    let remote_topic_data = e.topic.wrapper.topic_data;
+                    undefinedChecker(remote_topic_data.topic_name, topic_name);
+                    undefinedChecker(remote_topic_data.topic_keyword, topic_keyword);
+                    undefinedChecker(remote_topic_data.topic_motivation, topic_motivation);
+                    if (remote_topic_data.topic_content !== undefined) {
+                        if (remote_topic_data.topic_content == null) {
+                            editor.setData('<p><br data-cke-filler="true"></p>');
+                        }
+                        editor.setData(remote_topic_data.topic_content);
+                        topic_data = {};
                     }
                 }
             });
