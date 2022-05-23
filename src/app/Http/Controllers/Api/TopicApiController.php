@@ -7,11 +7,15 @@ use App\Events\TopicEdit;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Models\TeamInvite;
+use App\Models\Teammate;
 use App\Models\Topic;
 use App\Models\TopicKeyword;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class TopicApiController extends Controller
 {
@@ -38,7 +42,7 @@ class TopicApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,6 +62,44 @@ class TopicApiController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function upload_thumbnail(Request $request)
+    {
+        //
+        if (!$request->hasFile('thumbnail')) {
+            return response()->json(["success" => false, "message" => '沒有上傳檔案.', "data" => null], 400);
+        }
+        $validator = Validator::make($request->all(), ['thumbnail' => ['image', 'required']]);
+        if ($validator->fails()) {
+            return response()->json(["success"=>false,'message'=>'Not Acceptable.',"data" => null], 406);
+        }
+        if (Teammate::query()->where('user_id','=',Auth::id())->count()==0){
+            return response()->json(["success"=>false,'message'=>'Team not found',"data" => null], 404);
+        }
+        $team_id = Teammate::query()->where('user_id','=',Auth::id())->pluck('team_id')[0];
+        $path = $request->file('thumbnail')->store('thumbnail', 'public');
+        $topic_query = Topic::query()->where('team_id','=',$team_id);
+        //更新圖片，要把舊的刪除
+        if ($topic_query->pluck('topic_thumbnail')[0]!=null){
+
+        $before_path = str_replace('/storage', '/public', $topic_query->pluck('topic_thumbnail')[0]);
+            if (Storage::exists($before_path)) {
+                Storage::delete($before_path);
+//                return response()->json(['success' => true, 'message' => ''], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'resource not found'], 404);
+            }
+        }
+        Topic::query()->where('team_id','=',$team_id)->update(['topic_thumbnail'=>Storage::url($path)]);
+        return response()->json(["success"=>true,'message'=>'Upload success.',"data" => Storage::url($path)], 200);
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param Request $request
@@ -74,7 +116,7 @@ class TopicApiController extends Controller
      * 儲存專題資料
      * save topic data.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return JsonResponse
      */
     public function save(Request $request)

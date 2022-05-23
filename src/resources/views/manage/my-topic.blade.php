@@ -40,16 +40,23 @@
                 <div class="mb-3">
                     <label for="topic_motivation">動機</label>
                     <textarea id="topic_motivation" class="topic_data_input form-control mt-2"
-                              style="height: 100px">@if(isset($topic_database_data->topic_motivation)){{ $topic_database_data->topic_motivation }} @endif</textarea>
+                              style="height: 200px">@if(isset($topic_database_data->topic_motivation)){{ $topic_database_data->topic_motivation }} @endif</textarea>
                 </div>
 
             </div>
             <div class="col-lg-6 order-sm-1 order-lg-2 mb-sm-4 mb-lg-0">
                 <h2>封面圖</h2>
-                <img
-                    src="@if(isset($topic_database_data->topic_thumbnail)) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
+                <div>
+                    <label for="topic_thumbnail_upload">
+                    <img class="topic_thumbnail" id="topic_thumbnail"
+                    src="@if(isset($topic_database_data->topic_thumbnail)) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/1920x1080/?text=thumbnail @endif">
+                   <input type="file" accept="image/*" id="topic_thumbnail_upload" style="display:none">
+                    </label>
+                </div>
+
+
                 <div class="alert alert-info mt-3" role="alert">
-                    A simple info alert—check it out!
+                    點擊上方圖片來更換封面圖
                 </div>
             </div>
         </div>
@@ -66,6 +73,7 @@
     </div>
 @endsection
 @section('script')
+
     <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     @include('components/my-upload-adapter')
@@ -228,5 +236,32 @@
                     }
                 }
             });
+    </script>
+    <script>
+        const topic_thumbnail_upload = document.querySelector('#topic_thumbnail_upload');
+        topic_thumbnail_upload.addEventListener('change',(e)=>{
+            save_thumbnail_file(e.target.files[0]);
+        })
+        function save_thumbnail_file(file){
+            let form_data = new FormData();
+            form_data.append("thumbnail", file)
+            fetch(target_url + 'team/' + team_id + '/topic/thumbnail/save', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + api_token,
+                    'X-CSRF-TOKEN': '{{csrf_token()}}',
+                },
+                body: form_data,
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (json) {
+                    // console.log(json.data);
+                    document.querySelector('#topic_thumbnail').src = json.data
+                }).catch((error)=>{
+                console.log(error);
+            });
+        }
     </script>
 @endsection

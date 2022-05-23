@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/class/{class_id}/user/available', [User
 
 Route::middleware('auth:sanctum')->post('/team/{team_id}/topic/edit', [TopicApiController::class, 'edit'])->name('topic_edit');
 Route::middleware('auth:sanctum')->post('/team/{team_id}/topic/save', [TopicApiController::class, 'save'])->name('topic_save');
+Route::middleware('auth:sanctum')->post('/team/{team_id}/topic/thumbnail/save', [TopicApiController::class, 'upload_thumbnail'])->name('topic_thumbnail_upload');
 
 Route::middleware('auth:sanctum')->post('/ckeditor/image/upload',[\App\Http\Controllers\ImageController::class,'ckeditor_store'])->name('ckeditor_image_upload');
 Route::middleware('auth:sanctum')->post('/ckeditor/image/delete',[\App\Http\Controllers\ImageController::class,'ckeditor_destroy'])->name('ckeditor_image_delete');
