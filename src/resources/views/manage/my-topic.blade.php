@@ -59,7 +59,7 @@
                     <label for="topic_content">專題內容</label>
                     <textarea class="form-control mt-2 ckeditor "
                               id="topic_content"
-                              style="height: 100px">@if(isset($topic_database_data->topic_content)){{ $topic_database_data->topic_content }}@endif</textarea>
+                              style="height: 100px"></textarea>
                 </div>
             </div>
         </div>
@@ -103,33 +103,52 @@
             });
         });
         let editor;
+
         ClassicEditor.create(document.querySelector('#topic_content'), {
             // 這裡可以設定 plugin
             extraPlugins: [MyCustomUploadAdapterPlugin],
             imageRemoveEvent: {
                 additionalElementTypes: null, // Add additional element types to invoke callback events. Default is null and it's not required. Already included ['image','imageBlock','inlineImage']
                 // additionalElementTypes: ['image', 'imageBlock', 'inlineImage'], // Demo to write additional element types
+
                 callback: (imagesSrc, nodeObjects) => {
                     // imagesSrc
-                    send_delete_data(imagesSrc);
-                    console.log('callback called', imagesSrc, nodeObjects)
+                    if (focus_on) {
+                        send_delete_data(imagesSrc);
+                        console.log('callback called', imagesSrc, nodeObjects)
+                    }
                 }
             },
         })
             .then(newEditor => {
                 editor = newEditor;
+
+                @if(isset($topic_database_data->topic_content))
+                editor.setData('{!! $topic_database_data->topic_content !!}');
+                @endif
+
                 editor.editing.view.document.on('keyup', (evt, data) => {
                     // console.log(data);
                     topic_data['topic_content'] = editor.getData();
                     send_data(team_id, 'edit');
                 });
-                editor.editing.view.document.on('blur', (evt, data) => {
-                    // console.log(data);
-                    console.log('blur');
-                    topic_data['topic_content'] = editor.getData();
-                    // send_data(team_id, 'edit');
-                    send_data(team_id, 'save');
+                editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
+                    //isFocused
+                    if (value) {
+                        focus_on = true;
+                    } else {
+                        focus_on = false;
+                        topic_data['topic_content'] = editor.getData();
+                        send_data(team_id, 'save');
+                    }
+                    // console.log('editable isFocused =', value);
                 });
+                // editor.editing.view.document.on('blur', (evt, data) => {
+                //     // console.log(data);
+                //     // console.log('blur');
+                //     topic_data['topic_content'] = editor.getData();
+                //     send_data(team_id, 'save');
+                // });
             })
             .catch(err => {
                 console.error(err.stack);
@@ -192,7 +211,7 @@
 
         Echo.private('Topic.Edit.{{$team_data->team_id}}')
             .listen('TopicEdit', (e) => {
-                // console.log(e);
+                console.log(e);
                 if (e.topic.wrapper.info.user_id != user_id) {
                     let remote_topic_data = e.topic.wrapper.topic_data;
                     undefinedChecker(remote_topic_data.topic_name, topic_name);
@@ -201,8 +220,8 @@
                     if (remote_topic_data.topic_content !== undefined) {
                         if (remote_topic_data.topic_content == null) {
                             editor.setData('<p><br data-cke-filler="true"></p>');
-                        }else{
-                        editor.setData(remote_topic_data.topic_content);
+                        } else {
+                            editor.setData(remote_topic_data.topic_content);
                             topic_data = {};
                         }
                     }
