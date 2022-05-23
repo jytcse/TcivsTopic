@@ -27,7 +27,7 @@
                 <h2>我的專題</h2>
                 <div class="form-floating mb-3">
                     <input type="text" class="topic_data_input form-control" id="topic_name"
-                           value="@if(isset($topic_database_data->topic_name)) {{ $topic_database_data->topic_name }} @endif"
+                           value="@if(isset($topic_database_data->topic_name)) {{ $topic_database_data->topic_name }} @else組別{{$team_data->team->id}}的專題  @endif"
                            required>
                     <label for="topic_name">專題名稱</label>
                 </div>
@@ -40,14 +40,14 @@
                 <div class="mb-3">
                     <label for="topic_motivation">動機</label>
                     <textarea id="topic_motivation" class="topic_data_input form-control mt-2"
-                              style="height: 100px">@if(isset($topic_database_data->topic_motivation)){{ $topic_database_data->topic_motivation }}@endif</textarea>
+                              style="height: 100px">@if(isset($topic_database_data->topic_motivation)){{ $topic_database_data->topic_motivation }} @endif</textarea>
                 </div>
 
             </div>
             <div class="col-lg-6 order-sm-1 order-lg-2 mb-sm-4 mb-lg-0">
                 <h2>封面圖</h2>
                 <img
-                    src="@if(trim($topic_database_data->topic_thumbnail) !=null) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
+                    src="@if(isset($topic_database_data->topic_thumbnail)) {{$topic_database_data->topic_thumbnail}} @else https://fakeimg.pl/440x200/ @endif">
                 <div class="alert alert-info mt-3" role="alert">
                     A simple info alert—check it out!
                 </div>
@@ -81,24 +81,30 @@
         let focus_on;
         let topic_data = {};
         let before_data;
+
+        function init_topic_data() {
+            topic_data = {};
+        }
+
         topic_data_input.forEach((item) => {
             item.addEventListener('focusout', (e) => {
-                // topic_data[item.id] = item.value;
+                if (item.value === '') {
+                    topic_data[item.id] = null;
+                } else {
+                    topic_data[item.id] = item.value;
+                }
                 send_data(team_id, 'save');
+                init_topic_data();
             });
             item.addEventListener('keydown', (e) => {
                 before_data = item.value;
             });
             item.addEventListener('keyup', (e) => {
-                // console.log(after_data === before_data);
                 if (item.value !== before_data) {
-                    // typeof item.id;
                     topic_data[item.id] = item.value;
                     send_data(team_id, 'edit');
-                    // console.log(typeof item.id)
-                    // console.log(changed_data);
                 } else {
-                    topic_data = null;
+                    topic_data[item.id] = null;
                 }
             });
         });
@@ -141,14 +147,7 @@
                         topic_data['topic_content'] = editor.getData();
                         send_data(team_id, 'save');
                     }
-                    // console.log('editable isFocused =', value);
                 });
-                // editor.editing.view.document.on('blur', (evt, data) => {
-                //     // console.log(data);
-                //     // console.log('blur');
-                //     topic_data['topic_content'] = editor.getData();
-                //     send_data(team_id, 'save');
-                // });
             })
             .catch(err => {
                 console.error(err.stack);
@@ -173,11 +172,13 @@
                 body: JSON.stringify(data_body),
             })
                 .then(function (response) {
-                    return response.json();
+                    // return response.json();
                 })
                 .then(function (json) {
                     // console.log(json);
-                }).catch();
+                }).catch((error)=>{
+                console.log(error);
+            });
         }
 
         function send_delete_data(img_path) {
@@ -203,7 +204,7 @@
         function undefinedChecker(value, target) {
             if (value !== undefined) {
                 target.value = value;
-                topic_data = {};
+                init_topic_data();
                 return true;
             }
             return false;
@@ -211,7 +212,7 @@
 
         Echo.private('Topic.Edit.{{$team_data->team_id}}')
             .listen('TopicEdit', (e) => {
-                console.log(e);
+                // console.log(e);
                 if (e.topic.wrapper.info.user_id != user_id) {
                     let remote_topic_data = e.topic.wrapper.topic_data;
                     undefinedChecker(remote_topic_data.topic_name, topic_name);
@@ -222,7 +223,7 @@
                             editor.setData('<p><br data-cke-filler="true"></p>');
                         } else {
                             editor.setData(remote_topic_data.topic_content);
-                            topic_data = {};
+                            init_topic_data();
                         }
                     }
                 }

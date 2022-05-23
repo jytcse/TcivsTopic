@@ -49,6 +49,9 @@ class TopicController extends Controller
         $team_data = Teammate::query()->where('user_id', '=', Auth::id())->with('team')->get()[0];
         $team_id = Teammate::query()->where('user_id', '=', Auth::id())->pluck('team_id')[0];
 //        dd($team_id);
+        if (Topic::query()->where('team_id', '=', $team_id)->count() == 0) {
+            return view('manage.my-topic')->with(['team_data' => $team_data, 'topic_database_data' => null, 'inbox_number' => $this->check_inbox_message_number(), 'api_token' => $request->cookie('x-access-token')]);
+        }
         $topic_database_data = Topic::query()->where('team_id', '=', $team_id)->with('keywords')->get()[0];
 //        dd($topic_database_data);
         //
