@@ -42,4 +42,9 @@ class TopicScore extends Model
      */
     protected $casts = [
     ];
+    public function topic()
+    {
+        //分數屬於一個專題
+        return $this->belongsTo(Topic::class, 'topic_id', 'id');
+    }
 }

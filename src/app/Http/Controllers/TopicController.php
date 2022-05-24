@@ -52,7 +52,7 @@ class TopicController extends Controller
         if (Topic::query()->where('team_id', '=', $team_id)->count() == 0) {
             return view('manage.my-topic')->with(['team_data' => $team_data, 'topic_database_data' => null, 'inbox_number' => $this->check_inbox_message_number(), 'api_token' => $request->cookie('x-access-token')]);
         }
-        $topic_database_data = Topic::query()->where('team_id', '=', $team_id)->with('keywords')->get()[0];
+        $topic_database_data = Topic::query()->where('team_id', '=', $team_id)->with('keywords','doc')->get()[0];
 //        dd($topic_database_data);
         //
 //        dd('123');

@@ -13,10 +13,11 @@ return new class extends Migration {
     public function up()
     {
 
-        Schema::create('ckeditor_media', function (Blueprint $table) {
+        Schema::create('topic_doc', function (Blueprint $table) {
             $table->id();
-            $table->string('file_name')->comment('檔案名稱');
-            $table->string('file_path')->comment('檔案路徑');
+            $table->foreignId('topic_id')->comment('哪個專題')->constrained('topic')->onUpdate('cascade')->cascadeOnDelete();
+            $table->string("file_name")->comment("檔案名稱");
+            $table->longText("file_path")->comment("檔案路徑");
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('ckeditor_media');
+        Schema::dropIfExists('topic_doc');
     }
 };

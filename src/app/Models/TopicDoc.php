@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class TopicComments extends Model
+class TopicDoc extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'topic_comments';
+    protected $table = 'Topic_Doc';
 
     /**
      * The attributes that are mass assignable.
@@ -20,8 +20,8 @@ class TopicComments extends Model
      */
     protected $fillable = [
         'topic_id',
-        'comment',
-        'user_id',
+        'file_name',
+        'file_path',
     ];
 
     /**
@@ -42,7 +42,7 @@ class TopicComments extends Model
     ];
     public function topic()
     {
-        //留言屬於一個專題
+        //文檔屬於一個專題
         return $this->belongsTo(Topic::class, 'topic_id', 'id');
     }
 }

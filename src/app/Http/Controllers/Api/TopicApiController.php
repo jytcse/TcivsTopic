@@ -9,6 +9,7 @@ use App\Models\Team;
 use App\Models\TeamInvite;
 use App\Models\Teammate;
 use App\Models\Topic;
+use App\Models\TopicDoc;
 use App\Models\TopicKeyword;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,9 +17,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
 
 class TopicApiController extends Controller
 {
+    private function check_topic_exist($team_id)
+    {
+        //如果專題不存在，就先建立一個預設專題
+        if (Topic::query()->where('team_id', '=', $team_id)->count() == 0) {
+            DB::beginTransaction();
+            try {
+                $topic = new Topic();
+                $topic->team_id = $team_id;
+                $topic->topic_name = '組別' . $team_id . '的專題';
+                $topic->save();
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Data to DataBase Error.', 'status_code' => 500, 'data' => null], 500);
+            }
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -69,33 +89,88 @@ class TopicApiController extends Controller
      */
     public function upload_thumbnail(Request $request)
     {
-        //
         if (!$request->hasFile('thumbnail')) {
             return response()->json(["success" => false, "message" => '沒有上傳檔案.', "data" => null], 400);
         }
-        $validator = Validator::make($request->all(), ['thumbnail' => ['image', 'required']]);
+        $validator = Validator::make($request->all(), ['thumbnail' => ['image', 'required', 'max:15000']]);
         if ($validator->fails()) {
-            return response()->json(["success"=>false,'message'=>'Not Acceptable.',"data" => null], 406);
+            return response()->json(["success" => false, 'message' => 'Not Acceptable. 最大15MB', "data" => null], 406);
         }
-        if (Teammate::query()->where('user_id','=',Auth::id())->count()==0){
-            return response()->json(["success"=>false,'message'=>'Team not found',"data" => null], 404);
+        if (Teammate::query()->where('user_id', '=', Auth::id())->count() == 0) {
+            return response()->json(["success" => false, 'message' => 'Team not found', "data" => null], 404);
         }
-        $team_id = Teammate::query()->where('user_id','=',Auth::id())->pluck('team_id')[0];
-        $path = $request->file('thumbnail')->store('thumbnail', 'public');
-        $topic_query = Topic::query()->where('team_id','=',$team_id);
-        //更新圖片，要把舊的刪除
-        if ($topic_query->pluck('topic_thumbnail')[0]!=null){
 
-        $before_path = str_replace('/storage', '/public', $topic_query->pluck('topic_thumbnail')[0]);
+        $team_id = Teammate::query()->where('user_id', '=', Auth::id())->pluck('team_id')[0];
+        $this->check_topic_exist($team_id);
+        $path = $request->file('thumbnail')->store('topic/thumbnail', 'public');
+        $topic_query = Topic::query()->where('team_id', '=', $team_id);
+        //更新圖片，要把舊的刪除
+        if ($topic_query->pluck('topic_thumbnail')[0] != null) {
+            $before_path = str_replace('/storage', '/public', $topic_query->pluck('topic_thumbnail')[0]);
             if (Storage::exists($before_path)) {
                 Storage::delete($before_path);
-//                return response()->json(['success' => true, 'message' => ''], 200);
             } else {
                 return response()->json(['success' => false, 'message' => 'resource not found'], 404);
             }
         }
-        Topic::query()->where('team_id','=',$team_id)->update(['topic_thumbnail'=>Storage::url($path)]);
-        return response()->json(["success"=>true,'message'=>'Upload success.',"data" => Storage::url($path)], 200);
+        Topic::query()->where('team_id', '=', $team_id)->update(['topic_thumbnail' => Storage::url($path)]);
+        return response()->json(["success" => true, 'message' => 'Upload success.', "data" => Storage::url($path)], 200);
+    }
+
+
+    /**
+     * 上傳文檔 pdf word
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function upload_doc(Request $request)
+    {
+        if (!$request->hasFile('doc')) {
+            return response()->json(["success" => false, "message" => '沒有上傳檔案.', "data" => null], 400);
+        }
+        $validator = Validator::make($request->all(), ['doc' => ['file', 'max:10000', 'mimes:pdf,doc,docx']]);
+        if ($validator->fails()) {
+            return response()->json(["success" => false, 'message' => 'Not Acceptable. 只接受pdf,doc,docx並小於10MB的檔案', "data" => $validator->errors()], 406);
+        }
+        $team_id = Teammate::query()->where('user_id', '=', Auth::id())->pluck('team_id')[0];
+        $this->check_topic_exist($team_id);
+        $topic_id = Topic::query()->where('team_id', '=', $team_id)->pluck('id')[0];
+        $file_name = $request->file('doc')->getClientOriginalName();
+
+        if (TopicDoc::query()->where('topic_id', '=', $topic_id)->count() == 0) {
+            DB::beginTransaction();
+            try {
+                $path = $request->file('doc')->store('topic/doc', 'public');
+                $topic_doc = new TopicDoc();
+                $topic_doc->topic_id = $topic_id;
+                $topic_doc->file_name = $file_name;
+                $topic_doc->file_path = Storage::url($path);
+                $topic_doc->save();
+                DB::commit();
+                return response()->json(["success" => true, 'message' => 'Upload success.', "data" => ['url'=>Storage::url($path),'name'=>$file_name]], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Data to DataBase Error.', 'status_code' => 500, 'data' => $e->getMessage()], 500);
+            }
+        }
+        DB::beginTransaction();
+        try {
+            $before_path = str_replace('/storage', '/public', TopicDoc::query()->where('topic_id','=',$topic_id)->pluck('file_path')[0]);
+            if (Storage::exists($before_path)) {
+                Storage::delete($before_path);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Delete resource not found'], 404);
+            }
+            $path = $request->file('doc')->store('topic/doc', 'public');
+            TopicDoc::query()->where('topic_id','=',$topic_id)->update(['file_name'=>$file_name,'file_path'=>Storage::url($path)]);
+            DB::commit();
+            return response()->json(["success" => true, 'message' => 'Upload success.', "data" => ['url'=>Storage::url($path),'name'=>$file_name]], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => 'Data to DataBase Error.', 'status_code' => 500, 'data' => $e->getMessage()], 500);
+        }
     }
 
 
@@ -127,19 +202,7 @@ class TopicApiController extends Controller
             return response()->json(['success' => false, 'message' => 'resource not found.', 'status_code' => 404, 'data' => null], 404);
         }
         //如果專題不存在，就先建立一個預設專題
-        if (Topic::query()->where('team_id', '=', $team_id)->count() == 0) {
-            DB::beginTransaction();
-            try {
-                $topic = new Topic();
-                $topic->team_id = $team_id;
-                $topic->topic_name = '組別' . $team_id . '的專題';
-                $topic->save();
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return response()->json(['success' => false, 'message' => 'Data to DataBase Error.', 'status_code' => 500, 'data' => null], 500);
-            }
-        }
+        $this->check_topic_exist($team_id);
         $topic_id = Topic::query()->where('team_id', '=', $team_id)->pluck('id')[0];
         if (array_key_exists('topic_keyword', $request->topic_data)) {
             if ($request->topic_data['topic_keyword'] == null) {
