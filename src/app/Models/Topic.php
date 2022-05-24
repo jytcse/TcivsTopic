@@ -55,4 +55,9 @@ class Topic extends Model
         //一個專題有多個關鍵詞
         return $this->hasONe(TopicDoc::class, 'topic_id', 'id');
     }
+    public function team()
+    {
+        //一個專題有多個關鍵詞
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
 }

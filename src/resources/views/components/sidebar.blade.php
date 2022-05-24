@@ -91,27 +91,6 @@
             </div>
         </div>
     </li>
-    {{--    <li>--}}
-    {{--        <div class=" position-relative custom_dropdown ps-3">--}}
-    {{--                                    <span class="material-symbols-outlined align-middle">--}}
-    {{--                                    topic--}}
-    {{--                                    </span>--}}
-    {{--            專題--}}
-    {{--            <div class=" position-absolute  top-50 end-0 translate-middle-y me-3">--}}
-    {{--                                        <span--}}
-    {{--                                            class="material-symbols-outlined">--}}
-    {{--                                        arrow_drop_down--}}
-    {{--                                    </span>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--        <ul class="sub_ul">--}}
-    {{--            <li><a class="item_link text-decoration-none"--}}
-    {{--                   href="{{ route('dashboard') }}">我的專題</a></li>--}}
-    {{--            <li><a class="item_link text-decoration-none"--}}
-    {{--                   href="{{ route('dashboard') }}">所有專題</a></li>--}}
-    {{--        </ul>--}}
-    {{--    </li>--}}
-
     <li class="bg-white">
         <a href="{{ route('home') }}"
            class="ps-3 d-block w-100 h-100 item_link text-decoration-none">

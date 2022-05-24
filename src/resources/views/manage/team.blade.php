@@ -43,19 +43,11 @@
                                value="{{$team->team->teamleader->user->name}}">
                         <label for="floatingInput">組長</label>
                     </div>
-                    {{--                    <div class=" mb-3">--}}
-                    {{--                        <label for="floatingInput"><h6>組長</h6></label>--}}
-                    {{--                        <input type="text" class="form-control" disabled--}}
-                    {{--                               value="{{$team->team->teamleader->user->name}}">--}}
-                    {{--                    </div>--}}
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" disabled
                                value="{{count($team->team->teammates)}}">
                         <label for="floatingInput">組員人數</label>
                     </div>
-                    {{--                    <div class="alert alert-info" role="alert">--}}
-                    {{--                        A simple info alert—check it out!--}}
-                    {{--                    </div>--}}
                 </div>
                 <div class="col-6">
                     <h3>組員列表</h3>
@@ -79,26 +71,27 @@
                     </ol>
                 </div>
             </div>
+{{--            @dd($team)--}}
             <div class="row mt-5">
                 <div class="col-6">
                     <h3>專題</h3>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" disabled value="無">
+                        <input type="email" class="form-control" disabled value="@if(isset($team->team->topic)){{$team->team->topic->topic_name}} @else 無 @endif">
                         <label for="floatingInput">專題名稱</label>
                     </div>
 
-                    <div class="form-floating">
-                        <textarea class="form-control" disabled style="height: 100px">無</textarea>
-                        <label for="floatingTextarea2">專題內容</label>
+                    <div class="mt-2">
+                        <label for="floatingTextarea2">專題動機</label>
+                        <textarea class="form-control" disabled style="height: 200px">@if(isset($team->team->topic->topic_motivation)){{$team->team->topic->topic_motivation}} @else 無 @endif</textarea>
                     </div>
                 </div>
 
-                <div class="col-6">
-                    @if(auth()->id() === $team->team->teamleader->teammate->user_id)
-                        <h3>組別設定</h3>
-                        <button type="button" class="btn btn-danger" value="{{$team->team->id}}">刪除組別</button>
-                    @endif
-                </div>
+{{--                <div class="col-6">--}}
+{{--                    @if(auth()->id() === $team->team->teamleader->teammate->user_id)--}}
+{{--                        <h3>組別設定</h3>--}}
+{{--                        <button type="button" class="btn btn-danger" value="{{$team->team->id}}">刪除組別</button>--}}
+{{--                    @endif--}}
+{{--                </div>--}}
             </div>
         </div>
     @endif

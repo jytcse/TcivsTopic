@@ -11,29 +11,49 @@
     <div class="row">
         <div class="col-lg-4 ">
             <div class="dashboard_items topic">
-                還沒有專題
+                @if(isset($team->team->topic))
+                    <div>
+                        <span class="material-symbols-outlined align-middle pe-1">
+                                     topic
+                                    </span>專題名稱:
+                    </div>
+                <div>
+
+                    <h3> {{$team->team->topic->topic_name}}</h3>
+                </div>
+                @else
+                    <h3>還沒有專題</h3>
+                @endif
             </div>
         </div>
         <div class="col-lg-4 mt-lg-0 mt-4">
             <div class="dashboard_items team">
                 @if(isset($hasTeam) && !$hasTeam)
-                    還沒有組別
+                    <h3>還沒有組別</h3>
                 @else
+                    <div>
+                        <span class="material-symbols-outlined align-middle pe-1">
+                            calendar_month
+                        </span>
+                        <span>組別年度:</span>
+                    </div>
                     <h3>
                         {{$team->team->classmodel->years}}年{{$team->team->classmodel->class_type}}班
                     </h3>
-                    {{--                    <p>--}}
-                    {{--                        第{{$team->team->team_number}}組--}}
-                    {{--                    </p>--}}
-                    {{--                    @dd($team)--}}
                 @endif
             </div>
         </div>
         <div class="col-lg-4 mt-lg-0 mt-4">
             <div class="dashboard_items team_positions">
                 @if(isset($hasTeam) && !$hasTeam)
-                    還沒有組別
+                    <h3>還沒有組別</h3>
                 @else
+                    <div>
+                               <span class="material-symbols-outlined align-middle pe-1">
+                    visibility
+                    </span>職位:
+                    </div>
+
                     <h3>
                         @if($position)
                             組長

@@ -1,20 +1,17 @@
 /*儀錶板css*/
 .dashboard_items {
-    /*border: 1px solid black;*/
     height: 20vh;
     border-radius: 6px;
-    /*box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);*/
-
     box-shadow: 0 5px 20px -5px rgb(0 0 0 / 10%), 0 10px 10px -5px rgb(0 0 0 / 4%);
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
-
 .profile {
-    /*border: 1px solid black;*/
     height: 50vh;
     border-radius: 6px;
-    /*box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);*/
-
     box-shadow: 0 5px 25px -5px rgb(0 0 0 / 10%), 0 10px 10px -5px rgb(0 0 0 / 4%);
     color: black;
 }

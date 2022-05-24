@@ -63,4 +63,10 @@ class Team extends Model
     {
         return $this->hasMany(TeamInvite::class, 'team_id', 'id');
     }
+
+    public function topic()
+    {
+        //一個隊伍有一個隊長
+        return $this->hasOne(Topic::class, 'team_id', 'id');
+    }
 }

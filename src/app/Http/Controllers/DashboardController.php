@@ -36,7 +36,7 @@ class DashboardController extends Controller
         if (!Teammate::query()->where('user_id', '=', $user_id)->count() > 0) {
             return view('manage.dashboard')->with(['hasTeam' => false, 'inbox_number' => $this->check_inbox_message_number()]);
         }
-        $team = Teammate::query()->where('user_id', '=', $user_id)->with('team', 'team.classmodel')->get()[0];
+        $team = Teammate::query()->where('user_id', '=', $user_id)->with('team', 'team.classmodel','team.topic')->get()[0];
         $teammate_id = Teammate::query()->where('user_id', '=', $user_id)->pluck('id')[0];
         //職位
         $position = !((TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0));
