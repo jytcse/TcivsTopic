@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
+class TopicDoc extends Model
+{
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'Topic_Doc';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'topic_id',
+        'file_name',
+        'file_path',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+    ];
+    public function topic()
+    {
+        //文檔屬於一個專題
+        return $this->belongsTo(Topic::class, 'topic_id', 'id');
+    }
+}

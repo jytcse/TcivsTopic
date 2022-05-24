@@ -39,4 +39,10 @@ class TopicKeyword extends Model
      */
     protected $casts = [
     ];
+
+    public function topic()
+    {
+        //關鍵詞屬於一個專題
+        return $this->belongsTo(Topic::class, 'topic_id', 'id');
+    }
 }

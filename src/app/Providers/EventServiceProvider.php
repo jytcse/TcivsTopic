@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Invite;
+use App\Events\TopicEdit;
 use App\Listeners\SendInviteMessage;
+use App\Listeners\TopicEditListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         Invite::class => [
             SendInviteMessage::class,
+        ],
+        TopicEdit::class => [
+            TopicEditListener::class,
         ],
     ];
 

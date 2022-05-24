@@ -14,11 +14,10 @@ return new class extends Migration {
     {
         Schema::create('topic', function (Blueprint $table) {
             $table->id();
-//            $table->unsignedBigInteger('teacher_id')->comment("指導老師");
-//            $table->foreign('teacher_id')->references('id')->on('users')->onUpdate('cascade')->cascadeOnDelete();
             $table->unsignedBigInteger('team_id')->comment("屬於哪個隊伍")->nullable();
             $table->foreign('team_id')->references('id')->on('team')->onUpdate('cascade')->onDelete('set null');
             $table->string("topic_name")->comment("專題名稱");
+            $table->longText("topic_thumbnail")->nullable()->comment("專題封面圖");
             $table->text('topic_motivation')->comment("動機")->nullable();
             $table->text('topic_content')->comment("內容")->nullable();
             $table->timestamps();

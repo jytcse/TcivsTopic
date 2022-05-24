@@ -40,4 +40,9 @@ class TopicComments extends Model
      */
     protected $casts = [
     ];
+    public function topic()
+    {
+        //留言屬於一個專題
+        return $this->belongsTo(Topic::class, 'topic_id', 'id');
+    }
 }

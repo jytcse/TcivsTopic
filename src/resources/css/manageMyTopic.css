@@ -1,0 +1,16 @@
+.ck-editor__editable_inline {
+    /* 設定最低高度 */
+    min-height: 800px;
+    /*height: 600px;*/
+}
+.right_side{
+    overflow-y:scroll;
+    height: 100%;
+}
+.topic_thumbnail{
+    max-width: 417px;
+}
+
+.topic_thumbnail:hover{
+    cursor: pointer;
+}

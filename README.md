@@ -13,9 +13,12 @@
 - Composer 2.0.7
 - phpMyAdmin 5.1.3  
 - Laravel 9.9  
+  - Laravel Websockets
+  - Laravel-Echo 
 - GSAP 3.10.4
 - Bootstrap 5.0.2
-
+- CKEditor 5
+  - CKEditor5-image-remove-event-callback-plugin
 # Dev Environment Setup
 ###### You must first ensure that Node.js and NPM are installed on your machine
 
@@ -44,4 +47,8 @@ php artisan serve
 5.Starting Websocket Server
 ```
 php artisan websockets:serve
+```
+6.To access asset.
+```
+php artisan storage:link
 ```
