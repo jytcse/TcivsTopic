@@ -1,7 +1,9 @@
 //使用者上傳圖片
 const topic_thumbnail_upload = document.querySelector('#topic_thumbnail_upload');
 topic_thumbnail_upload.addEventListener('change', (e) => {
-    save_thumbnail_file(e.target.files[0]);
+    if (e.target.files[0] != null) {
+        save_thumbnail_file(e.target.files[0]);
+    }
 
 })
 
@@ -65,10 +67,10 @@ function save_doc_file(form_data) {
                 init_topic_data();
                 document.querySelector('#doc_upload_error_container').classList.add('d-none');
                 document.querySelector('#doc_name').innerText = '';
-                document.querySelector('#doc_name').innerText = '1.'+json.data.name;
+                document.querySelector('#doc_name').innerText = '1.' + json.data.name;
             } else {
                 document.querySelector('#doc_upload_error_container').classList.remove('d-none');
-                document.querySelector('#doc_upload_error').innerText =  json.message;
+                document.querySelector('#doc_upload_error').innerText = json.message;
             }
         }).catch((error) => {
         console.log(error);

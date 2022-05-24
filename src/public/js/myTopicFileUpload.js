@@ -6,7 +6,9 @@ var __webpack_exports__ = {};
 //使用者上傳圖片
 var topic_thumbnail_upload = document.querySelector('#topic_thumbnail_upload');
 topic_thumbnail_upload.addEventListener('change', function (e) {
-  save_thumbnail_file(e.target.files[0]);
+  if (e.target.files[0] != null) {
+    save_thumbnail_file(e.target.files[0]);
+  }
 });
 
 function save_thumbnail_file(file) {
