@@ -17,6 +17,7 @@
 
 @section('body')
     <main class="container-fluid">
+{{--        @dd($topic_data)--}}
         {{-- 輪播元件 slide_times輪播數量  slide_speed輪播速度單位秒 --}}
         @include('components.slides',['slide_times' =>5,'slide_speed'=>8])
         <div class="row justify-content-center align-items-center type_container">

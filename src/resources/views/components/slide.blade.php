@@ -3,7 +3,7 @@
         <div class="row align-items-center px-5">
             <div class="col-lg-6 order-lg-1 ps-lg-0 pe-lg-5">
                 <section class="pe-lg-5">
-                    <img src="https://fakeimg.pl/1920x1024/"
+                    <img src=" {{$data->topic_thumbnail}}"
                          class="custom_slide_img d-block w-100 user-select-none"
                          alt="...">
                 </section>
@@ -12,26 +12,19 @@
                 <div class="custom_slide_text mt-3 ps-lg-5">
                     <section class="ps-lg-2">
                         {{--  專題名稱 --}}
-                        <h1 class="custom_slide_name mb-2 fw-bold">測試專題{{$i+1}}</h1>
+                        <h1 class="custom_slide_name mb-2 fw-bold">{{$data->topic_name}}</h1>
                         {{--  專題年度 --}}
+                        <p class="custom_slide_year mb-1">
+                            <span><time>{{$data->team->classmodel->years}}</time>學年度 {{$data->team->classmodel->class_type}}班 </span>
+                        </p>
                         <p class="custom_slide_year mb-3">
-                            <time>108</time>
-                            學年
+                            <span>
+                                組長: {{$data->team->teamleader->user->name}}
+                            </span>
                         </p>
                         {{--  專題動機 --}}
                         <p class="custom_slide_content">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi
-                            aperiam
-                            delectus dignissimos
-                            ea est et, fugiat impedit nesciunt officia, optio quas repellat
-                            tempore
-                            unde,
-                            veritatis. Cum,
-                            quasi quia. Delectus?
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque
-                            dignissimos ex incidunt iusto nihil nostrum omnis perspiciatis quae, quaerat
-                            quo repellendus suscipit voluptatibus? Cumque eaque facere maxime quisquam
-                            repudiandae.
+                            {{$data->topic_motivation}}
                         </p>
                     </section>
                     <section class="ps-lg-2">

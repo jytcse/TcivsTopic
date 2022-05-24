@@ -25,13 +25,15 @@ class TopicController extends Controller
     }
 
     /**
-     * All Topic Page 所有專題頁面
+     * All Topic Page 前台所有專題頁面
      * Display All Topic On the Page.
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function all_topic()
     {
         //
+//        dd('123');
+        return view('topic');
     }
 
     /**

@@ -99,7 +99,7 @@ class TeamController extends Controller
 
             return view('manage.team')->with(['hasTeam' => !($this->check_team_state()), 'inbox_number' => $this->check_inbox_message_number()]);
         }
-        $team = Teammate::query()->where('user_id', '=', Auth::id())->with('team', 'team.teaminvite.user', 'team.teamleader.teammate.user', 'team.teammates', 'team.classmodel','team.topic')->get()[0];
+        $team = Teammate::query()->where('user_id', '=', Auth::id())->with('team', 'team.teaminvite.user', 'team.teamleader.user', 'team.teammates', 'team.classmodel','team.topic')->get()[0];
         return view('manage.team')->with(['team' => $team, 'hasTeam' => !($this->check_team_state()), 'inbox_number' => $this->check_inbox_message_number()]);
     }
 

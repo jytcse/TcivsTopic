@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,24 +18,20 @@ use App\Http\Controllers\TopicController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-Route::get('/home', function () {
-    return view('home');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/home', 'home');
+    Route::get('/', 'home')->name('home');
 });
-Route::get('/topic', function () {
-    return view('topic');
-})->name('all_topic');
+Route::controller(TopicController::class)->group(function () {
+    Route::get('/class/{year?}/{class_type?}/topic/all', 'all_topic')->name('all_topic');
 
-Route::get('/search', function () {
-    return view('search');
-})->name('search_topic');
+    Route::get('/search','search_topic')->name('search_topic');
+});
 
 
 Route::get('/login', function () {
     return view('login');
-})->name('login')->middleware('CheckLoginPage');;
+})->name('login')->middleware('CheckLoginPage');
 Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'login');
     Route::get('/logout', 'logout')->name('logout');

@@ -22,7 +22,7 @@
 }
 
 .custom_slide_img {
-    max-height: 45vh;
+    max-height: 60vh;
     -o-object-fit: cover;
        object-fit: cover;
 }
