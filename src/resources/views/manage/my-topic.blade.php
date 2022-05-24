@@ -106,7 +106,10 @@
         const topic_name = document.querySelector('#topic_name');
         const topic_keyword = document.querySelector('#topic_keyword');
         const topic_motivation = document.querySelector('#topic_motivation');
+        const topic_thumbnail = document.querySelector('#topic_thumbnail');
+        const doc_name = document.querySelector('#doc_name');
         const topic_data_input = document.querySelectorAll('.topic_data_input');
+        const csrf_token = '{{csrf_token()}}';
         let focus_on;
         let topic_data = {};
         let before_data;
@@ -195,7 +198,7 @@
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + api_token,
-                    'X-CSRF-TOKEN': '{{csrf_token()}}',
+                    'X-CSRF-TOKEN': csrf_token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data_body),
@@ -215,7 +218,7 @@
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + api_token,
-                    'X-CSRF-TOKEN': '{{csrf_token()}}',
+                    'X-CSRF-TOKEN': csrf_token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -247,6 +250,14 @@
                     undefinedChecker(remote_topic_data.topic_name, topic_name);
                     undefinedChecker(remote_topic_data.topic_keyword, topic_keyword);
                     undefinedChecker(remote_topic_data.topic_motivation, topic_motivation);
+                    if (remote_topic_data.topic_thumbnail !== undefined) {
+                        topic_thumbnail.src = remote_topic_data.topic_thumbnail;
+                        init_topic_data();
+                    }
+                    if (remote_topic_data.doc_name !== undefined) {
+                        doc_name.innerText = remote_topic_data.doc_name;
+                        init_topic_data();
+                    }
                     if (remote_topic_data.topic_content !== undefined) {
                         if (remote_topic_data.topic_content == null) {
                             editor.setData('<p><br data-cke-filler="true"></p>');
@@ -258,76 +269,6 @@
                 }
             });
     </script>
-    <script>
-        {{--  使用者上傳圖片    --}}
-        const topic_thumbnail_upload = document.querySelector('#topic_thumbnail_upload');
-        topic_thumbnail_upload.addEventListener('change', (e) => {
-            save_thumbnail_file(e.target.files[0]);
-        })
+    <script src="{{asset('js/myTopicFileUpload.js')}}"></script>
 
-        function save_thumbnail_file(file) {
-            let form_data = new FormData();
-            form_data.append("thumbnail", file)
-            fetch(target_url + 'team/' + team_id + '/topic/thumbnail/save', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + api_token,
-                    'X-CSRF-TOKEN': '{{csrf_token()}}',
-                },
-                body: form_data,
-            })
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json) {
-                    // console.log(json.data);
-                    document.querySelector('#topic_thumbnail').src = json.data
-                }).catch((error) => {
-                console.log(error);
-            });
-        }
-    </script>
-    <script>
-        {{--  使用者上傳原始文檔pdf word    --}}
-        const topic_doc = document.querySelector('#topic_doc');
-        topic_doc.addEventListener('change', (e) => {
-            let files = e.target.files;
-            let doc_form_data = new FormData();
-            doc_form_data.append("doc", files[0]);
-            if (files[0] != null) {
-                save_doc_file(doc_form_data);
-            }
-            document.querySelector('#doc_upload_error').innerText = '';
-            document.querySelector('#doc_upload_error_container').classList.add('d-none');
-        })
-
-        function save_doc_file(form_data) {
-
-            fetch(target_url + 'team/' + team_id + '/topic/doc/save', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + api_token,
-                    'X-CSRF-TOKEN': '{{csrf_token()}}',
-                },
-                body: form_data,
-            })
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json) {
-                    // console.log(json);
-                    document.querySelector('#doc_upload_error').innerText = '';
-                    if (json.success) {
-                        document.querySelector('#doc_upload_error_container').classList.add('d-none');
-                        document.querySelector('#doc_name').innerText = '';
-                        document.querySelector('#doc_name').innerText = '1.'+json.data.name;
-                    } else {
-                        document.querySelector('#doc_upload_error_container').classList.remove('d-none');
-                        document.querySelector('#doc_upload_error').innerText =  json.message;
-                    }
-                }).catch((error) => {
-                console.log(error);
-            });
-        }
-    </script>
 @endsection
