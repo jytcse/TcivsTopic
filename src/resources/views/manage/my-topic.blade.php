@@ -162,7 +162,7 @@
                 editor = newEditor;
 
                 @if(isset($topic_database_data->topic_content))
-                editor.setData('{!! $topic_database_data->topic_content !!}');
+                editor.setData(`{!! $topic_database_data->topic_content !!}`);
                 @endif
 
                 editor.editing.view.document.on('keyup', (evt, data) => {
@@ -260,9 +260,9 @@
                     }
                     if (remote_topic_data.topic_content !== undefined) {
                         if (remote_topic_data.topic_content == null) {
-                            editor.setData('<p><br data-cke-filler="true"></p>');
+                            editor.setData(`<p><br data-cke-filler="true"></p>`);
                         } else {
-                            editor.setData(remote_topic_data.topic_content);
+                            editor.setData(`${remote_topic_data.topic_content}`);
                             init_topic_data();
                         }
                     }
