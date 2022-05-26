@@ -94,7 +94,7 @@
                                         </h5>
                                         <div class="card-keyword mb-3">
                                             @foreach($topic->keywords as $keyword)
-                                                @if($loop->index<5)
+                                                @if($loop->index<10)
                                                     <a href=" {{route('specified_keyword_topic',["keyword"=>$keyword->keyword])}}">
                                                         <div class="keyword_container">
                                                         <span class="keyword_text">
@@ -102,6 +102,7 @@
                                                         </span>
                                                         </div>
                                                     </a>
+
                                                 @endif
                                             @endforeach
                                         </div>

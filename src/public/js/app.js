@@ -21010,6 +21010,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./resources/css/home.css":
+/*!********************************!*\
+  !*** ./resources/css/home.css ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/homeSlides.css":
 /*!**************************************!*\
   !*** ./resources/css/homeSlides.css ***!
@@ -21127,6 +21140,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/specifiedTopic.css":
+/*!******************************************!*\
+  !*** ./resources/css/specifiedTopic.css ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/timelineCard.css":
 /*!****************************************!*\
   !*** ./resources/css/timelineCard.css ***!
@@ -21179,6 +21205,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/ckeditor5.css":
+/*!*************************************!*\
+  !*** ./resources/css/ckeditor5.css ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/createTeam.css":
 /*!**************************************!*\
   !*** ./resources/css/createTeam.css ***!
@@ -21196,19 +21235,6 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************!*\
   !*** ./resources/css/footer.css ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/css/home.css":
-/*!********************************!*\
-  !*** ./resources/css/home.css ***!
-  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26347,13 +26373,14 @@ runtime.setup(pusher_Pusher);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
-/******/ 			"css/home": 0,
 /******/ 			"css/footer": 0,
 /******/ 			"css/createTeam": 0,
+/******/ 			"css/ckeditor5": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/adminBasic": 0,
 /******/ 			"css/topic": 0,
 /******/ 			"css/timelineCard": 0,
+/******/ 			"css/specifiedTopic": 0,
 /******/ 			"css/sidebar": 0,
 /******/ 			"css/navbarStyle": 0,
 /******/ 			"css/manageTeams": 0,
@@ -26362,7 +26389,8 @@ runtime.setup(pusher_Pusher);
 /******/ 			"css/manageDashboard": 0,
 /******/ 			"css/loginStyle": 0,
 /******/ 			"css/homeType": 0,
-/******/ 			"css/homeSlides": 0
+/******/ 			"css/homeSlides": 0,
+/******/ 			"css/home": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -26412,23 +26440,25 @@ runtime.setup(pusher_Pusher);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/adminBasic.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/createTeam.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/footer.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/home.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/homeSlides.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/homeType.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/loginStyle.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageDashboard.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageInbox.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageMyTopic.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/manageTeams.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/sidebar.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/timelineCard.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/home","css/footer","css/createTeam","css/app","css/adminBasic","css/topic","css/timelineCard","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides"], () => (__webpack_require__("./resources/css/topic.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/adminBasic.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/ckeditor5.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/createTeam.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/footer.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/home.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/homeSlides.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/homeType.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/loginStyle.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/manageDashboard.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/manageInbox.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/manageMyTopic.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/manageTeams.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/navbarStyle.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/sidebar.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/specifiedTopic.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/timelineCard.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/footer","css/createTeam","css/ckeditor5","css/app","css/adminBasic","css/topic","css/timelineCard","css/specifiedTopic","css/sidebar","css/navbarStyle","css/manageTeams","css/manageMyTopic","css/manageInbox","css/manageDashboard","css/loginStyle","css/homeType","css/homeSlides","css/home"], () => (__webpack_require__("./resources/css/topic.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

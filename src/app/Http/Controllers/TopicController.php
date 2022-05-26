@@ -96,7 +96,7 @@ class TopicController extends Controller
         if ($topic_query->count() == 0 || $class_query->count() == 0) {
             abort(404);
         }
-        $topic_data = $topic_query->get()[0];
+        $topic_data = $topic_query->with('keywords','team.classmodel','team.teamleader.user','team.teammates.user')->get()[0];
 
         return view('specified-topic')->with(['class_data' => $this->get_has_topic_class(), "topic_data" => $topic_data]);
         //
