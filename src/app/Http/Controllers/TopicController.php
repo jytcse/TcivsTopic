@@ -51,7 +51,7 @@ class TopicController extends Controller
     {
         $class_data = $this->get_has_topic_class();
 //        dd($class_data);
-        return redirect()->route('single_class_topic',["year"=>$class_data[0]->years,"class_type"=>$class_data[0]->class_type]);
+        return redirect()->route('single_class_topic', ["year" => $class_data[0]->years, "class_type" => $class_data[0]->class_type]);
 //        dd('123');
 //        return view('topic')->with(['class_data' => $this->get_has_topic_class()]);
     }
@@ -72,10 +72,15 @@ class TopicController extends Controller
         }
         $class_id = $class_query->get('id');
         $team_id = Team::query()->whereIn('class_id', $class_id)->get('id');
-        $topic_data = Topic::query()->whereIn('team_id', $team_id)->with('keywords')->orderByDesc('topic_thumbnail')->get();
-        return view('topic')->with(['class_data' => $this->get_has_topic_class(), 'topic_data' => $topic_data, 'route_parameter' => ['year' => $year, 'type' => $class_type]]);
+        $topic_query = Topic::query()->whereIn('team_id', $team_id);
+        $topic_id_for_keyword = $topic_query->get('id')->toArray();
+        $topic_data = $topic_query->with('keywords', 'team.teamleader.user')->orderByDesc('topic_thumbnail')->get();
+        $keyword_data = TopicKeyword::query()->whereIn('topic_id', $topic_id_for_keyword)->distinct()->get('keyword');
+
+        return view('topic')->with(['class_data' => $this->get_has_topic_class(), 'keyword_data' => $keyword_data, 'topic_data' => $topic_data, 'route_parameter' => ['year' => $year, 'type' => $class_type]]);
         //
     }
+
     /**
      * 顯示指定年度班級的專題
      * Display the specified class's topic.
@@ -84,18 +89,19 @@ class TopicController extends Controller
      * @param $class_type
      * @return Application|Factory|View
      */
-    public function specified_topic($year, $class_type,$topic_id)
+    public function specified_topic($year, $class_type, $topic_id)
     {
         $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type]]);
-        $topic_query = Topic::query()->where('id','=',$topic_id);
-        if ($topic_query->count()==0 || $class_query->count()==0){
+        $topic_query = Topic::query()->where('id', '=', $topic_id);
+        if ($topic_query->count() == 0 || $class_query->count() == 0) {
             abort(404);
         }
         $topic_data = $topic_query->get()[0];
 
-        return view('specified-topic')->with(["topic_data"=>$topic_data]);
+        return view('specified-topic')->with(['class_data' => $this->get_has_topic_class(), "topic_data" => $topic_data]);
         //
     }
+
     /**
      * 顯示指定關鍵詞的專題
      * Display the specified class's topic.
@@ -106,23 +112,18 @@ class TopicController extends Controller
      */
     public function specified_keyword_topic($keyword)
     {
-//        $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type]]);
-//        $topic_query = Topic::query()->where('id','=',$topic_id);
-//        if ($topic_query->count()==0 || $class_query->count()==0){
-//            abort(404);
-//        }
-//        $topic_data = $topic_query->get()[0];
+        $keyword_query = TopicKeyword::query()->where('keyword', '=', $keyword);
+        if ($keyword_query->count() == 0) {
+            return abort(404);
+        }
+        $topic_id = $keyword_query->distinct()->get('topic_id');
 
-//       $keyword_query =  TopicKeyword::query()->where(DB::raw('lower(keyword)'),'=',$keyword);
-       $keyword_query =  TopicKeyword::query()->where('keyword','=',$keyword);
-       if ($keyword_query->count()==0){
-           abort(404);
-       }
-
-
-dd($keyword_query->with('topic')->get());
-//        return view('specified-topic')->with(["topic_data"=>$topic_data]);
-        //
+        $keyword_data = TopicKeyword::query()->whereIn('topic_id', $topic_id)->distinct()->get('keyword');
+        $topic_data = Topic::query()->whereIn('id', $topic_id)->orderByDesc('topic_thumbnail')->with('team.teamleader')->get();
+        $team_id = Topic::query()->whereIn('id', $topic_id)->distinct()->get('team_id');
+        $class_id = Team::query()->whereIn('id', $team_id)->distinct()->get('class_id');
+        $class_data = ClassModel::query()->whereIn('id', $class_id)->get();
+        return view('topic')->with(['class_data' => $this->get_has_topic_class(), "keyword_data" => $keyword_data, "topic_data" => $topic_data, 'route_parameter' => ['keyword' => $keyword]]);
     }
 
     /**
