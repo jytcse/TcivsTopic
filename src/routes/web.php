@@ -23,7 +23,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home')->name('home');
 });
 Route::controller(TopicController::class)->group(function () {
-    Route::get('/class/{year?}/{class_type?}/topic/all', 'all_topic')->name('all_topic');
+    Route::get('/topic/all', 'all_topic')->name('all_topic');
+    Route::get('/class/{year}/{class_type}/topic/all', 'single_class_topic')->name('single_class_topic');
+    Route::get('/topic/keyword/{keyword}', 'specified_keyword_topic')->name('specified_keyword_topic');
+    Route::get('/class/{year}/{class_type}/topic/{topic_id}', 'specified_topic')->name('specified_topic');
 
     Route::get('/search','search_topic')->name('search_topic');
 });
@@ -42,8 +45,6 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     //dashboard = 個人資料 修改密碼 顯示所屬組別的專題
     //team = 列出所有隊伍 可建立隊伍 建立隊伍者為 隊長
     //topic = 創立專題
-
-
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/dashboard', 'index')->name('dashboard');
@@ -65,23 +66,6 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
     Route::controller(TopicController::class)->group(function () {
         //我的組別
         Route::get('/topic', 'my_topic')->name('my_topic');
-
     });
-
-    //我的組別
-//    Route::get('/team', function () {
-//        return view('manage.dashboard');
-//    })->name('team');
-//    Route::get('/topic', function () {
-//        return view('manage.dashboard');
-//    })->name('topic');
-//    Route::get('/team', function () {
-//        return view('manage.team');
-//    });
-
-//    Route::get('/topic', function () {
-//        return view('manage.topic');
-//    });
-
 });
 
