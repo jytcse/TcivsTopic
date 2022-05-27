@@ -10,12 +10,11 @@
 
 @section('body')
     <div>
-        {{--        @dd($select_class_data);--}}
         <select class="w-100 form-select" id="class_selector" >
             @if($select_class_data!=null)
                 @foreach($select_class_data as $data)
                     <option data-year="{{$data->years}}"
-                            data-class-type="@switch($data->class_type)@case('甲')A @break @case('乙')B @break @endswitch">
+                            data-class-type="{{$data->class_type}}" @if($route_parameter['year']==$data->years &&$route_parameter['type']==$data->class_type) selected @endif>
                         {{$data->years}}年{{$data->class_type}}班
                     </option>
                 @endforeach
@@ -82,24 +81,6 @@
 @section('script')
     <script>
         let class_selector = document.querySelector('#class_selector');
-        let option_dataset = class_selector.options[class_selector.selectedIndex].dataset;
-
-        {{--解析url上選擇的年度和班級 存在javascritp常數裡--}}
-        @php
-            $path_array = explode('/',url()->current());
-        @endphp
-
-        const path_year = '@php echo $path_array[count($path_array)-2]; @endphp';
-        const path_type = '@php echo $path_array[count($path_array)-1]; @endphp';
-
-            {{--如果符合url上的班級 預設就selected--}}
-        for (let x = 0; x < class_selector.options.length; x++) {
-            if (class_selector.options[x].dataset.year.trim() === path_year && class_selector.options[x].dataset.classType.trim() === path_type) {
-                console.log(class_selector.options[x]);
-                class_selector.options[x].selected = true;
-            }
-        }
-
         {{--使用者選擇了其他年度班級，重導向--}}
         class_selector.addEventListener('change', () => {
             option_dataset = class_selector.options[class_selector.selectedIndex].dataset;

@@ -10,18 +10,19 @@
 
 @section('body')
     <div>
-        {{--        <select class="w-100 form-select" id="class_selector" >--}}
-        {{--            @if($select_class_data!=null)--}}
-        {{--                @foreach($select_class_data as $data)--}}
-        {{--                    <option data-year="{{$data->years}}"--}}
-        {{--                            data-class-type="@switch($data->class_type)@case('甲')A @break @case('乙')B @break @endswitch">--}}
-        {{--                        {{$data->years}}年{{$data->class_type}}班--}}
-        {{--                    </option>--}}
-        {{--                @endforeach--}}
-        {{--            @else--}}
-        {{--                <option disabled selected="selected">沒有任何班級有組別</option>--}}
-        {{--            @endif--}}
-        {{--        </select>--}}
+        <select class="w-100 form-select" id="class_selector">
+            @if($select_class_data!=null)
+                @foreach($select_class_data as $data)
+                    <option data-year="{{$data->years}}"
+                            data-class-type="{{$data->class_type}}"
+                            @if($route_parameter['year']==$data->years &&$route_parameter['type']==$data->class_type) selected @endif>
+                        {{$data->years}}年{{$data->class_type}}班
+                    </option>
+                @endforeach
+            @else
+                <option disabled selected="selected">沒有任何年度班級</option>
+            @endif
+        </select>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
@@ -35,42 +36,37 @@
             </tr>
             </thead>
             <tbody>
-            @if(isset($teams)!=null)
-                {{--                @foreach($teams as $team)--}}
-                {{--                    <tr>--}}
-                {{--                        <td>--}}
-                {{--                            {{ $loop->index +1 }}--}}
-                {{--                        </td>--}}
-                {{--                        <td>--}}
-                {{--                            --}}{{--年度班級   --}}
-                {{--                            {{$team->classmodel->years}}年{{$team->classmodel->class_type}}班--}}
-                {{--                        </td>--}}
-                {{--                        <td>--}}
-                {{--                            --}}{{-- 組長名稱--}}
-                {{--                            {{$team->teamleader->teammate->user->name}}--}}
-                {{--                        </td>--}}
-                {{--                        <td>--}}
-                {{--                            --}}{{--   組員  --}}
-                {{--                            @if(count($team->teammates) !=1)--}}
-                {{--                                @foreach($team->teammates as $teammate)--}}
-                {{--                                    --}}{{--  組員姓名 != 組長的名稱--}}
-                {{--                                    @if($teammate->user->name != $team->teamleader->teammate->user->name)--}}
-                {{--                                        {{ $teammate->user->name}}--}}
-                {{--                                    @endif--}}
-                {{--                                @endforeach--}}
-                {{--                            @else--}}
-                {{--                                無組員--}}
-                {{--                            @endif--}}
-                {{--                        </td>--}}
-                {{--                        <td>--}}
-                {{--                            --}}{{--  動作 --}}
-                {{--                            @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)--}}
-                {{--                                <button>加入</button>--}}
-                {{--                            @endif--}}
-                {{--                            <button>查看</button>--}}
-                {{--                        </td>--}}
-                {{--                    </tr>--}}
-                {{--                @endforeach--}}
+            @if(isset($topic_data) && $topic_data!=null)
+                @foreach($topic_data as $topic)
+                    <tr>
+                        <td>
+                            {{ $loop->index +1 }}
+                        </td>
+                        <td>
+                            {{--                            年度班級--}}
+                            {{$topic->team->classmodel->years}}年{{$topic->team->classmodel->class_type}}班
+                        </td>
+                        <td>
+                            {{--                            專題名稱--}}
+                            {{$topic->topic_name}}
+                        </td>
+                        <td>
+                            {{--                            組員--}}
+                            @if(count($topic->team->teammates) !=1)
+                                @foreach($topic->team->teammates as $teammate)
+                                    {{ $teammate->user->name}}
+                                @endforeach
+                            @else
+                                無組員
+                            @endif
+                        </td>
+                        <td>
+                            @if(auth()->user()->identity_id==2)
+                                <button>查看</button>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             @else
                 <tr>
                     <td colspan="5" class="text-center"><h4 class="mb-0">沒有任何專題</h4></td>
@@ -82,5 +78,12 @@
 
 @endsection
 @section('script')
-
+    <script>
+        const class_selector = document.querySelector('#class_selector');
+        {{--使用者選擇了其他年度班級，重導向--}}
+        class_selector.addEventListener('change', () => {
+            option_dataset = class_selector.options[class_selector.selectedIndex].dataset;
+            window.location.href = '  {{route('my_topic')}}' + `/${option_dataset.year.trim()}/${option_dataset.classType.trim()}/all`;
+        });
+    </script>
 @endsection

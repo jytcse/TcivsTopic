@@ -89,7 +89,7 @@ class TopicController extends Controller
      */
     public function specified_topic($year, $class_type, $topic_id)
     {
-        $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type]]);
+        $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type], ['years', '!=', '老師'], ['class_type', '!=', '老師']]);
         $topic_query = Topic::query()->where('id', '=', $topic_id);
         if ($topic_query->count() == 0 || $class_query->count() == 0) {
             abort(404);
@@ -153,18 +153,37 @@ class TopicController extends Controller
      */
     public function topics(): RedirectResponse
     {
-
-//        return redirect()->route('specified_year_topics',['year'=>$year])->with(['inbox_number' => $this->check_inbox_message_number()]);
+        //取得資料庫裡最新的年份
+        $class_query = ClassModel::query()->where('years', '!=', '老師')->orderByDesc('years');
+        $year = $class_query->pluck('years')[0];
+        $class_type = $class_query->pluck('class_type')[0];
+        return redirect()->route('specified_year_topics', ['year' => $year, 'class_type' => $class_type])->with(['inbox_number' => $this->check_inbox_message_number()]);
     }
+
     /**
      * Manage All Topic 管理 所有專題
      * Display All Topic on Page.
      *
      * @return RedirectResponse
      */
-    public function specified_year_topics(): RedirectResponse
+    public function specified_year_topics($year, $class_type)
     {
-//        return view('manage.topics')->with(['inbox_number' => $this->check_inbox_message_number()]);
+        $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type], ['years', '!=', '老師'], ['class_type', '!=', '老師']]);
+        if ($class_query->count() == 0) {
+            abort(404);
+        }
+
+        $class_id = $class_query->pluck('id')[0];
+//        $topic_data = Topic::query()
+//        dd($team_id);
+        $team_data = Team::query()->where('class_id', '=', $class_id)->pluck('id');
+        $topic_data = Topic::query()->whereIn('team_id', $team_data)->with('team.teammates.user', 'team.classmodel')->get();
+        if (Topic::query()->whereIn('team_id', $team_data)->count() == 0) {
+            $topic_data = null;
+        }
+        $select_class_data =  ClassModel::query()->where([ ['years', '!=', '老師'], ['class_type', '!=', '老師']])->get();
+//        dd($topic_data);
+        return view('manage.topics')->with(['topic_data' => $topic_data,'route_parameter' => ['year' => $year, 'type' => $class_type],'select_class_data'=>$select_class_data, 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
 

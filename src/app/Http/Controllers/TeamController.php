@@ -51,7 +51,7 @@ class TeamController extends Controller
      * @param string $class_type
      * @return Application|Factory|View|RedirectResponse
      */
-    public function index($year = null, string $class_type = 'A'): View|Factory|RedirectResponse|Application
+    public function index($year = null, string $class_type = '甲'): View|Factory|RedirectResponse|Application
     {
         //如果任何班級都沒有組別
         if (Team::all()->count() == 0) {
@@ -59,19 +59,11 @@ class TeamController extends Controller
         }
         //不重複的班級id 有就代表該班級底下有隊伍
         $distinct_class_id = Team::query()->distinct()->pluck('class_id');
-        $available_class = ClassModel::query()->whereIn('id', $distinct_class_id)->where('years', '!=', '老師')->get();
+        $available_class = ClassModel::query()->whereIn('id', $distinct_class_id)->where([['years', '!=', '老師']])->get();
         if ($year == null) {
             //如果使用者沒有輸入年度，回傳資料庫裡最新有組別的年度
             $year = $available_class[0]->years;
             return redirect()->route('teams', ['year' => $year, 'class_type' => $class_type]);
-        }
-        switch ($class_type) {
-            case 'A':
-                $class_type = '甲';
-                break;
-            case 'B':
-                $class_type = '乙';
-                break;
         }
         $class_query = ClassModel::query()->where([['years', '=', $year], ['class_type', '=', $class_type]]);
         //如果找不到使用者所選的年度班級 return 404 page
@@ -84,7 +76,7 @@ class TeamController extends Controller
             $teams = null;
         }
         $select_class_data = $available_class;
-        return view('manage.teams')->with(['teams' => $teams, 'select_class_data' => $select_class_data, 'hasTeam' => $this->check_team_state(), 'inbox_number' => $this->check_inbox_message_number()]);
+        return view('manage.teams')->with(['teams' => $teams, 'select_class_data' => $select_class_data,'route_parameter' => ['year' => $year, 'type' => $class_type], 'hasTeam' => $this->check_team_state(), 'inbox_number' => $this->check_inbox_message_number()]);
     }
 
     /**
@@ -125,16 +117,6 @@ class TeamController extends Controller
             $class_data = $class_query->get();
         }
         return view('manage.create-team')->with(['user' => $user, 'class_data' => $class_data, 'api_token' => $api_token, 'inbox_number' => $this->check_inbox_message_number()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -348,26 +330,4 @@ class TeamController extends Controller
         return redirect()->back()->with('edit_success', "動作成功! 已接受該邀請。 你現在是該組別的一員了，加油!");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

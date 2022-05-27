@@ -67,7 +67,7 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
         //我的組別
         Route::get('/topic', 'my_topic')->name('my_topic');
         Route::get('/topic/all', 'topics')->name('topics');
-        Route::get('/topic/{year}/all', 'specified_year_topics')->name('specified_year_topics');
+        Route::get('/topic/{year}/{class_type}/all', 'specified_year_topics')->name('specified_year_topics');
     });
 });
 
