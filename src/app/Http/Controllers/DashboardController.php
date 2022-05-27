@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\TeamInvite;
 use App\Models\TeamLeader;
 use App\Models\Teammate;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -33,6 +34,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user_id = Auth::user()->getAuthIdentifier();
+                $topic_data=null;
+        if (Auth::user()->identity_id==2){
+            $topic_number = count(Topic::all());
+            $team_number = count(Team::all());
+            return view('manage.dashboard')->with(['hasTeam' => false,'topic_number'=>$topic_number,'team_number'=>$team_number, 'inbox_number' => $this->check_inbox_message_number()]);
+        }
         if (!Teammate::query()->where('user_id', '=', $user_id)->count() > 0) {
             return view('manage.dashboard')->with(['hasTeam' => false, 'inbox_number' => $this->check_inbox_message_number()]);
         }
@@ -40,6 +47,7 @@ class DashboardController extends Controller
         $teammate_id = Teammate::query()->where('user_id', '=', $user_id)->pluck('id')[0];
         //職位
         $position = !((TeamLeader::query()->where('user_id', '=', $teammate_id)->with('user')->get()->count() == 0));
+
 
         return view('manage.dashboard')->with(['team' => $team, 'position' => $position, 'hasTeam' => true, 'inbox_number' => $this->check_inbox_message_number()]);
     }

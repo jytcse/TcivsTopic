@@ -23,10 +23,10 @@
                         <a class="nav-link @if(Route::currentRouteName()=='single_class_topic') active @endif"
                            href="{{  route('all_topic') }}">專題</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='search')?'active':''}}"
-                           href="{{ route('search_topic') }}">搜尋</a>
-                    </li>
+{{--                    <li class="nav-item mx-3">--}}
+{{--                        <a class="nav-link {{(Request::path()=='search')?'active':''}}"--}}
+{{--                           href="{{ route('search_topic') }}">搜尋</a>--}}
+{{--                    </li>--}}
                     @auth
                         <li class="nav-item dropdown ms-3">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

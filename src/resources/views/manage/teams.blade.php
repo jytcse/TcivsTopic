@@ -30,15 +30,6 @@
                 <th>年度班級</th>
                 <th>組長</th>
                 <th>組員</th>
-{{--                <th>動作--}}
-{{--                    @if(isset($hasTeam) && $hasTeam && auth()->user()->identity_id==1)--}}
-{{--                        <button>--}}
-{{--                            <a href="{{ route('create_team_page') }}">--}}
-{{--                                創建組別--}}
-{{--                            </a>--}}
-{{--                        </button>--}}
-{{--                    @endif--}}
-{{--                </th>--}}
             </tr>
             </thead>
             <tbody>
@@ -46,7 +37,6 @@
                 @foreach($teams as $team)
                     <tr>
                         <td>
-                            {{--                        {{  $team->id}}--}}
                             {{ $loop->index +1 }}
                         </td>
                         <td>

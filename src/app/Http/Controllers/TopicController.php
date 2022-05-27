@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,10 +51,7 @@ class TopicController extends Controller
     public function all_topic()
     {
         $class_data = $this->get_has_topic_class();
-//        dd($class_data);
         return redirect()->route('single_class_topic', ["year" => $class_data[0]->years, "class_type" => $class_data[0]->class_type]);
-//        dd('123');
-//        return view('topic')->with(['class_data' => $this->get_has_topic_class()]);
     }
 
     /**
@@ -74,7 +72,7 @@ class TopicController extends Controller
         $team_id = Team::query()->whereIn('class_id', $class_id)->get('id');
         $topic_query = Topic::query()->whereIn('team_id', $team_id);
         $topic_id_for_keyword = $topic_query->get('id')->toArray();
-        $topic_data = $topic_query->with('keywords', 'team.classmodel','team.teamleader.user')->orderByDesc('topic_thumbnail')->get();
+        $topic_data = $topic_query->with('keywords', 'team.classmodel', 'team.teamleader.user')->orderByDesc('topic_thumbnail')->get();
         $keyword_data = TopicKeyword::query()->whereIn('topic_id', $topic_id_for_keyword)->distinct()->get('keyword');
 
         return view('topic')->with(['class_data' => $this->get_has_topic_class(), 'keyword_data' => $keyword_data, 'topic_data' => $topic_data, 'route_parameter' => ['year' => $year, 'type' => $class_type]]);
@@ -96,7 +94,7 @@ class TopicController extends Controller
         if ($topic_query->count() == 0 || $class_query->count() == 0) {
             abort(404);
         }
-        $topic_data = $topic_query->with('keywords','team.classmodel','team.teamleader.user','team.teammates.user')->get()[0];
+        $topic_data = $topic_query->with('keywords', 'team.classmodel', 'team.teamleader.user', 'team.teammates.user')->get()[0];
 
         return view('specified-topic')->with(['class_data' => $this->get_has_topic_class(), "topic_data" => $topic_data]);
         //
@@ -148,69 +146,26 @@ class TopicController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * redirect to All Topic 導向到所有專題
+     * Display All Topic on Page.
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function create()
+    public function topics(): RedirectResponse
     {
-        //
-    }
 
+//        return redirect()->route('specified_year_topics',['year'=>$year])->with(['inbox_number' => $this->check_inbox_message_number()]);
+    }
     /**
-     * Store a newly created resource in storage.
+     * Manage All Topic 管理 所有專題
+     * Display All Topic on Page.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function specified_year_topics(): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+//        return view('manage.topics')->with(['inbox_number' => $this->check_inbox_message_number()]);
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

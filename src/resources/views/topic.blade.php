@@ -49,7 +49,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#keyword_collapse" aria-expanded="false"
                                         aria-controls="keyword_collapse">
-                                    關鍵詞
+                                    本頁關鍵詞
                                     ({{count($keyword_data)}})
                                 </button>
 
@@ -83,7 +83,7 @@
                                     class="card user-select-none w-100 position-relative @if($topic->topic_thumbnail!=null) h-100 @endif">
                                     @if($topic->topic_thumbnail!=null)
                                         <section>
-                                        <img class="card-img-top topic_thumbnail mb-2"
+                                        <img loading="lazy" class="card-img-top topic_thumbnail mb-2"
                                              src="{{$topic->topic_thumbnail}}">
                                             <hr style="width: 80%;margin: 0 auto">
                                         </section>

@@ -13,6 +13,7 @@
             我的資訊
         </a>
     </li>
+    @if(auth()->user()->identity_id==1)
     <li class="bg-white @if(Route::currentRouteName()=='inbox') active @endif position-relative">
         <a class="item_link d-block w-100 h-100 ps-3 text-decoration-none" href="{{ route('inbox') }}"
            class=" w-100 h-100">
@@ -28,6 +29,7 @@
                 </span>
         </a>
     </li>
+    @endif
     <li class="accordion accordion-flush" id="accordionFlush">
         <div class="accordion-item border-0">
             <h2 class="accordion-header" id="flush-headingTeam">
@@ -74,18 +76,19 @@
                 </button>
             </h2>
             <div id="flush-collapseTopic"
-                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_topic') show @endif"
+                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_topic' ||Route::currentRouteName()=='topics') show @endif"
                  aria-labelledby="flush-headingTopic"
                  data-bs-parent="#accordionFlush">
                 <div class="accordion-body p-0">
                     <ul class="list-group">
-
+                        @if(auth()->user()->identity_id==1)
                         <li class="@if(Route::currentRouteName()=='my_topic') active @endif"><a
                                 class="item_link text-decoration-none "
                                 href="{{ route('my_topic') }}">我的專題</a></li>
-                        <li class="@if(Route::currentRouteName()=='all_topic') active @endif"><a
+                        @endif
+                        <li class="@if(Route::currentRouteName()=='topics') active @endif"><a
                                 class="item_link text-decoration-none"
-                                href="{{ route('dashboard') }}">所有專題</a></li>
+                                href="{{ route('topics') }}">所有專題</a></li>
                     </ul>
                 </div>
             </div>

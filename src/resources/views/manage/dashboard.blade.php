@@ -9,66 +9,100 @@
 
 @section('body')
     <div class="row">
-        <div class="col-lg-4 ">
+        <div class="@if(auth()->user()->identity_id==1) col-lg-4 @else col-lg-6 @endif">
             <div class="dashboard_items topic">
-                @if(isset($team->team->topic))
-                    <div>
+                @if(auth()->user()->identity_id==1)
+                    @if(isset($team->team->topic))
+                        <div>
                         <span class="material-symbols-outlined align-middle pe-1">
                                      topic
                                     </span>專題名稱:
-                    </div>
-                <div>
-
-                    <h3> {{$team->team->topic->topic_name}}</h3>
-                </div>
+                        </div>
+                        <div>
+                            <h3> {{$team->team->topic->topic_name}}</h3>
+                        </div>
+                    @else
+                        <h3>還沒有專題</h3>
+                    @endif
                 @else
-                    <h3>還沒有專題</h3>
+                    <div>
+
+                    <span class="material-symbols-outlined align-middle pe-1">
+                                     topic
+                                    </span>專題總數:
+                    </div>
+                    <div>
+                        <h3>
+                            {{$topic_number}}
+                        </h3>
+                    </div>
                 @endif
             </div>
         </div>
-        <div class="col-lg-4 mt-lg-0 mt-4">
+        <div class="@if(auth()->user()->identity_id==1) col-lg-4 @else col-lg-6 @endif mt-lg-0 mt-4">
             <div class="dashboard_items team">
-                @if(isset($hasTeam) && !$hasTeam)
-                    <h3>還沒有組別</h3>
-                @else
-                    <div>
+                @if(auth()->user()->identity_id==1)
+
+                    @if(isset($hasTeam) && !$hasTeam)
+                        <h3>還沒有組別</h3>
+                    @else
+                        <div>
                         <span class="material-symbols-outlined align-middle pe-1">
                             calendar_month
                         </span>
-                        <span>組別年度:</span>
+                            <span>組別年度:</span>
+                        </div>
+                        <h3>
+                            {{$team->team->classmodel->years}}年{{$team->team->classmodel->class_type}}班
+                        </h3>
+                    @endif
+                @else
+                    <div>
+
+                    <span class="material-symbols-outlined align-middle pe-1">
+                                    group
+                                    </span>組別總數:
                     </div>
-                    <h3>
-                        {{$team->team->classmodel->years}}年{{$team->team->classmodel->class_type}}班
-                    </h3>
+                    <div>
+                        <h3>
+                            {{$team_number}}
+                        </h3>
+                    </div>
                 @endif
             </div>
         </div>
+        @if(auth()->user()->identity_id==1)
         <div class="col-lg-4 mt-lg-0 mt-4">
             <div class="dashboard_items team_positions">
-                @if(isset($hasTeam) && !$hasTeam)
-                    <h3>還沒有組別</h3>
-                @else
-                    <div>
+                @if(auth()->user()->identity_id==1)
+                    @if(isset($hasTeam) && !$hasTeam)
+                        <h3>還沒有組別</h3>
+                    @else
+                        <div>
                                <span class="material-symbols-outlined align-middle pe-1">
                     visibility
                     </span>職位:
-                    </div>
+                        </div>
 
-                    <h3>
-                        @if($position)
-                            組長
-                        @else
-                            組員
-                        @endif
-                    </h3>
+                        <h3>
+                            @if($position)
+                                組長
+                            @else
+                                組員
+                            @endif
+                        </h3>
+                    @endif
+                @else
+
                 @endif
             </div>
         </div>
+        @endif
     </div>
     <div class="row mt-4">
         <div class="col-12">
             <div class="profile px-4 pt-2">
-                <h2 class="mt-2">{{\Illuminate\Support\Facades\Auth::user()->name}} 你好!</h2>
+                <h2 class="mt-2">{{auth()->user()->name}} 你好!</h2>
                 <div class="row mt-5">
                     <h4>忘記密碼了?</h4>
                     <div class="col-12 mt-2">
@@ -76,7 +110,7 @@
                             <form action="/resetPassword" method="post">
                                 <label for="email" class="me-2">電子信箱</label>
                                 <input type="email" id="email"
-                                       value="{{\Illuminate\Support\Facades\Auth::user()->email}}">
+                                       value="{{auth()->user()->email}}">
                                 <div class="mt-3">
                                     <button type="submit" class="px-4 reset_password_btn">重設密碼</button>
                                 </div>
