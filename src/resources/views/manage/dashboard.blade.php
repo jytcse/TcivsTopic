@@ -104,18 +104,26 @@
             <div class="profile px-4 pt-2">
                 <h2 class="mt-2">{{auth()->user()->name}} 你好!</h2>
                 <div class="row mt-5">
-                    <h4>忘記密碼了?</h4>
+                    <h4>修改密碼</h4>
                     <div class="col-12 mt-2">
                         <div>
-                            <form action="/resetPassword" method="post">
+                            <form action="{{route('password.send.email')}}" method="post">
+                                @csrf
                                 <label for="email" class="me-2">電子信箱</label>
-                                <input type="email" id="email"
+                                <input type="email" id="email" name="email"
                                        value="{{auth()->user()->email}}">
                                 <div class="mt-3">
                                     <button type="submit" class="px-4 reset_password_btn">重設密碼</button>
                                 </div>
                             </form>
                         </div>
+                        @if(session()->has('mail_success'))
+                            <div class="alert alert-success mt-2" role="alert">
+                                已寄出驗證信件，請至 {{ session()->get('mail_success')['email'] }} 查收，驗證碼為:<span style="color: red">{{ session()->get('mail_success')['code'] }}</span>
+                                <br>
+                                並請驗證信件驗證碼是否符合本網站所提供。
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

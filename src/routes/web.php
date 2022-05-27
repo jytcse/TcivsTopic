@@ -6,6 +6,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +71,16 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
         Route::get('/topic/{year}/{class_type}/all', 'specified_year_topics')->name('specified_year_topics');
     });
 });
+
+
+Route::controller(ResetPasswordController::class)->group(function () {
+    //驗證使用者給的值，並用該信箱寄驗證信
+    Route::post('/forgot-password', 'forget_password_post')->name('password.send.email');
+    //從信箱點擊信件，回傳重置密碼頁面
+    Route::get('/reset-password/{id}/{token}', 'reset_password_page')->name('reset.password.page');
+    //接收重置密碼頁面送過來的資料，並修改資料庫裡的資料
+    Route::post('/reset-password', 'reset_password')->name('password.reset');
+});
+
+
 
