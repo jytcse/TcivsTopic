@@ -16,11 +16,11 @@
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto mb-2 me-5 mb-lg-0">
                     <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='/')?'active':''}}" aria-current="page"
+                        <a class="nav-link @if(Route::currentRouteName()=='home' || Request::path()=='home') active @endif" aria-current="page"
                            href="{{route('home')}}">首頁</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link {{(Request::path()=='all')?'active':''}}"
+                        <a class="nav-link @if(Route::currentRouteName()=='single_class_topic') active @endif"
                            href="{{  route('all_topic') }}">專題</a>
                     </li>
                     <li class="nav-item mx-3">
@@ -31,11 +31,10 @@
                         <li class="nav-item dropdown ms-3">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                {{\Illuminate\Support\Facades\Auth::user()->name}}
-
-                                @if(\Illuminate\Support\Facades\Auth::user()->identity_id===1)
+                                {{auth()->user()->name}}
+                                @if(auth()->user()->identity_id===1)
                                     同學
-                                @elseif(\Illuminate\Support\Facades\Auth::user()->identity_id===2)
+                                @elseif(auth()->user()->identity_id===2)
                                     老師
                                 @endif
                             </a>
@@ -50,10 +49,8 @@
                     @endauth
                     @guest
                         <li class="nav-item ms-3">
-                            {{--                    @if(Request::path()!='login')--}}
                             <a class="nav-link {{(Request::path()=='login')?'active':''}}"
                                href="{{route('login')}}">登入</a>
-                            {{--                    @endif--}}
                         </li>
                     @endguest
                 </ul>
