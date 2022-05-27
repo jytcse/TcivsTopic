@@ -76,12 +76,12 @@
                 </div>
             </div>
             <div class="col-lg-10">
-                <div class="row row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-lg-2">
+                <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 align-items-stretch">
                     @if(isset($topic_data))
                         @foreach($topic_data as $topic)
                             <div class=" mb-4">
                                 <div
-                                    class="card user-select-none w-100 @if($topic->topic_thumbnail!=null) h-100 @endif">
+                                    class="card user-select-none w-100 position-relative @if($topic->topic_thumbnail!=null) h-100 @endif">
                                     @if($topic->topic_thumbnail!=null)
 
                                         <img class="card-img-top topic_thumbnail mb-2"
@@ -106,7 +106,7 @@
                                                 @endif
                                             @endforeach
                                         </div>
-                                        <p class="card-text">
+                                        <p class="card-text mb-5">
                                             @if(mb_strlen( $topic->topic_motivation, "utf-8")>180)
                                                 {{mb_substr($topic->topic_motivation,0,180)}}...
                                             @else
@@ -114,7 +114,7 @@
                                             @endif
                                         </p>
                                         <a href="{{route('specified_topic',["year"=>$class->years,"class_type"=>$class->class_type,"topic_id"=>$topic->id])}}"
-                                           class="custom_detail_btn mt-2">完整內容</a>
+                                           class="custom_detail_btn mt-2 position-absolute">完整內容</a>
                                     </div>
                                 </div>
 

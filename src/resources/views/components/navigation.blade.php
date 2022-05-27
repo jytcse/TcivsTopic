@@ -3,7 +3,7 @@
         <div class="container-fluid mt-3">
             <a class="navbar-brand align-items-center ms-4 pt-1" href="{{route('home')}}">
                 <img src="{{ asset('/img/cseLogo.jpg') }}" alt="" width="35" height="35"
-                     class="d-inline-block align-text-bottom">
+                     class="d-inline-block align-text-bottom ms-3">
                 <p style="display: inline-block">
                     <span style="font-weight: bold">中工資訊</span>
                     {{--                <span>專題網</span>--}}
