@@ -74,7 +74,7 @@ class TopicController extends Controller
         $team_id = Team::query()->whereIn('class_id', $class_id)->get('id');
         $topic_query = Topic::query()->whereIn('team_id', $team_id);
         $topic_id_for_keyword = $topic_query->get('id')->toArray();
-        $topic_data = $topic_query->with('keywords', 'team.teamleader.user')->orderByDesc('topic_thumbnail')->get();
+        $topic_data = $topic_query->with('keywords', 'team.classmodel','team.teamleader.user')->orderByDesc('topic_thumbnail')->get();
         $keyword_data = TopicKeyword::query()->whereIn('topic_id', $topic_id_for_keyword)->distinct()->get('keyword');
 
         return view('topic')->with(['class_data' => $this->get_has_topic_class(), 'keyword_data' => $keyword_data, 'topic_data' => $topic_data, 'route_parameter' => ['year' => $year, 'type' => $class_type]]);

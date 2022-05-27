@@ -76,17 +76,6 @@ a{
     font-size: 1.1rem;
     background-color: white;
 }
-/*.accordion-button:focus {*/
-/*    z-index: 3;*/
-/*    border-color: #86b7fe;*/
-/*    !*outline: 0;*!*/
-/*    box-shadow: none;*/
-/*}*/
-/*.accordion-button:not(.collapsed) {*/
-/*    !*color: #000000;*!*/
-/*    background-color: #ffffff;*/
-/*    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);*/
-/*}*/
 .sub_list_btn{
     line-height: 60px;
     display: inline-block;
@@ -97,9 +86,8 @@ a{
 .sub_list_btn:focus{
 
 }
-/*.sub_list_btn.active{*/
-/*    background-color: #000000;*/
-/*    color: #ffffff;*/
-/*}*/
-
+.topic_year{
+    right: 16px;
+    bottom: 16px;
+}
 

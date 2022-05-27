@@ -115,6 +115,12 @@
                                         </p>
                                         <a href="{{route('specified_topic',["year"=>$class->years,"class_type"=>$class->class_type,"topic_id"=>$topic->id])}}"
                                            class="custom_detail_btn mt-2 position-absolute">完整內容</a>
+                                        <time class="topic_year position-absolute">
+                                            {{$topic->team->classmodel->years}}
+                                            <span>
+                                                {{$topic->team->classmodel->class_type}}
+                                            </span>
+                                        </time>
                                     </section>
                                 </article>
 
