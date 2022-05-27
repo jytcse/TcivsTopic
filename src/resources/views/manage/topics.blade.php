@@ -30,9 +30,7 @@
                 <th>年度班級</th>
                 <th>專題名稱</th>
                 <th>組員</th>
-                @if(auth()->user()->identity_id!=1)
-                    <th>動作</th>
-                @endif
+                <th>動作</th>
             </tr>
             </thead>
             <tbody>
@@ -52,17 +50,22 @@
                         </td>
                         <td>
                             {{--                            組員--}}
-                            @if(count($topic->team->teammates) !=1)
-                                @foreach($topic->team->teammates as $teammate)
-                                    {{ $teammate->user->name}}
-                                @endforeach
-                            @else
-                                無組員
-                            @endif
+                            @foreach($topic->team->teammates as $teammate)
+                                {{ $teammate->user->name}}
+                            @endforeach
                         </td>
                         <td>
-                            @if(auth()->user()->identity_id==2)
+
+                            <a class="text-decoration-none" target="_blank" href="/class/{{$topic->team->classmodel->years}}/{{$topic->team->classmodel->class_type}}/topic/{{$topic->id}}">
                                 <button>查看</button>
+                            </a>
+                            @if(auth()->user()->identity_id!=1)
+                                @if($topic->doc !=null)
+                                    <a href="{{$topic->doc->file_path}}" download="{{$topic->doc->file_name}}" class="mx-1 text-decoration-none" target="_blank" >
+                                        <button>下載檔案</button>
+                                    </a>
+                                @endif
+                                
                             @endif
                         </td>
                     </tr>

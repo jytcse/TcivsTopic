@@ -76,7 +76,7 @@
                 </button>
             </h2>
             <div id="flush-collapseTopic"
-                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_topic' ||Route::currentRouteName()=='topics') show @endif"
+                 class="accordion-collapse collapse @if(Route::currentRouteName()=='my_topic' ||Route::currentRouteName()=='specified_year_topics') show @endif"
                  aria-labelledby="flush-headingTopic"
                  data-bs-parent="#accordionFlush">
                 <div class="accordion-body p-0">
@@ -86,7 +86,7 @@
                                 class="item_link text-decoration-none "
                                 href="{{ route('my_topic') }}">我的專題</a></li>
                         @endif
-                        <li class="@if(Route::currentRouteName()=='topics') active @endif"><a
+                        <li class="@if(Route::currentRouteName()=='specified_year_topics') active @endif"><a
                                 class="item_link text-decoration-none"
                                 href="{{ route('topics') }}">所有專題</a></li>
                     </ul>

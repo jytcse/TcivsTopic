@@ -174,15 +174,12 @@ class TopicController extends Controller
         }
 
         $class_id = $class_query->pluck('id')[0];
-//        $topic_data = Topic::query()
-//        dd($team_id);
         $team_data = Team::query()->where('class_id', '=', $class_id)->pluck('id');
-        $topic_data = Topic::query()->whereIn('team_id', $team_data)->with('team.teammates.user', 'team.classmodel')->get();
+        $topic_data = Topic::query()->whereIn('team_id', $team_data)->with('team.teammates.user', 'team.classmodel','doc')->get();
         if (Topic::query()->whereIn('team_id', $team_data)->count() == 0) {
             $topic_data = null;
         }
         $select_class_data =  ClassModel::query()->where([ ['years', '!=', '老師'], ['class_type', '!=', '老師']])->get();
-//        dd($topic_data);
         return view('manage.topics')->with(['topic_data' => $topic_data,'route_parameter' => ['year' => $year, 'type' => $class_type],'select_class_data'=>$select_class_data, 'inbox_number' => $this->check_inbox_message_number()]);
     }
 

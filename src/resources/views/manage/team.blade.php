@@ -74,7 +74,7 @@
 {{--            @dd($team)--}}
             <div class="row mt-5">
                 <div class="col-6">
-                    <h3>專題</h3>
+                    <h3>專題預覽</h3>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" disabled value="@if(isset($team->team->topic)){{$team->team->topic->topic_name}} @else 無 @endif">
                         <label for="floatingInput">專題名稱</label>
