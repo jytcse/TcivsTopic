@@ -19,8 +19,7 @@
     <main class="container-fluid px-5">
         <div class="row justify-content-center mt-3">
             <div class="col-lg-2 mb-3">
-
-                <div class="accordion" id="accordionPanelsStayOpenExample">
+                <aside class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="year_of_topic_heading">
                             <button class="accordion-button" tabindex="0" type="button" data-bs-toggle="collapse"
@@ -73,22 +72,23 @@
                             </div>
                         </div>
                     @endif
-                </div>
+                </aside>
             </div>
             <div class="col-lg-10">
                 <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 align-items-stretch">
                     @if(isset($topic_data))
                         @foreach($topic_data as $topic)
                             <div class=" mb-4">
-                                <div
+                                <article
                                     class="card user-select-none w-100 position-relative @if($topic->topic_thumbnail!=null) h-100 @endif">
                                     @if($topic->topic_thumbnail!=null)
-
+                                        <section>
                                         <img class="card-img-top topic_thumbnail mb-2"
                                              src="{{$topic->topic_thumbnail}}">
-                                        <hr style="width: 80%;margin: 0 auto">
+                                            <hr style="width: 80%;margin: 0 auto">
+                                        </section>
                                     @endif
-                                    <div class="card-body">
+                                    <section class="card-body">
                                         <h5 class="card-title">{{$topic->topic_name}}
                                             <span class="ms-1" style="font-size: 1rem;color: rgb(142,142,142)">組長: {{$topic->team->teamleader->user->name}}</span>
                                         </h5>
@@ -115,8 +115,8 @@
                                         </p>
                                         <a href="{{route('specified_topic',["year"=>$class->years,"class_type"=>$class->class_type,"topic_id"=>$topic->id])}}"
                                            class="custom_detail_btn mt-2 position-absolute">完整內容</a>
-                                    </div>
-                                </div>
+                                    </section>
+                                </article>
 
                             </div>
                         @endforeach

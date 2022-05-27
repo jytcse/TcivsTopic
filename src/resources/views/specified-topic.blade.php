@@ -13,10 +13,13 @@
 
 @section('body')
     {{--        @dd($topic_data)--}}
-    <div class="container h-100 mt-3 user-select-none mb-5">
-
+    <article class="container h-100 mt-3 user-select-none mb-5">
         <div class="row">
-            <div class="col-4">
+
+            <section class="col-lg-8 order-sm-1 order-md-1 order-lg-2">
+                <img class="topic_thumbnail" src="{{$topic_data->topic_thumbnail}}" alt="">
+            </section>
+            <section class="col-lg-4 order-sm-2 order-md-2 order-lg-1">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item pt-0"><h1>{{$topic_data->topic_name}}</h1></li>
                     <li class="list-group-item"> 年度:
@@ -47,30 +50,30 @@
                     {{--                        動機: {{$topic_data->topic_motivation}}--}}
                     {{--                    </li>--}}
                 </ul>
-            </div>
-            <div class="col-8">
-                <img class="topic_thumbnail" src="{{$topic_data->topic_thumbnail}}" alt="">
-            </div>
-        </div>
-        <hr>
-        <div class="row px-3">
-            <div class="col">
-                <h1>研究動機</h1>
-                <div class="topic_motivation">
-                    {{ $topic_data->topic_motivation}}
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row px-3">
-            <h1>內容</h1>
-            <div class="ck-content">
-                {!! $topic_data->topic_content !!}
-            </div>
-        </div>
-    </div>
+            </section>
 
-        @include('components.footer')
+        </div>
+        <hr>
+        <div class="row px-3">
+            <section class="col">
+                <h1>研究動機</h1>
+                <span class="topic_motivation">
+                    {{ $topic_data->topic_motivation}}
+                </span>
+            </section>
+        </div>
+        <hr>
+        <div class="row px-3">
+            <section class="col">
+                <h1>內容</h1>
+                <span class="ck-content">
+                    {!! $topic_data->topic_content !!}
+                </span>
+            </section>
+        </div>
+    </article>
+
+    @include('components.footer')
     {{--@dd($topic_data);--}}
 @endsection
 @section('script')
