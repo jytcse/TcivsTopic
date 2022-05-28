@@ -41,7 +41,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
 });
 //需驗證登入狀態
-Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
+Route::middleware(['CheckLogin','auth', 'auth.session'])->prefix('/manage')->group(function () {
     //後台首頁
     //dashboard = 個人資料 修改密碼 顯示所屬組別的專題
     //team = 列出所有隊伍 可建立隊伍 建立隊伍者為 隊長

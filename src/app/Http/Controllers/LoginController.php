@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -18,6 +19,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $token = User::query()->where('id', '=', Auth::id())->get()[0]->createToken('x-accessToken');
+            DB::table('password_resets')->where(['user_id' => Auth::id()])->delete();
+            Auth::logoutOtherDevices($request->password);
             return redirect()->route('dashboard')->cookie('x-access-token', $token->plainTextToken);
         }
         return back()->withErrors([
@@ -30,6 +33,7 @@ class LoginController extends Controller
         if ($request->user() != null) {
             $request->user()->tokens()->delete();
         }
+        DB::table('password_resets')->where(['user_id' => Auth::id()])->delete();
         Auth::logout();
 
         $request->session()->invalidate();
@@ -38,16 +42,4 @@ class LoginController extends Controller
         return redirect('/');
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-//        dd($request->all());
-        //
-    }
 }
