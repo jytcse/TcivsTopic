@@ -76,6 +76,8 @@ Route::middleware('CheckLogin')->prefix('/manage')->group(function () {
 Route::controller(ResetPasswordController::class)->group(function () {
     //驗證使用者給的值，並用該信箱寄驗證信
     Route::post('/forgot-password', 'forget_password_post')->name('password.send.email');
+    //清除之前密碼修改的請求
+    Route::post('/clear-password-rest', 'clear_password_reset')->name('password.clear.reset');
     //從信箱點擊信件，回傳重置密碼頁面
     Route::get('/reset-password/{id}/{token}', 'reset_password_page')->name('reset.password.page');
     //接收重置密碼頁面送過來的資料，並修改資料庫裡的資料

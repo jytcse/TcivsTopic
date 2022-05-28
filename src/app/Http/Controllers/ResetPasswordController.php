@@ -40,10 +40,25 @@ class ResetPasswordController extends Controller
         return back()->with(['mail_success' => ['email' => $request->email, 'code' => $email_code]]);
 
     }
-
+    //清除之前密碼修改的請求
+    public function clear_password_reset(Request $request){
+        $request->validate(['id' => 'required|numeric']);
+        if (auth()->id() == null) {
+            return redirect()->route('login');
+        }
+        if ($request->id != Auth::id()){
+            return back()->withInput()->with('error', '權限不足，或是沒有登入。');
+        }
+        DB::table('password_resets')->where(['user_id' => Auth::id()])->delete();
+        return back()->with(['clear_success' => '已清除先前的修改請求。']);
+    }
     //從信箱點擊信件，回傳重置密碼頁面
     public function reset_password_page($id, $token)
     {
+        $reset_password_query = DB::table('password_resets')->where([['user_id', '=',$id], ['token', '=', $token]]);
+        if ($reset_password_query->count() == 0) {
+            abort(404);
+        }
         return view('reset-password', ['token' => $token, 'id' => $id]);
     }
 

@@ -13,14 +13,20 @@
         <div class="d-flex justify-content-center align-items-center h-100">
             <div>
                 <h3>你還沒有任何組別哦!</h3>
-                <button>
-                    瀏覽組別
-                </button>
-                <button>
-                    <a href="{{ route('create_team_page') }}">
+                <span>請找好組員，請他們邀請你，或是你自己當組長邀請他們</span>
+                <br>
+                <a class="text-decoration-none text-dark" href="{{ route('inbox') }}">
+                    <button>
+                        查看邀請通知
+                    </button>
+                </a>
+                or
+                <a class="text-decoration-none text-dark" href="{{ route('create_team_page') }}">
+                    <button>
                         建立組別
-                    </a>
-                </button>
+                    </button>
+                </a>
+
             </div>
         </div>
     @else
@@ -55,43 +61,48 @@
                         @foreach($team->team->teaminvite as $invite_data)
                             @switch($invite_data->state)
                                 @case('accept')
-                                <li class="list-group-item">{{$invite_data->user->name}}<span
-                                        id="invite_state_{{$invite_data->user->id}}">(已加入)</span></li>
-                                @break
+                                    <li class="list-group-item">{{$invite_data->user->name}}<span
+                                            id="invite_state_{{$invite_data->user->id}}">(已加入)</span></li>
+                                    @break
                                 @case('pending')
-                                <li class="list-group-item">{{$invite_data->user->name}}<span
-                                        id="invite_state_{{$invite_data->user->id}}">(邀請中)</span></li>
-                                @break;
+                                    <li class="list-group-item">{{$invite_data->user->name}}<span
+                                            id="invite_state_{{$invite_data->user->id}}">(邀請中)</span></li>
+                                    @break;
                                 @case('reject')
-                                <li class="list-group-item">{{$invite_data->user->name}}<span
-                                        id="invite_state_{{$invite_data->user->id}}">(已拒絕)</span></li>
-                                @break;
+                                    <li class="list-group-item">{{$invite_data->user->name}}<span
+                                            id="invite_state_{{$invite_data->user->id}}">(已拒絕)</span></li>
+                                    @break;
                             @endswitch
                         @endforeach
                     </ol>
                 </div>
             </div>
-{{--            @dd($team)--}}
+            {{--            @dd($team)--}}
             <div class="row mt-5">
                 <div class="col-6">
                     <h3>專題預覽</h3>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" disabled value="@if(isset($team->team->topic)){{$team->team->topic->topic_name}} @else 無 @endif">
+                        <input type="email" class="form-control" disabled
+                               value="@if(isset($team->team->topic)){{$team->team->topic->topic_name}} @else 無 @endif">
                         <label for="floatingInput">專題名稱</label>
                     </div>
 
                     <div class="mt-2">
                         <label for="floatingTextarea2">專題動機</label>
-                        <textarea class="form-control" disabled style="height: 200px">@if(isset($team->team->topic->topic_motivation)){{$team->team->topic->topic_motivation}} @else 無 @endif</textarea>
+                        <textarea class="form-control" disabled style="height: 200px">@if(isset($team->team->topic->topic_motivation))
+                                {{$team->team->topic->topic_motivation}}
+                            @else
+                                無
+                            @endif</textarea>
                     </div>
                 </div>
 
-{{--                <div class="col-6">--}}
-{{--                    @if(auth()->id() === $team->team->teamleader->teammate->user_id)--}}
-{{--                        <h3>組別設定</h3>--}}
-{{--                        <button type="button" class="btn btn-danger" value="{{$team->team->id}}">刪除組別</button>--}}
-{{--                    @endif--}}
-{{--                </div>--}}
+                {{--                <div class="col-6">--}}
+                {{--                    @if(auth()->id() === $team->team->teamleader->teammate->user_id)--}}
+                {{--                        <h3>組別設定</h3>--}}
+                {{--                        <button type="button" class="btn btn-danger" value="{{$team->team->id}}">刪除組別</button>--}}
+                {{--                    @endif--}}
+                {{--                </div>--}}
             </div>
         </div>
     @endif

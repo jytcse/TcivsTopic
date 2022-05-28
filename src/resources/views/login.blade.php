@@ -41,7 +41,7 @@
                     </span>
                 </label>
                 <input type="text" class="form-control @error('student_id') is-invalid @enderror"
-                       id="studentIdInput" autofocus name="student_id" value="810612" placeholder="你的帳號"
+                       id="studentIdInput" autofocus name="student_id" placeholder="你的帳號" autocomplete="off"
                        required>
                 <div class="valid-feedback">
                     Looks good!
@@ -59,7 +59,7 @@
                     </span>
                 </label>
                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                       id="password" value="123" placeholder="你的密碼" required
+                       id="password" placeholder="你的密碼" required autocomplete="off"
                 >
                 <div class="valid-feedback">
                     Looks good!
