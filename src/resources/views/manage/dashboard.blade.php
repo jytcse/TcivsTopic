@@ -103,7 +103,7 @@
         <div class="col-12">
             <div class="profile px-4 pt-2">
                 <h2 class="mt-2">{{auth()->user()->name}} 你好!</h2>
-                <div class="row mt-5">
+                <div class="row mt-3">
                     <h4>修改密碼</h4>
 
                     <div class="col-12 mt-2">
@@ -127,6 +127,7 @@
                             </form>
                         </div>
                         <div class="alert alert-info mt-2" role="alert">
+                            點擊"重設密碼"，會寄驗證信到你所指定的信箱(大概5秒，請勿將此信分享給他人!<br>
                             如果你不小心寄到別人信箱，請點擊"清除修改請求"
                         </div>
                         @if(session()->has('mail_success'))
