@@ -89,11 +89,7 @@
 
                     <div class="mt-2">
                         <label for="floatingTextarea2">專題動機</label>
-                        <textarea class="form-control" disabled style="height: 200px">@if(isset($team->team->topic->topic_motivation))
-                                {{$team->team->topic->topic_motivation}}
-                            @else
-                                無
-                            @endif</textarea>
+                        <textarea class="form-control" disabled style="height: 200px">@if(isset($team->team->topic->topic_motivation)){{$team->team->topic->topic_motivation}}@else無@endif</textarea>
                     </div>
                 </div>
 
