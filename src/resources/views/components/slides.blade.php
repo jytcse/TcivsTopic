@@ -15,8 +15,6 @@
             @foreach($topic_data as $data)
                 @include('components/slide')
             @endforeach
-{{--                @for($i=0;$i<$slide_times;$i++)--}}
-{{--            @endfor--}}
             {{-- 顯示上一個 --}}
             <div class="custom_slide_right d-none d-lg-inline-block position-absolute top-50 translate-middle-y">
                 <button

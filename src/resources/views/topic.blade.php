@@ -9,13 +9,9 @@
 @section('style')
     {{--  專題頁面css  --}}
     <link href="{{ asset('css/topic.css') }}" rel="stylesheet">
-    {{--  Footer css  --}}
-    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 @endsection
 
 @section('body')
-    {{--    @dd($topic_data);--}}
-    {{--    @dd($route_parameter);--}}
     <main class="container-fluid px-5">
         <div class="row justify-content-center mt-3">
             <div class="col-lg-2 mb-3">
@@ -52,7 +48,6 @@
                                     本頁關鍵詞
                                     ({{count($keyword_data)}})
                                 </button>
-
                             </h2>
                             <div id="keyword_collapse" class="accordion-collapse collapse"
                                  aria-labelledby="keyword_heading">
@@ -129,10 +124,9 @@
                     @endif
                 </div>
             </div>
-
         </div>
     </main>
-    {{--    @include('components.footer')--}}
+    @include('components.footer')
 @endsection
 @section('script')
 @endsection

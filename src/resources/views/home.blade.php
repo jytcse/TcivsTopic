@@ -11,15 +11,13 @@
     <link href="{{ asset('css/homeSlides.css') }}" rel="stylesheet">
     {{--  時間軸css  --}}
     <link href="{{ asset('css/timelineCard.css') }}" rel="stylesheet">
-    {{--  Footer css  --}}
-    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 @endsection
 
 @section('body')
     <main class="container-fluid">
 {{--        @dd($topic_data)--}}
         {{-- 輪播元件 slide_times輪播數量  slide_speed輪播速度單位秒 --}}
-        @include('components.slides',['slide_times' =>5,'slide_speed'=>8])
+        @include('components.slides',['slide_speed'=>5])
         <div class="row justify-content-center align-items-center type_container">
             <div class="col-12">
                 <div class="text-center">

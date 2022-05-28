@@ -29,10 +29,23 @@
         html {
             scroll-behavior: smooth;
         }
+        body{
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        footer{
+
+        }
+        main{
+            flex:1;
+        }
     </style>
     <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet">
     <link rel="stylesheet"
           href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    {{--  Footer css  --}}
+    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
     <title>@yield('title')-中工資訊專題網</title>
     @yield('style')
 </head>

@@ -1,8 +1,8 @@
 <footer class="container-fluid">
     <div class="row h-100">
         <div class="col d-flex justify-content-center align-items-center">
-            <h5 class="copy_right bottom ">&copy; 2022 
-                <a target="_blank" href="https://w3.tcivs.tc.edu.tw/ischool/publish_page/20/">臺中高工資訊科</a>.
+            <h5 class="copy_right bottom ">&copy; 2022
+                <a target="_blank" class="text-decoration-underline"  href="https://w3.tcivs.tc.edu.tw/ischool/publish_page/20/">臺中高工資訊科</a>.
                 All right reserved.</h5>
             <a href="https://github.com/" title="問題回報請到issues" target="_blank">
                 <svg class="footer_icon " viewBox="0 0 32.58 31.77">
