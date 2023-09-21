@@ -1,0 +1,25 @@
+
+#teammate_container li {
+    width: 100%;
+}
+
+.cancel_icon {
+    cursor: pointer;
+}
+
+.form-check-input:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+    color: #fff;
+    /* background-color: #5c636a; */
+    border-color: #565e64;
+    box-shadow: none;
+}
+
+.btn-check:focus + .btn, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}

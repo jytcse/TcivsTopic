@@ -1,0 +1,32 @@
+/*後台頁面基本介面css*/
+main {
+    background-color: #EDF2F7;
+}
+
+.dashboard_container {
+    height: 100%;
+    /*border: 1px solid black;*/
+}
+
+.dashboard_row {
+    /*border: 1px solid black;*/
+    background-color: white;
+    height: 80%;
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.035),
+    0 0 80px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+
+.left_side {
+    height: 100%;
+    background-color: #fbfbfb;
+    box-shadow: -20px 0 36px -10px black;
+}
+
+
+.right_side {
+
+}
+

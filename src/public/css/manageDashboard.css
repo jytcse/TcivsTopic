@@ -1,0 +1,30 @@
+/*儀錶板css*/
+.dashboard_items {
+    height: 20vh;
+    border-radius: 6px;
+    box-shadow: 0 5px 20px -5px rgb(0 0 0 / 10%), 0 10px 10px -5px rgb(0 0 0 / 4%);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.profile {
+    height: 50vh;
+    border-radius: 6px;
+    box-shadow: 0 5px 25px -5px rgb(0 0 0 / 10%), 0 10px 10px -5px rgb(0 0 0 / 4%);
+    color: black;
+}
+
+.reset_password_btn {
+    border: 1px solid #555555;
+    background-color: white;
+    padding: 5px;
+    transition: all 300ms ease-in-out;
+}
+
+.reset_password_btn:hover {
+    background-color: black;
+    color: white;
+}
+
